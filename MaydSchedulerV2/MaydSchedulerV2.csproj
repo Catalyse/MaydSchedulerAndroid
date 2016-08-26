@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{176B1581-AD56-4D7F-BBB9-BC710B4D7E1A}</ProjectGuid>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MaydSchedulerApp</RootNamespace>
+    <AssemblyName>MaydScheduler</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <AndroidApplication>true</AndroidApplication>
+    <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>True</AndroidUseLatestPlatformSdk>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>True</AndroidUseSharedRuntime>
+    <AndroidLinkMode>None</AndroidLinkMode>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidLinkMode>SdkOnly</AndroidLinkMode>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Mono.Android" />
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CoreSystem\AzureManager.cs" />
+    <Compile Include="CoreSystem\CoreSystem.cs" />
+    <Compile Include="CoreSystem\Design\ScheduleAdapter.cs" />
+    <Compile Include="CoreSystem\Design\EmpMgmtAdapter.cs" />
+    <Compile Include="CoreSystem\Design\PickWeek.cs" />
+    <Compile Include="CoreSystem\EmpListSerializer.cs" />
+    <Compile Include="CoreSystem\EmployeeStorage.cs" />
+    <Compile Include="CoreSystem\FileManager.cs" />
+    <Compile Include="CoreSystem\NetworkIO.cs" />
+    <Compile Include="CoreSystem\SchedulingAlgorithm.cs" />
+    <Compile Include="CoreSystem\ServerCommand.cs" />
+    <Compile Include="CoreSystem\Types\Availability.cs" />
+    <Compile Include="CoreSystem\Types\CoreSaveType.cs" />
+    <Compile Include="CoreSystem\Types\CoreSettingsType.cs" />
+    <Compile Include="CoreSystem\Types\DailySchedule.cs" />
+    <Compile Include="CoreSystem\Types\Day.cs" />
+    <Compile Include="CoreSystem\Types\Employee.cs" />
+    <Compile Include="CoreSystem\Types\EmployeeScheduleWrapper.cs" />
+    <Compile Include="CoreSystem\Types\Schedule.cs" />
+    <Compile Include="CoreSystem\Types\SerializableDictionary.cs" />
+    <Compile Include="CoreSystem\Types\ServerMessage.cs" />
+    <Compile Include="CoreSystem\Types\Shift.cs" />
+    <Compile Include="CoreSystem\Types\TempData.cs" />
+    <Compile Include="CoreSystem\Types\Week.cs" />
+    <Compile Include="EmpMgmtActivity.cs" />
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.Designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ScheduleActivity.cs" />
+    <Compile Include="SettingsActivity.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <AndroidResource Include="Resources\layout\EmpMgmtLayout.axml" />
+    <AndroidResource Include="Resources\layout\EmpMgmtListView.axml" />
+    <AndroidResource Include="Resources\layout\ScheduleView.axml" />
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\NewWeek.axml" />
+    <AndroidResource Include="Resources\layout\PickWeekLayout.axml" />
+    <AndroidResource Include="Resources\layout\ScheduleListView.axml" />
+    <AndroidResource Include="Resources\layout\ScheduleWindow.axml" />
+    <AndroidResource Include="Resources\layout\SetEmpNeeds.axml" />
+    <AndroidResource Include="Resources\layout\SetHours.axml" />
+    <AndroidResource Include="Resources\layout\settings.axml" />
+    <AndroidResource Include="Resources\layout\StaffingNeeds.axml" />
+    <AndroidResource Include="Resources\layout\ToolBar.axml" />
+    <AndroidResource Include="Resources\layout\WeeklyConfig.axml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\values\Strings.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="empList.xml" />
+    <AndroidResource Include="Resources\drawable\ButtonBlueStyle.xml" />
+    <AndroidResource Include="Resources\drawable\ButtonSignUp.xml" />
+    <AndroidResource Include="Resources\drawable\edit_text_style.xml" />
+    <AndroidResource Include="Resources\drawable\global_bg.xml" />
+    <AndroidResource Include="Resources\layout\options_menu.xml" />
+    <AndroidResource Include="Resources\layout\popup_menu.xml" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+     Other similar extension points exist, see Microsoft.Common.targets.
+		<Target Name="BeforeBuild">
+		</Target>
+		<Target Name="AfterBuild">
+		</Target>
+ -->
+</Project>

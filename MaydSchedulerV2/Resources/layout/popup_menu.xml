@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item android:id="@+id/pop_button1" android:title="Edit Employee" showAsAction="always" />
+  <item android:id="@+id/pop_button2" android:title="Delete Employee" showAsAction="always" />
+</menu>

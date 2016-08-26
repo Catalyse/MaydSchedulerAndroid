@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Android.App;
 
 namespace MaydSchedulerApp
 {   
@@ -12,7 +13,8 @@ namespace MaydSchedulerApp
     {
         public static CoreSettingsType coreSettings;
         public static CoreSaveType coreSave;
-        public static ScheduleActivity currentScheduleWindow;
+        public static Activity currentActivity;
+        public static ScheduleActivity scheduler;
         public static bool coreSettingsLoaded = false;
         public static bool coreSaveLoaded = false;
         public static int defaultShift, minShift, maxShift;
@@ -93,7 +95,7 @@ namespace MaydSchedulerApp
             coreSettings.savedFileList = savedFileList;
             coreSettings.LastModified = DateTime.Now.ToString();
             //FileManager.SerializeFile<CoreSettingsType>(coreSettings, "CoreSettings");
-            NetworkIO.SendCoreSettings();
+            //NetworkIO.SendCoreSettings();
             Console.WriteLine("Core Settings File Modified! Core Settings File Saved!");
         }
 
@@ -138,7 +140,7 @@ namespace MaydSchedulerApp
                 coreSave.weekList = weekList;
                 coreSave.LastModified = DateTime.Now.ToString();
                 //FileManager.SerializeCoreSave();
-                NetworkIO.SendCoreSave();
+                //NetworkIO.SendCoreSave();
             }
             else
             {
@@ -146,7 +148,7 @@ namespace MaydSchedulerApp
                 coreSave.weekList = weekList;
                 coreSave.LastModified = DateTime.Now.ToString();
                 //FileManager.SerializeCoreSave();
-                NetworkIO.SendCoreSave();
+                //NetworkIO.SendCoreSave();
             }
         }
 
@@ -155,7 +157,7 @@ namespace MaydSchedulerApp
             coreSave = save;
             coreSaveLoaded = true;
             weekList = coreSave.weekList;
-            NetworkIO.SendCoreSave();
+            //NetworkIO.SendCoreSave();
         }
 
         public static Week FindWeek(DateTime weekStartDate)
@@ -176,7 +178,6 @@ namespace MaydSchedulerApp
             {
                 Console.WriteLine("Position that does not exist was queried for! || CoreSystem.cs || GetPositionName || TypeNo: " + type);
                 return "ErrNotFound";
-                //TODO, make this force a popup to define the queried type
             }
         }
 
@@ -208,7 +209,7 @@ namespace MaydSchedulerApp
                 weekList.Add(w.startDate, w);
             }
             CoreSaveChanged();
-            currentScheduleWindow.DrawSchedule();
+            scheduler.DrawSchedule();
         }
 
         //Random Common Methods ======================================================================================
@@ -227,14 +228,14 @@ namespace MaydSchedulerApp
 
         public static int RandomInt(int count)
         {
-            System.Random gen = new System.Random();
+            Random gen = new Random();
             int returnVal = gen.Next(count);
             return returnVal;
         }
 
         public static bool RandomBool()
         {
-            System.Random gen = new System.Random();
+            Random gen = new Random();
             int prob = gen.Next(100);
             if (prob < 50)
                 return true;

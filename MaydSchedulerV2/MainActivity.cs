@@ -10,7 +10,7 @@ namespace MaydSchedulerApp
     [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher = true, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        public static bool testingMode = true;
+        public static bool testingMode = false;
         private Button BtnNewWeek, BtnEditWeek, BtnHistory, BtnEmpMgmt, BtnSettings;
 
         protected override void OnCreate(Bundle bundle)
@@ -34,9 +34,17 @@ namespace MaydSchedulerApp
 
         private void StartupProcess()
         {
+            CoreSystem.currentActivity = this;
             EmployeeStorage.Start();
             CoreSystem.LoadCoreSettings();
             CoreSystem.LoadCoreSave();
+        }
+
+        private void HackSave()
+        {
+            FileManager.SerializeFile<CoreSettingsType>(CoreSystem.coreSettings, "CoreSettings");
+            EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
+            Console.WriteLine("HackSave Complete");
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
@@ -58,18 +66,7 @@ namespace MaydSchedulerApp
 
         private void BtnEditWeek_Click(object sender, EventArgs e)
         {
-            //SetContentView(Resource.Layout.HorizListViewTest);
-            List<string> newlist = new List<string>();
-            for (int i = 0; i < 100; i++)
-            {
-                newlist.Add("This is a test for line " + i + " ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-            }
-
-            //ListView list = FindViewById<ListView>(Resource.Id.mylist);
-
-            //ArrayAdapter<string> testAdapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, newlist);
-
-            //list.Adapter = testAdapter;
+            HackSave();
         }
 
         private void BtnNewWeek_Click(object sender, EventArgs e)

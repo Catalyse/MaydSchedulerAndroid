@@ -27,7 +27,7 @@ namespace MaydSchedulerApp
             ChooseWeek();
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            CoreSystem.currentScheduleWindow = this;
+            CoreSystem.currentActivity = this;
         }
 
         public override bool DispatchTouchEvent(MotionEvent ev)

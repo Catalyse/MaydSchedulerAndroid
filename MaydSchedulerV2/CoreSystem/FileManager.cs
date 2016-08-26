@@ -4,6 +4,7 @@ using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
 using System.Threading;
+using Android.Content;
 
 namespace MaydSchedulerApp
 {
@@ -15,7 +16,7 @@ namespace MaydSchedulerApp
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
 
-            TextReader reader = new StringReader(TempData.EmpList);
+            TextReader reader = new System.IO.StringReader(TempData.EmpList);
             if (reader == null)
             { }
             //throw new EmpListNotFoundErr();
@@ -28,60 +29,51 @@ namespace MaydSchedulerApp
         //FILE SERIALIZATION ========================================================================================
         public static bool CheckIfFileExists(string fileName)
         {
-            fileName = fileName + ".xml";
-            try
-            {
-                StreamReader reader = new StreamReader(fileName);
-                reader.Close();
+            Context context = CoreSystem.currentActivity;
+            string[] fileList = context.FileList();
+            var results = Array.FindAll(fileList, s => s.Equals(fileName));
+            if (results != null)
                 return true;
-            }
-            catch//filenotfound
-            {
-                Console.WriteLine(fileName + " was not found.");
+            fileName = fileName + ".xml";
+            var results1 = Array.FindAll(fileList, s => s.Equals(fileName));
+            if (results1 != null)
+                return true;
+            else
                 return false;
-            }
         }
 
         public static void SerializeFile<T>(T objectToSerialize, string fileName)
         {
-            string directory = Directory.GetCurrentDirectory();
-            fileName = directory +  "\\" + fileName + ".xml";
+            Context context = CoreSystem.currentActivity;
+            fileName = fileName + ".xml";
             try
             {
                 XmlDocument xmlDocument = new XmlDocument();
                 XmlSerializer serializer = new XmlSerializer(objectToSerialize.GetType());
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    serializer.Serialize(stream, objectToSerialize);
-                    stream.Position = 0;
-                    xmlDocument.Load(stream);
-                    xmlDocument.Save(fileName);
-                    stream.Close();
-                }
-                if (fileName != "CoreSaveFile")
-                    CoreSystem.savedFileList.Add(fileName);
+
+                Stream stream = context.OpenFileOutput(fileName, FileCreationMode.Private);
+
+                serializer.Serialize(stream, objectToSerialize);
+                stream.Close();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Serialization Error || CoreSystem || SerializeFile<T>");
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.InnerException);
+                System.Console.WriteLine("Serialization Error || CoreSystem || SerializeFile<T>");
+                System.Console.WriteLine(ex.Message);
+                System.Console.WriteLine(ex.InnerException);
             }
         }
 
         public static T DeserializeFile<T>(string fileName)
         {
-            string directory = Directory.GetCurrentDirectory();
-            fileName = directory +  "\\" +fileName + ".xml";
+            Context context = CoreSystem.currentActivity;
+            fileName = fileName + ".xml";
             T returnObject;
             try
             {
                 XmlSerializer serializer = new XmlSerializer(typeof(T));
 
-                StreamReader reader = new StreamReader(fileName);
-                if (reader == null)
-                { }
-                    //throw new EmpListNotFoundErr();
+                Stream reader = context.OpenFileInput(fileName);
                 returnObject = (T)serializer.Deserialize(reader);
                 reader.Close();
 
@@ -89,39 +81,30 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("FileNotFound Exception! (Or something else this is a catch-all error)");
-                Console.WriteLine(ex.Message);
+                System.Console.WriteLine("FileNotFound Exception! (Or something else this is a catch-all error)");
+                System.Console.WriteLine(ex.Message);
                 return default(T);
             }
         }
 
         public static void SerializeCoreSave()
         {
-            Thread serializeProcess = new Thread(new ThreadStart(ThreadedSerialize));
-            serializeProcess.Start();
-        }
-
-        private static void ThreadedSerialize()
-        {
             try
             {
-                string directory = Directory.GetCurrentDirectory();
+                Context context = CoreSystem.currentActivity;
                 XmlDocument xmlDocument = new XmlDocument();
                 XmlSerializer serializer = new XmlSerializer(typeof(CoreSaveType));
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    serializer.Serialize(stream, CoreSystem.coreSave);
-                    stream.Position = 0;
-                    xmlDocument.Load(stream);
-                    xmlDocument.Save(directory +  "\\" +"CoreSave.xml");
-                    stream.Close();
-                }
+
+                Stream stream = context.OpenFileOutput("CoreSave.xml", FileCreationMode.Private);
+
+                serializer.Serialize(stream, CoreSystem.coreSave);
+                stream.Close();
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Serialization Error || CoreSystem || SerializeFile<T>");
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.InnerException);
+                System.Console.WriteLine("Serialization Error || CoreSystem || SerializeFile<T>");
+                System.Console.WriteLine(ex.Message);
+                System.Console.WriteLine(ex.InnerException);
             }
         }
 
@@ -133,19 +116,14 @@ namespace MaydSchedulerApp
         /// <returns></returns>
         public static void DeserializeCoreSave(string fileName)
         {
-            Thread deserializeProcess = new Thread(new ThreadStart(ThreadedDeserialize));
-            deserializeProcess.Start();
-        }
-
-        private static void ThreadedDeserialize()
-        {
+            Context context = CoreSystem.currentActivity;
             CoreSaveType returnObject;
             try
             {
                 string directory = Directory.GetCurrentDirectory();
                 XmlSerializer serializer = new XmlSerializer(typeof(CoreSaveType));
 
-                StreamReader reader = new StreamReader(directory +  "\\" +"CoreSave.xml");
+                Stream reader = context.OpenFileInput("CoreSave.xml");
                 if (reader == null)
                 { }
                     //throw new EmpListNotFoundErr();
@@ -156,8 +134,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Deserialization Error! (Or the file is missing, or something else)");
-                Console.WriteLine(ex.Message);
+                System.Console.WriteLine("Deserialization Error! (Or the file is missing, or something else)");
+                System.Console.WriteLine(ex.Message);
             }
         }
         //FILE SERIALIZATION ========================================================================================

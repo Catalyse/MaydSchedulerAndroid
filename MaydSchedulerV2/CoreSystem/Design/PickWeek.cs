@@ -1,20 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 namespace MaydSchedulerApp
 {
     public class PickWeek : DialogFragment
     {
-        private int weekDistance = 4;//This is how many weeks forward it will check/generate
+        private int weekDistance = 8;//This is how many weeks forward it will check/generate
         public DateTime date;
         public List<Week> weekList = new List<Week>();
 

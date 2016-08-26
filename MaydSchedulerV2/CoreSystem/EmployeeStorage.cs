@@ -13,6 +13,7 @@ namespace MaydSchedulerApp
             if (MainActivity.testingMode)
             {
                 employeeList = FileManager.TestingModeLoad();
+
             }
             else
             {

@@ -4,6 +4,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.Collections;
 using System.Collections.Generic;
+using Android.Content;
 
 namespace MaydSchedulerApp
 {
@@ -17,16 +18,13 @@ namespace MaydSchedulerApp
 
             try
             {
+                Context context = CoreSystem.currentActivity;
                 XmlDocument xmlDocument = new XmlDocument();
                 XmlSerializer serializer = new XmlSerializer(list.GetType());
-                using (MemoryStream stream = new MemoryStream())
-                {
-                    serializer.Serialize(stream, list);
-                    stream.Position = 0;
-                    xmlDocument.Load(stream);
-                    xmlDocument.Save(fileName);
-                    stream.Close();
-                }
+                Stream stream = context.OpenFileOutput(fileName, FileCreationMode.Private);
+
+                serializer.Serialize(stream, list);
+                stream.Close();
             }
             catch (Exception ex)
             {
@@ -40,11 +38,12 @@ namespace MaydSchedulerApp
         {
             try
             {
+                Context context = CoreSystem.currentActivity;
                 List<Employee> storage = new List<Employee>();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
 
-                StreamReader reader = new StreamReader(fileName);
+                Stream reader = context.OpenFileInput(fileName);
                 if (reader == null)
                 { }
                     //throw new EmpListNotFoundErr();

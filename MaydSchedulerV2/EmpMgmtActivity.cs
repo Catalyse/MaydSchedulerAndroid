@@ -30,20 +30,31 @@ namespace MaydSchedulerApp
             menu1 = FindViewById<Button>(Resource.Id.action_button1);
             menu2 = FindViewById<Button>(Resource.Id.action_button2);
             menu3 = FindViewById<Button>(Resource.Id.action_button3);
-            
+
+            menu1.Click += Menu1_Click;
+            menu2.Click += Menu2_Click;
+            menu3.Click += Menu3_Click;
+
             empListView = FindViewById<ListView>(Resource.Id.EmpMgmtList);
 
             GenerateEmpList(EmployeeStorage.employeeList);
 
             RegisterForContextMenu(empListView);
+        }
 
-            /*Button btnpopupmenu = FindViewById<Button>(Resource.Id.btnpopupmenu);
-            btnpopupmenu.Click += (s, arg) =>
-            {
-                PopupMenu menu = new PopupMenu(this, btnpopupmenu);
-                menu.Inflate(Resource.Layout.popup_menu);
-                menu.Show();
-            };*/
+        private void Menu1_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Menu2_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void Menu3_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
@@ -52,8 +63,8 @@ namespace MaydSchedulerApp
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)menuInfo;
             var clicked = lv.GetItemAtPosition(acmi.Position);
 
-            menu.Add("one");
-            menu.Add("two");
+            menu.Add("Edit");
+            menu.Add("Delete");
             menu.Add(clicked.Class.Name);
         }
 

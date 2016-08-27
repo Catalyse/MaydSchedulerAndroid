@@ -60,7 +60,7 @@
     <Compile Include="CoreSystem\NetworkIO.cs" />
     <Compile Include="CoreSystem\SchedulingAlgorithm.cs" />
     <Compile Include="CoreSystem\ServerCommand.cs" />
-    <Compile Include="CoreSystem\SQLiteInterface.cs" />
+    <Compile Include="CoreSystem\SystemSettings.cs" />
     <Compile Include="CoreSystem\Types\Availability.cs" />
     <Compile Include="CoreSystem\Types\CoreSaveType.cs" />
     <Compile Include="CoreSystem\Types\CoreSettingsType.cs" />
@@ -119,6 +119,7 @@
     <AndroidResource Include="Resources\drawable\global_bg.xml" />
     <AndroidResource Include="Resources\layout\options_menu.xml" />
     <AndroidResource Include="Resources\layout\popup_menu.xml" />
+    <AndroidResource Include="Resources\layout\testing_menu.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

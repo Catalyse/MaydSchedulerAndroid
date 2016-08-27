@@ -13,7 +13,7 @@
       </intent-filter>
     </activity>
     <activity android:label="Schedule" android:screenOrientation="portrait" android:theme="@android:style/Theme.Material" android:windowSoftInputMode="stateUnspecified|adjustPan" android:name="md57a5e2202be1f4c89cbd45492b2eba6fb.ScheduleActivity" />
-    <activity android:label="SettingsActivity" android:name="md57a5e2202be1f4c89cbd45492b2eba6fb.SettingsActivity" />
+    <activity android:label="System Settings" android:name="md57a5e2202be1f4c89cbd45492b2eba6fb.SettingsActivity" />
     <provider android:name="mono.MonoRuntimeProvider" android:exported="false" android:initOrder="2147483647" android:authorities="MaydTechnologies.MaydScheduler.mono.MonoRuntimeProvider.__mono_init__" />
     <!--suppress ExportedReceiver-->
     <receiver android:name="mono.android.Seppuku">

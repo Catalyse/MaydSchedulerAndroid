@@ -12,10 +12,10 @@ using Android.Widget;
 
 namespace MaydSchedulerApp
 {
-    [Activity(Label = "SettingsActivity")]
+    [Activity(Label = "System Settings")]
     public class SettingsActivity : Activity
     {
-        private Button cancelButton; 
+        private Button cancelButton, submitButton; 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -26,11 +26,63 @@ namespace MaydSchedulerApp
 
             cancelButton = FindViewById<Button>(Resource.Id.btnSettingsCancel);
             cancelButton.Click += CancelButton_Click;
+
+            submitButton = FindViewById<Button>(Resource.Id.btnSettingsSubmit);
+            submitButton.Click += SubmitButton_Click;
+        }
+
+        private void SubmitButton_Click(object sender, EventArgs e)
+        {
+            EditText defaultShift, minShift, maxShift, defaultOpen, defaultClose, skillCap;
+            defaultShift = FindViewById<EditText>(Resource.Id.inputDefaultShift);
+            minShift = FindViewById<EditText>(Resource.Id.inputMinShift);
+            maxShift = FindViewById<EditText>(Resource.Id.inputMaxShift);
+            defaultOpen = FindViewById<EditText>(Resource.Id.inputDefaultOpen);
+            defaultClose = FindViewById<EditText>(Resource.Id.inputDefaultClose);
+            skillCap = FindViewById<EditText>(Resource.Id.inputSkillCap);
+            if(defaultShift.Text == "" || minShift.Text == "" || maxShift.Text == "" || defaultOpen.Text == "" || defaultClose.Text == "" || skillCap.Text == "")
+            {
+
+            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
         {
-            Finish();
+            if (!SystemSettings.CheckIfLoaded())
+            {
+                SettingsNotLoadedAlert();
+            }
+            else
+                Finish();
+        }
+
+        private void SettingsNotLoadedAlert()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Okay", (sender, args) =>
+            {
+                Intent intent = new Intent(this, typeof(SettingsActivity));
+                this.StartActivity(intent);
+            })
+            .SetNegativeButton("Close Application", (sender, args) =>
+            {
+                System.Environment.Exit(0);
+            })
+            .SetMessage("The system cannot run without default settings!")
+            .SetTitle("System Settings")
+            .Show();
+        }
+
+        private void LoadSettings()
+        {
+            if(SystemSettings.CheckIfLoaded())
+            {
+
+            }
+            else
+            {//settings not loaded
+
+            }
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

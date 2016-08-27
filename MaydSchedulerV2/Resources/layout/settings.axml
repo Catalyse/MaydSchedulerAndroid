@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/textDefaultShift" />
         <EditText
             android:hint="8"
             android:gravity="center"
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/editText1" />
+            android:id="@+id/inputDefaultShift" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -44,7 +44,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/textMinShift" />
         <EditText
             android:hint="6"
             android:gravity="center"
@@ -52,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/editText1" />
+            android:id="@+id/inputMinShift" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/textMaxShift" />
         <EditText
             android:hint="10"
             android:gravity="center"
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/editText1" />
+            android:id="@+id/inputMaxShift" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/textSkillCap" />
         <EditText
             android:hint="10"
             android:gravity="center"
@@ -100,7 +100,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/editText1" />
+            android:id="@+id/inputSkillCap" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -116,7 +116,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/textDefaultOpen" />
         <EditText
             android:hint="6"
             android:gravity="center"
@@ -124,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/editText1" />
+            android:id="@+id/inputDefaultOpen" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -140,7 +140,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/textDefaultClose" />
         <EditText
             android:hint="22"
             android:gravity="center"
@@ -148,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_weight="50"
             android:layout_height="match_parent"
-            android:id="@+id/editText1" />
+            android:id="@+id/inputDefaultClose" />
     </LinearLayout>
     <Button
         android:text="Add/Remove Positions"
@@ -172,6 +172,6 @@
             android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:layout_weight="50"
-            android:id="@+id/btnWeeklySubmit" />
+            android:id="@+id/btnSettingsSubmit" />
     </LinearLayout>
 </LinearLayout>

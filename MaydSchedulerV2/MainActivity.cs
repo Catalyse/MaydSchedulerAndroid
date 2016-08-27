@@ -3,7 +3,8 @@ using Android.App;
 using Android.Content;
 using Android.Widget;
 using Android.OS;
-using System.Collections.Generic;
+using Android.Views;
+using Android.Preferences;
 
 namespace MaydSchedulerApp
 {
@@ -11,13 +12,17 @@ namespace MaydSchedulerApp
     public class MainActivity : Activity
     {
         public static bool testingMode = false;
-        private Button BtnNewWeek, BtnEditWeek, BtnHistory, BtnEmpMgmt, BtnSettings;
+        private Button BtnNewWeek, BtnEditWeek, BtnHistory, BtnEmpMgmt, BtnSettings, action1, action2;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
             StartupProcess();
             SetContentView(Resource.Layout.Main);
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutBoolean("testingmode", false);
 
             BtnNewWeek = FindViewById<Button>(Resource.Id.newWeekBtn);
             BtnEditWeek = FindViewById<Button>(Resource.Id.editWeekBtn);
@@ -32,12 +37,35 @@ namespace MaydSchedulerApp
             BtnSettings.Click += BtnSettings_Click;
         }
 
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Layout.testing_menu, menu);
+            action1 = FindViewById<Button>(Resource.Id.testing_button1);
+            action2 = FindViewById<Button>(Resource.Id.testing_button2);
+            return true;
+        }
+
         private void StartupProcess()
         {
             CoreSystem.currentActivity = this;
+            if (!SystemSettings.CheckIfLoaded())
+                SettingsAlert();
             EmployeeStorage.Start();
             CoreSystem.LoadCoreSettings();
             CoreSystem.LoadCoreSave();
+        }
+
+        private void SettingsAlert()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Take me there", (sender, args) =>
+            {
+                Intent intent = new Intent(this, typeof(SettingsActivity));
+                this.StartActivity(intent);
+            })
+            .SetMessage("You need to set your default settings!")
+            .SetTitle("System Settings")
+            .Show();
         }
 
         private void HackSave()

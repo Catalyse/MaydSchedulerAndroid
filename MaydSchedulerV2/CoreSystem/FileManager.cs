@@ -16,7 +16,7 @@ namespace MaydSchedulerApp
 
             XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
 
-            TextReader reader = new System.IO.StringReader(TempData.EmpList);
+            TextReader reader = new StringReader(TempData.EmpList);
             if (reader == null)
             { }
             //throw new EmpListNotFoundErr();

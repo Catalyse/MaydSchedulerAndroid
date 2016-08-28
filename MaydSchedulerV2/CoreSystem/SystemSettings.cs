@@ -1,14 +1,10 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
+using System.Xml.Serialization;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.Preferences;
 
 namespace MaydSchedulerApp
@@ -18,7 +14,9 @@ namespace MaydSchedulerApp
         public static int defaultShift, minShift, maxShift;//Need to make config window
         public static int defaultOpenAvail, defaultCloseAvail;
         public static int skillLevelCap;
-        public static SerializableDictionary<int, string> positionList = new SerializableDictionary<int, string>();
+        public static Dictionary<int, string> positionList = new Dictionary<int, string>();
+        public static Dictionary<DateTime, Week> sortedWeekList = new Dictionary<DateTime, Week>();
+        public static List<Week> weekList = new List<Week>();
         public static int sunOpenPref, monOpenPref, tueOpenPref, wedOpenPref, thuOpenPref, friOpenPref, satOpenPref;
         public static int sunClosePref, monClosePref, tueClosePref, wedClosePref, thuClosePref, friClosePref, satClosePref;
 
@@ -88,6 +86,49 @@ namespace MaydSchedulerApp
                 return false;
             else
                 return true;
+        }
+
+        public static void SaveWeek(Week week)
+        {
+            StringWriter writer = new StringWriter();
+            XmlSerializer serializer = new XmlSerializer(typeof(Week));
+            serializer.Serialize(writer, week);
+            string serializedWeek = writer.ToString();
+
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            int count = prefs.GetInt("savedWeekCount", 0);
+            editor.PutString("week"+count.ToString(), serializedWeek);
+            editor.PutInt("savedWeekCount", count + 1);
+            editor.PutBoolean("weeksSaved", true);
+            editor.Apply();
+        }
+
+        public static void LoadWeeks()
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            if(prefs.GetBoolean("weeksSaved", false))
+            {
+                int count = prefs.GetInt("savedWeekCount", 0);
+                if(count < 1)//This likely means nothing is saved and the bool is fucked up
+                {
+                    Console.WriteLine("LoadWeeks() Failure, weeksSaved bool reports we have weeks saved but count reports zero, unable to load");
+                }
+                else
+                {//We have a set of weeks
+                    for(int i = 0; i < count; i++)
+                    {
+                        string loadedWeek = prefs.GetString("week" + i, "null");
+                        StringReader reader = new StringReader(loadedWeek);
+                        XmlSerializer serializer = new XmlSerializer(typeof(Week));
+                        weekList.Add((Week)serializer.Deserialize(reader));
+                    }
+                }
+            }
+            else
+            {
+                //We have no weeks saved
+            }
         }
 
         public static void SetupFacilityPreferences(int suO, int mO, int tuO, int wO, int thO, int fO, int saO, 

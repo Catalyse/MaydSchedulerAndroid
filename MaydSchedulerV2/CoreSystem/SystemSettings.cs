@@ -40,6 +40,21 @@ namespace MaydSchedulerApp
             return prefs.GetBoolean("positionsCreated", false);
         }
 
+        public static void LoadTestingSettings()
+        {
+            InitialSetup(8, 6, 10, 10, 8, 22);
+            SetupFacilityPreferences(10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutBoolean("positionsCreated", true);
+            editor.PutInt("positionCount", 2);
+            editor.PutString("0", "Solutions Specialist");
+            editor.PutString("1", "Experience Specialist");
+            editor.Apply();
+            InitialLoad();
+            GetPositionList();
+        }
+
         public static void InitialSetup(int _defaultShift, int _minShift, int _maxShift, int _skillCap, int _defaultOpenAvail, int _defaultCloseAvail)
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);

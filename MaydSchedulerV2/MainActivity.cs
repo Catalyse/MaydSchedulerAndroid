@@ -38,9 +38,22 @@ namespace MaydSchedulerApp
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Layout.testing_menu, menu);
-            action1 = FindViewById<Button>(Resource.Id.testing_button1);
-            action2 = FindViewById<Button>(Resource.Id.testing_button2);
             return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.testing_button1:
+                    EmployeeStorage.employeeList = FileManager.TestingModeLoad(); ;
+                    EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
+                    return true;
+                case Resource.Id.testing_button2:
+                    SystemSettings.LoadTestingSettings();
+                    return true;
+            }
+            return base.OnOptionsItemSelected(item);
         }
 
         private void StartupProcess()
@@ -64,11 +77,6 @@ namespace MaydSchedulerApp
             .SetMessage("You need to set your default settings!")
             .SetTitle("System Settings")
             .Show();
-        }
-
-        private void HackSave()
-        {
-            
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)

@@ -8,22 +8,6 @@ namespace MaydSchedulerApp
 {
     public static class TempData
     {
-        public static CoreSettingsType CoreSettings = new CoreSettingsType()
-        {
-            minShift = 6,
-            maxShift = 10,
-            defaultShift = 8,
-            defaultOpenAvail = 6,
-            defaultCloseAvail = 22,
-            skillLevelCap = 10,
-            positionList = new SerializableDictionary<int, string>()
-            {
-                {0, "Solutions Specialist" },
-                {1, "Experience Specialist" }
-            },
-            savedFileList = new List<string>(),
-            GenerationDate = DateTime.Now.ToString()
-        };
         public static string EmpList = @"<?xml version=""1.0"" encoding=""utf-8""?>
 <ArrayOfEmployee xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
   <Employee>

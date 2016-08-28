@@ -15,7 +15,8 @@ namespace MaydSchedulerApp
     [Activity(Label = "System Settings")]
     public class SettingsActivity : Activity
     {
-        private Button cancelButton, submitButton; 
+        private Button cancelButton, submitButton;
+        private bool submitChanged = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -42,9 +43,27 @@ namespace MaydSchedulerApp
             skillCap = FindViewById<EditText>(Resource.Id.inputSkillCap);
             if(defaultShift.Text == "" || minShift.Text == "" || maxShift.Text == "" || defaultOpen.Text == "" || defaultClose.Text == "" || skillCap.Text == "")
             {
-
+                submitButton.Text = "Please fill out all settings!";
+                submitChanged = true;
+            }
+            else
+            {
+                SystemSettings.InitialSetup(int.Parse(defaultShift.Text), int.Parse(minShift.Text), int.Parse(maxShift.Text),
+                    int.Parse(skillCap.Text), int.Parse(defaultOpen.Text), int.Parse(defaultClose.Text));
+                Finish();
             }
         }
+
+        public override bool DispatchTouchEvent(MotionEvent ev)
+        {
+            if (submitChanged)
+            {
+                submitButton.Text = "Submit";
+                submitChanged = false;
+            }
+            return base.DispatchTouchEvent(ev);
+        }
+
 
         private void CancelButton_Click(object sender, EventArgs e)
         {

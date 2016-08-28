@@ -11,16 +11,11 @@ namespace MaydSchedulerApp
     /// </summary>
     public static class CoreSystem
     {
-        public static CoreSettingsType coreSettings;
         public static CoreSaveType coreSave;
         public static Activity currentActivity;
         public static ScheduleActivity scheduler;
         public static bool coreSettingsLoaded = false;
         public static bool coreSaveLoaded = false;
-        public static int defaultShift, minShift, maxShift;
-        public static int defaultOpenAvail, defaultCloseAvail;
-        public static float skillLevelCap;
-        public static SerializableDictionary<int, string> positionList = new SerializableDictionary<int, string>();
         public static SerializableDictionary<DateTime, Week> weekList = new SerializableDictionary<DateTime, Week>();
         public static List<string> savedFileList = new List<string>();
         public static string GenerationDate;
@@ -37,7 +32,7 @@ namespace MaydSchedulerApp
         /// <summary>
         /// This method is used to load default system settings from file
         /// </summary>
-        public static void LoadCoreSettings()
+        /*public static void LoadCoreSettings()
         {
             if (MainActivity.testingMode)
             {
@@ -80,26 +75,14 @@ namespace MaydSchedulerApp
                     coreSettings.GenerationDate = DateTime.Now.ToString();//THis sets the gen date, although if a save is never completed on a weeklist then the gen date wont be saved
                 }
             }
-        }
+        }*/
 
-        public static void CoreSettingsChanged()
+        /*public static void CoreSettingsChanged()
         {
-            coreSettings = new CoreSettingsType();
-            coreSettings.defaultShift = defaultShift;
-            coreSettings.defaultOpenAvail = defaultOpenAvail;
-            coreSettings.defaultCloseAvail = defaultCloseAvail;
-            coreSettings.minShift = minShift;
-            coreSettings.maxShift = maxShift;
-            coreSettings.skillLevelCap = skillLevelCap;
-            coreSettings.positionList = positionList;
-            coreSettings.savedFileList = savedFileList;
-            coreSettings.LastModified = DateTime.Now.ToString();
-            //FileManager.SerializeFile<CoreSettingsType>(coreSettings, "CoreSettings");
-            //NetworkIO.SendCoreSettings();
-            Console.WriteLine("Core Settings File Modified! Core Settings File Saved!");
-        }
+            
+        }*/
 
-        public static void CoreSettingsLoaded(CoreSettingsType settings)
+        /*public static void CoreSettingsLoaded(CoreSettingsType settings)
         {
             coreSettings = new CoreSettingsType();
             coreSettings = settings;
@@ -114,7 +97,7 @@ namespace MaydSchedulerApp
             GenerationDate = DateTime.Now.ToString();
             coreSettingsLoaded = true;
             Console.WriteLine("Core Settings File Loaded!");
-        }
+        }*/
 
         public static void LoadCoreSave()
         {
@@ -170,9 +153,9 @@ namespace MaydSchedulerApp
 
         public static string GetPositionName(int type)
         {
-            if (positionList.ContainsKey(type))
+            if (SystemSettings.positionList.ContainsKey(type))
             {
-                return positionList[type];
+                return SystemSettings.positionList[type];
             }
             else
             {

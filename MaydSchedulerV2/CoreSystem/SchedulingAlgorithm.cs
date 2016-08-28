@@ -60,7 +60,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int i = 0; i < CoreSystem.positionList.Count; i++)//Create a list for each position
+                for (int i = 0; i < SystemSettings.positionList.Count; i++)//Create a list for each position
                 {
                     employeePositionDictionary.Add(i, new List<EmployeeScheduleWrapper>());
                 }
@@ -84,7 +84,7 @@ namespace MaydSchedulerApp
             try
             {
                 //RunCount = PositionCount * 7
-                for (int pos = 0; pos < CoreSystem.positionList.Count; pos++)//Position loop
+                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)//Position loop
                 {
                     weeklyNeededShifts.Add(pos, 0);
                     dailyNeededShifts.Add(pos, new Dictionary<int, int>());
@@ -101,7 +101,7 @@ namespace MaydSchedulerApp
 
                 //yes its a triple loop. shhh
                 //RunCount = PositionCount * 7 * NoOfActiveEmployeesInEachPosition
-                for (int pos = 0; pos < CoreSystem.positionList.Count; pos++)//positions
+                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)//positions
                 {
 
                     dailyAvailShifts.Add(pos, new Dictionary<int, int>());
@@ -117,7 +117,7 @@ namespace MaydSchedulerApp
                     }
                 }
 
-                for (int pos = 0; pos < CoreSystem.positionList.Count; pos++)
+                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)
                 {
                     weeklyAvailShifts.Add(pos, 0);
                     for (int i = 0; i < employeePositionDictionary[pos].Count; i++)
@@ -140,7 +140,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int k = 0; k < CoreSystem.positionList.Count; k++)
+                for (int k = 0; k < SystemSettings.positionList.Count; k++)
                 {
                     if (weeklyNeededShifts[k] > weeklyAvailShifts[k])//We have less available employee shifts for the week than we need.
                     {
@@ -176,7 +176,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int pos = 0; pos < CoreSystem.positionList.Count; pos++)
+                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)
                 {
                     pickedDays.Clear();//This is for the pickdays() method, to clear the list upon entering a new position
                     for (int d = 0; d < 7; d++)
@@ -539,7 +539,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int pos = 0; pos < CoreSystem.positionList.Count; pos++)
+                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)
                 {
                     //         day, count
                     Dictionary<int, int> remainingShiftsNeeded = new Dictionary<int, int>();
@@ -682,7 +682,7 @@ namespace MaydSchedulerApp
             int pos = emp.position;
             if (day.openScheduledShifts[pos] < day.closeScheduledShifts[pos])
             {
-                int shiftLength = CoreSystem.defaultShift;
+                int shiftLength = SystemSettings.defaultShift;
                 if (EmployeeStorage.GetEmployee(emp.employee).shiftPreference != shiftLength)
                     shiftLength = EmployeeStorage.GetEmployee(emp.employee).shiftPreference;//Need to add settings on how to handle shift length preferences, but for now its fine
                 Shift newShift = new Shift(emp.employee, day.openTime, (day.openTime + shiftLength), day.date.DayOfWeek);
@@ -696,7 +696,7 @@ namespace MaydSchedulerApp
             }
             else
             {
-                int shiftLength = CoreSystem.defaultShift;
+                int shiftLength = SystemSettings.defaultShift;
                 if (EmployeeStorage.GetEmployee(emp.employee).shiftPreference != shiftLength)
                     shiftLength = EmployeeStorage.GetEmployee(emp.employee).shiftPreference;//Need to add settings on how to handle shift length preferences, but for now its fine
                 Shift newShift = new Shift(emp.employee, day.closeTime - shiftLength, day.closeTime, day.date.DayOfWeek);
@@ -758,7 +758,7 @@ namespace MaydSchedulerApp
             try
             {
                 //This is the shift as defined in system settings
-                int shiftLength = CoreSystem.defaultShift;
+                int shiftLength = SystemSettings.defaultShift;
 
                 for (int i = 0; i < empList.Count; i++)
                 {
@@ -785,7 +785,7 @@ namespace MaydSchedulerApp
             try
             {
                 //This is the shift as defined in system settings
-                int shiftLength = CoreSystem.defaultShift;
+                int shiftLength = SystemSettings.defaultShift;
 
                 for (int i = 0; i < empList.Count; i++)
                 {
@@ -885,7 +885,7 @@ namespace MaydSchedulerApp
                     returnDictionary.Add(i, new List<EmployeeScheduleWrapper>());
                     for (int j = 0; j < masterList.Count; j++)
                     {
-                        if (masterList[j].scheduledHours < (CoreSystem.defaultShift * (i + 1)) && masterList[j].scheduledHours >= (CoreSystem.defaultShift * i) && masterList[j].GetAvailability(day))//Added checking for day so we dont need to recheck availability later.
+                        if (masterList[j].scheduledHours < (SystemSettings.defaultShift * (i + 1)) && masterList[j].scheduledHours >= (SystemSettings.defaultShift * i) && masterList[j].GetAvailability(day))//Added checking for day so we dont need to recheck availability later.
                         {
                             returnDictionary[i].Add(masterList[j]);
                             count++;

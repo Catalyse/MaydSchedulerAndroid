@@ -17,7 +17,6 @@ namespace MaydSchedulerApp
         private Button weeklySubmit, staffingSubmit;
         private bool weeklySubmitChanged = false;
         private bool staffingSubmitChanged = false;
-        private int currentPosition = 0;
         //This mode will determine which screen it is currently on allowing you to go back
         private int mode = 0;
 
@@ -27,7 +26,7 @@ namespace MaydSchedulerApp
             ChooseWeek();
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            CoreSystem.currentActivity = this;
+            CoreSystem.scheduler = this;
         }
 
         public override bool DispatchTouchEvent(MotionEvent ev)
@@ -76,6 +75,9 @@ namespace MaydSchedulerApp
                 case 2:
                     ChooseWeek();
                     break;
+                case 3:
+                    WeeklyConfig();
+                    break;
             }
         }
 
@@ -113,20 +115,48 @@ namespace MaydSchedulerApp
             WeeklyConfig();
         }
 
+        /// <summary>
+        /// Mode 2
+        /// </summary>
         private void WeeklyConfig()
         {
             mode = 2;
             this.Title = "Weekly Facility Hours";
             SetContentView(Resource.Layout.WeeklyConfig);
+            SetupWeeklyObjects();
+            if (CheckIfDefaultsExist())
+                UseDefaultsPopup();
 
             weeklySubmit = FindViewById<Button>(Resource.Id.btnWeeklySubmit);
             weeklySubmit.Click += WeeklySubmit_Check;
         }
 
-        private void WeeklySubmit_Check(object sender, EventArgs e)
+        private void UseDefaultsPopup()
         {
-            EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose;
-            CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Yes", (sender, args) =>
+            {
+                pickedWeek.SetWeek(int.Parse(sunOpen.Text), int.Parse(monOpen.Text), int.Parse(tueOpen.Text), int.Parse(wedOpen.Text), int.Parse(thuOpen.Text),
+                int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text), int.Parse(tueClose.Text),
+                int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked,
+                tueToggle.Checked, wedToggle.Checked, thuToggle.Checked, friToggle.Checked, satToggle.Checked);
+                StaffingNeeds();
+            })
+            .SetNegativeButton("No", (sender, args) =>
+            {
+                //do nothing
+            })
+            .SetMessage("Do you want to use default facility hours?")
+            .SetTitle("Use Defaults")
+            .Show();
+        }
+
+        EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose;
+        CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
+        bool defaultsLoaded = false;
+
+        private void SetupWeeklyObjects()
+        {
             sunOpen = FindViewById<EditText>(Resource.Id.inputSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputTueOpen);
@@ -148,6 +178,59 @@ namespace MaydSchedulerApp
             thuToggle = FindViewById<CheckBox>(Resource.Id.chkThursday);
             friToggle = FindViewById<CheckBox>(Resource.Id.chkFriday);
             satToggle = FindViewById<CheckBox>(Resource.Id.chkSaturday);
+        }
+
+        private bool CheckIfDefaultsExist()
+        {
+            bool exist = SystemSettings.CheckFacDefaults();
+            if (exist)
+            {
+                sunOpen.Text = SystemSettings.GetIntPref("suO").ToString();
+                monOpen.Text = SystemSettings.GetIntPref("mO").ToString();
+                tueOpen.Text = SystemSettings.GetIntPref("tuO").ToString();
+                wedOpen.Text = SystemSettings.GetIntPref("wO").ToString();
+                thuOpen.Text = SystemSettings.GetIntPref("thO").ToString();
+                friOpen.Text = SystemSettings.GetIntPref("fO").ToString();
+                satOpen.Text = SystemSettings.GetIntPref("saO").ToString();
+                sunClose.Text = SystemSettings.GetIntPref("suC").ToString();
+                monClose.Text = SystemSettings.GetIntPref("mC").ToString();
+                tueClose.Text = SystemSettings.GetIntPref("tuC").ToString();
+                wedClose.Text = SystemSettings.GetIntPref("wC").ToString();
+                thuClose.Text = SystemSettings.GetIntPref("thC").ToString();
+                friClose.Text = SystemSettings.GetIntPref("fC").ToString();
+                satClose.Text = SystemSettings.GetIntPref("saC").ToString();
+                defaultsLoaded = true;
+                if (sunToggle.Checked && (sunOpen.Text == "-1" || sunClose.Text == "-1") || monToggle.Checked && (monOpen.Text == "-1" || monClose.Text == "-1") ||
+                    tueToggle.Checked && (tueOpen.Text == "-1" || tueClose.Text == "-1") || sunToggle.Checked && (wedOpen.Text == "-1" || wedClose.Text == "-1") ||
+                    sunToggle.Checked && (thuOpen.Text == "-1" || thuClose.Text == "-1") || sunToggle.Checked && (friOpen.Text == "-1" || friClose.Text == "-1") ||
+                    sunToggle.Checked && (satOpen.Text == "-1" || satClose.Text == "-1"))
+                {//This means at least one of the preferences didnt load correctly and now there will be an issue.
+                    FacHoursLoadErrorAlert();
+                }
+            }
+            return exist;
+        }
+
+        /// <summary>
+        /// This pops if there is an issue loading the default facility preferences
+        /// </summary>
+        private void FacHoursLoadErrorAlert()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Okay", (sender, args) =>
+            {
+                //We dont want to do anything, just make sure they know there was an error
+            })
+            .SetMessage("We would like to apologize but you have run into an error.  Please check all of your hours as at least one of them did not load correctly.")
+            .SetTitle("Facility Preference Loading Error!")
+            .Show();
+        }
+
+        /// <summary>
+        /// This will check all fields before allowing the user to continue on to the next page.
+        /// </summary>
+        private void WeeklySubmit_Check(object sender, EventArgs e)
+        {
             //this is huge and it sucks but its neccesary to check if any of the fields are empty
             if (sunToggle.Checked && (sunOpen.Text == "" || sunClose.Text == "") || monToggle.Checked && (monOpen.Text == "" || monClose.Text == "") || 
                 tueToggle.Checked && (tueOpen.Text == "" || tueClose.Text == "") || sunToggle.Checked && (wedOpen.Text == "" || wedClose.Text == "") ||
@@ -166,17 +249,56 @@ namespace MaydSchedulerApp
             }
             else
             {
+                WeeklyConfigDefaultSettings();
+            }
+        }
+
+        private void WeeklyConfigDefaultSettings()
+        {
+            new AlertDialog.Builder(this)
+            .SetCancelable(false)
+            .SetPositiveButton("Yes", (sender, args) =>
+            {
+                SystemSettings.SetupFacilityPreferences(int.Parse(sunOpen.Text), int.Parse(monOpen.Text), int.Parse(tueOpen.Text), int.Parse(wedOpen.Text),
+                    int.Parse(thuOpen.Text), int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text),
+                    int.Parse(tueClose.Text), int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text));
                 pickedWeek.SetWeek(int.Parse(sunOpen.Text), int.Parse(monOpen.Text), int.Parse(tueOpen.Text), int.Parse(wedOpen.Text), int.Parse(thuOpen.Text),
                 int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text), int.Parse(tueClose.Text),
-                int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked, 
+                int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked,
                 tueToggle.Checked, wedToggle.Checked, thuToggle.Checked, friToggle.Checked, satToggle.Checked);
                 StaffingNeeds();
-            }
+            })
+            .SetNegativeButton("No", (sender, args) =>
+            {
+                pickedWeek.SetWeek(int.Parse(sunOpen.Text), int.Parse(monOpen.Text), int.Parse(tueOpen.Text), int.Parse(wedOpen.Text), int.Parse(thuOpen.Text),
+                int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text), int.Parse(tueClose.Text),
+                int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked,
+                tueToggle.Checked, wedToggle.Checked, thuToggle.Checked, friToggle.Checked, satToggle.Checked);
+                StaffingNeeds();
+            })
+            .SetMessage(PromptChoice())
+            .SetTitle("Default Facility Hours")
+            .Show();
+        }
+
+        /// <summary>
+        /// This changes the text in the popup based on whether defaults were loaded in or not
+        /// </summary>
+        private string PromptChoice()
+        {
+            if (defaultsLoaded)
+                return "Would you like to modify your existing default hours to these?";
+            else
+                return "Would you like to make these your default facility hours?";
         }
 
         EditText sunSOpen, sunSClose, monSOpen, monSClose, tueSOpen, tueSClose, wedSOpen, wedSClose, thuSOpen, thuSClose, friSOpen, friSClose, satSOpen, satSClose;
         Button titleButton;
+        private int currentPosition = 0;
 
+        /// <summary>
+        /// mode 3
+        /// </summary>
         private void StaffingNeeds()
         {
             mode = 3;
@@ -199,7 +321,7 @@ namespace MaydSchedulerApp
             titleButton = FindViewById<Button>(Resource.Id.btnStaffingTitle);
             staffingSubmit = FindViewById<Button>(Resource.Id.btnStaffingSubmit);
             staffingSubmit.Click += StaffingSubmit_Check;
-            titleButton.Text = "Staffing Needs for " + CoreSystem.GetPositionName(currentPosition) + " Position";
+            titleButton.Text = CoreSystem.GetPositionName(currentPosition);
         }
 
         private void StaffingPositionReset()
@@ -261,7 +383,7 @@ namespace MaydSchedulerApp
             else
             {
                 pickedWeek.SetNeeds(currentPosition, GenOpenDict(), GenCloseDict());
-                int count = CoreSystem.positionList.Count;
+                int count = SystemSettings.positionList.Count;
                 if (currentPosition < count-1)
                 {//If we need info for more positions
                     StaffingPositionReset();
@@ -321,6 +443,7 @@ namespace MaydSchedulerApp
 
         public void DrawSchedule()
         {
+            mode = 1;
             this.Title = "Schedule for the week of " + pickedWeek.startDate.ToShortDateString();
             SetContentView(Resource.Layout.ScheduleView);
             ScheduleAdapter adapter = new ScheduleAdapter(this, CoreSystem.week.empList);

@@ -18,11 +18,9 @@ namespace MaydSchedulerApp
         {
             base.OnCreate(bundle);
             StartupProcess();
+            if (!SystemSettings.CheckIfLoaded())
+                SettingsAlert();
             SetContentView(Resource.Layout.Main);
-
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(this);
-            ISharedPreferencesEditor editor = prefs.Edit();
-            editor.PutBoolean("testingmode", false);
 
             BtnNewWeek = FindViewById<Button>(Resource.Id.newWeekBtn);
             BtnEditWeek = FindViewById<Button>(Resource.Id.editWeekBtn);
@@ -48,17 +46,17 @@ namespace MaydSchedulerApp
         private void StartupProcess()
         {
             CoreSystem.currentActivity = this;
-            if (!SystemSettings.CheckIfLoaded())
-                SettingsAlert();
             EmployeeStorage.Start();
-            CoreSystem.LoadCoreSettings();
+            SystemSettings.InitialLoad();
+            SystemSettings.GetPositionList();
             CoreSystem.LoadCoreSave();
         }
 
         private void SettingsAlert()
         {
             new AlertDialog.Builder(this)
-            .SetPositiveButton("Take me there", (sender, args) =>
+            .SetCancelable(false)
+            .SetPositiveButton("Okay", (sender, args) =>
             {
                 Intent intent = new Intent(this, typeof(SettingsActivity));
                 this.StartActivity(intent);
@@ -70,7 +68,7 @@ namespace MaydSchedulerApp
 
         private void HackSave()
         {
-            FileManager.SerializeFile<CoreSettingsType>(CoreSystem.coreSettings, "CoreSettings");
+            //FileManager.SerializeFile<CoreSettingsType>(CoreSystem.coreSettings, "CoreSettings");
             EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
             Console.WriteLine("HackSave Complete");
         }

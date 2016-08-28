@@ -60,7 +60,7 @@ namespace MaydSchedulerApp
             editor.Apply();
         }
 
-        public static void InitialLoad()
+        public static bool InitialLoad()
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
             defaultShift = prefs.GetInt("defaultShift", -1);
@@ -69,6 +69,10 @@ namespace MaydSchedulerApp
             defaultOpenAvail = prefs.GetInt("defaultOpenAvail", -1);
             defaultCloseAvail = prefs.GetInt("defaultCloseAvail", -1);
             skillLevelCap = prefs.GetInt("skillCap", -1);
+            if (defaultShift == -1 || minShift == -1 || maxShift == -1 || defaultOpenAvail == -1 || defaultCloseAvail == -1 || skillLevelCap == -1)
+                return false;
+            else
+                return true;
         }
 
         public static void SetupFacilityPreferences(int suO, int mO, int tuO, int wO, int thO, int fO, int saO, 

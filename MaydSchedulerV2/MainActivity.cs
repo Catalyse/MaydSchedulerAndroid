@@ -68,9 +68,7 @@ namespace MaydSchedulerApp
 
         private void HackSave()
         {
-            //FileManager.SerializeFile<CoreSettingsType>(CoreSystem.coreSettings, "CoreSettings");
-            EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
-            Console.WriteLine("HackSave Complete");
+            
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
@@ -92,7 +90,7 @@ namespace MaydSchedulerApp
 
         private void BtnEditWeek_Click(object sender, EventArgs e)
         {
-            HackSave();
+            //HackSave();
         }
 
         private void BtnNewWeek_Click(object sender, EventArgs e)

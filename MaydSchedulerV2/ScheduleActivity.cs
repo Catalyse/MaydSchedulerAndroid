@@ -82,17 +82,6 @@ namespace MaydSchedulerApp
         }
 
         /// <summary>
-        /// This is the main view we will default back to
-        /// mode 0
-        /// </summary>
-        private void ScheduleView()
-        {
-            mode = 0;
-            this.Title = "Schedule for the week of: " + pickedWeek.startDate.ToShortDateString();
-            SetContentView(Resource.Layout.ScheduleWindow);
-        }
-
-        /// <summary>
         /// mode 1
         /// </summary>
         private void ChooseWeek()

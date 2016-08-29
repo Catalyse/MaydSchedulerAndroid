@@ -6,6 +6,7 @@
   <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
   <application android:label="Mayd Scheduler" android:icon="@drawable/icon" android:name="android.app.Application" android:allowBackup="true" android:debuggable="true">
     <activity android:label="Employee Management" android:screenOrientation="portrait" android:theme="@android:style/Theme.Material" android:name="md57a5e2202be1f4c89cbd45492b2eba6fb.EmpMgmtActivity" />
+    <activity android:label="Schedule History" android:screenOrientation="portrait" android:theme="@android:style/Theme.Material" android:windowSoftInputMode="stateUnspecified|adjustPan" android:name="md57a5e2202be1f4c89cbd45492b2eba6fb.HistoryActivity" />
     <activity android:icon="@drawable/icon" android:label="Mayd Scheduler" android:screenOrientation="portrait" android:theme="@android:style/Theme.Material" android:name="md57a5e2202be1f4c89cbd45492b2eba6fb.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

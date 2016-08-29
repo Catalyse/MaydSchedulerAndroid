@@ -37,6 +37,7 @@ public final class R {
         public static final int editWeekBtn=0x7f050007;
         public static final int empMgmtBtn=0x7f050009;
         public static final int historyBtn=0x7f050008;
+        public static final int historyListView=0x7f050012;
         public static final int inputDefaultClose=0x7f050028;
         public static final int inputDefaultOpen=0x7f050026;
         public static final int inputDefaultShift=0x7f05001e;
@@ -71,12 +72,11 @@ public final class R {
         public static final int inputTueOpen=0x7f050046;
         public static final int inputWedClose=0x7f05004b;
         public static final int inputWedOpen=0x7f050049;
-        public static final int listView1=0x7f05001c;
         public static final int myListView=0x7f05000c;
         public static final int newWeekBtn=0x7f050006;
         public static final int pop_button1=0x7f050010;
         public static final int pop_button2=0x7f050011;
-        public static final int scheduleListView=0x7f05001b;
+        public static final int scheduleListView=0x7f05001c;
         public static final int settingsBtn=0x7f05000a;
         public static final int testing_button1=0x7f05003c;
         public static final int testing_button2=0x7f05003d;
@@ -90,18 +90,18 @@ public final class R {
         public static final int txtCreateAccount=0x7f05000b;
         public static final int txtEID=0x7f050004;
         public static final int txtFirst=0x7f050002;
-        public static final int txtFri=0x7f050019;
+        public static final int txtFri=0x7f05001a;
         public static final int txtLast=0x7f050001;
-        public static final int txtMon=0x7f050015;
+        public static final int txtMon=0x7f050016;
         public static final int txtPartFullTime=0x7f050005;
         public static final int txtPosition=0x7f050003;
-        public static final int txtSat=0x7f05001a;
-        public static final int txtScheduleName=0x7f050012;
-        public static final int txtSchedulePosition=0x7f050013;
-        public static final int txtSun=0x7f050014;
-        public static final int txtThu=0x7f050018;
-        public static final int txtTue=0x7f050016;
-        public static final int txtWed=0x7f050017;
+        public static final int txtSat=0x7f05001b;
+        public static final int txtScheduleName=0x7f050013;
+        public static final int txtSchedulePosition=0x7f050014;
+        public static final int txtSun=0x7f050015;
+        public static final int txtThu=0x7f050019;
+        public static final int txtTue=0x7f050017;
+        public static final int txtWed=0x7f050018;
         public static final int weeklyConfigLayout=0x7f05003f;
     }
     public static final class layout {
@@ -112,9 +112,9 @@ public final class R {
         public static final int options_menu=0x7f030004;
         public static final int pickweeklayout=0x7f030005;
         public static final int popup_menu=0x7f030006;
-        public static final int schedulelistview=0x7f030007;
-        public static final int scheduleview=0x7f030008;
-        public static final int schedulewindow=0x7f030009;
+        public static final int schedulehistory=0x7f030007;
+        public static final int schedulelistview=0x7f030008;
+        public static final int scheduleview=0x7f030009;
         public static final int setempneeds=0x7f03000a;
         public static final int sethours=0x7f03000b;
         public static final int settings=0x7f03000c;

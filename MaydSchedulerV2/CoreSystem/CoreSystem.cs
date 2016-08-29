@@ -191,7 +191,7 @@ namespace MaydSchedulerApp
             {
                 weekList.Add(w.startDate, w);
             }
-            CoreSaveChanged();
+            
             scheduler.DrawSchedule();
         }
 

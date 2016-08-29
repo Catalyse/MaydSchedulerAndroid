@@ -75,6 +75,7 @@
     <Compile Include="CoreSystem\Types\TempData.cs" />
     <Compile Include="CoreSystem\Types\Week.cs" />
     <Compile Include="EmpMgmtActivity.cs" />
+    <Compile Include="HistoryActivity.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -91,7 +92,6 @@
     <AndroidResource Include="Resources\layout\NewWeek.axml" />
     <AndroidResource Include="Resources\layout\PickWeekLayout.axml" />
     <AndroidResource Include="Resources\layout\ScheduleListView.axml" />
-    <AndroidResource Include="Resources\layout\ScheduleWindow.axml" />
     <AndroidResource Include="Resources\layout\SetEmpNeeds.axml" />
     <AndroidResource Include="Resources\layout\SetHours.axml" />
     <AndroidResource Include="Resources\layout\settings.axml">

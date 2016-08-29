@@ -17,8 +17,9 @@ namespace MaydSchedulerApp
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            StartupProcess();
-            if (!SystemSettings.CheckIfLoaded())
+            EmployeeStorage.Start();
+            SystemSettings.SystemStartup();
+            if (!SystemSettings.loaded)
                 SettingsAlert();
             SetContentView(Resource.Layout.Main);
 
@@ -54,15 +55,6 @@ namespace MaydSchedulerApp
                     return true;
             }
             return base.OnOptionsItemSelected(item);
-        }
-
-        private void StartupProcess()
-        {
-            CoreSystem.currentActivity = this;
-            EmployeeStorage.Start();
-            SystemSettings.InitialLoad();
-            SystemSettings.GetPositionList();
-            CoreSystem.LoadCoreSave();
         }
 
         private void SettingsAlert()

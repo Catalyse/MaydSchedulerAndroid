@@ -129,6 +129,9 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f050008
 			public const int historyBtn = 2131034120;
 			
+			// aapt resource value: 0x7f050012
+			public const int historyListView = 2131034130;
+			
 			// aapt resource value: 0x7f050028
 			public const int inputDefaultClose = 2131034152;
 			
@@ -231,9 +234,6 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f050049
 			public const int inputWedOpen = 2131034185;
 			
-			// aapt resource value: 0x7f05001c
-			public const int listView1 = 2131034140;
-			
 			// aapt resource value: 0x7f05000c
 			public const int myListView = 2131034124;
 			
@@ -246,8 +246,8 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f050011
 			public const int pop_button2 = 2131034129;
 			
-			// aapt resource value: 0x7f05001b
-			public const int scheduleListView = 2131034139;
+			// aapt resource value: 0x7f05001c
+			public const int scheduleListView = 2131034140;
 			
 			// aapt resource value: 0x7f05000a
 			public const int settingsBtn = 2131034122;
@@ -288,14 +288,14 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f050002
 			public const int txtFirst = 2131034114;
 			
-			// aapt resource value: 0x7f050019
-			public const int txtFri = 2131034137;
+			// aapt resource value: 0x7f05001a
+			public const int txtFri = 2131034138;
 			
 			// aapt resource value: 0x7f050001
 			public const int txtLast = 2131034113;
 			
-			// aapt resource value: 0x7f050015
-			public const int txtMon = 2131034133;
+			// aapt resource value: 0x7f050016
+			public const int txtMon = 2131034134;
 			
 			// aapt resource value: 0x7f050005
 			public const int txtPartFullTime = 2131034117;
@@ -303,26 +303,26 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f050003
 			public const int txtPosition = 2131034115;
 			
-			// aapt resource value: 0x7f05001a
-			public const int txtSat = 2131034138;
-			
-			// aapt resource value: 0x7f050012
-			public const int txtScheduleName = 2131034130;
+			// aapt resource value: 0x7f05001b
+			public const int txtSat = 2131034139;
 			
 			// aapt resource value: 0x7f050013
-			public const int txtSchedulePosition = 2131034131;
+			public const int txtScheduleName = 2131034131;
 			
 			// aapt resource value: 0x7f050014
-			public const int txtSun = 2131034132;
+			public const int txtSchedulePosition = 2131034132;
 			
-			// aapt resource value: 0x7f050018
-			public const int txtThu = 2131034136;
+			// aapt resource value: 0x7f050015
+			public const int txtSun = 2131034133;
 			
-			// aapt resource value: 0x7f050016
-			public const int txtTue = 2131034134;
+			// aapt resource value: 0x7f050019
+			public const int txtThu = 2131034137;
 			
 			// aapt resource value: 0x7f050017
-			public const int txtWed = 2131034135;
+			public const int txtTue = 2131034135;
+			
+			// aapt resource value: 0x7f050018
+			public const int txtWed = 2131034136;
 			
 			// aapt resource value: 0x7f05003f
 			public const int weeklyConfigLayout = 2131034175;
@@ -362,13 +362,13 @@ namespace MaydSchedulerApp
 			public const int popup_menu = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int ScheduleListView = 2130903047;
+			public const int ScheduleHistory = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int ScheduleView = 2130903048;
+			public const int ScheduleListView = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int ScheduleWindow = 2130903049;
+			public const int ScheduleView = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
 			public const int SetEmpNeeds = 2130903050;

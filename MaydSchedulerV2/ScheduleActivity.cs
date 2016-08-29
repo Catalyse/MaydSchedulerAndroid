@@ -171,7 +171,7 @@ namespace MaydSchedulerApp
 
         private bool CheckIfDefaultsExist()
         {
-            bool exist = SystemSettings.CheckFacDefaults();
+            bool exist = SystemSettings.facilityDefaults;
             if (exist)
             {
                 sunOpen.Text = SystemSettings.GetIntPref("suO").ToString();
@@ -330,7 +330,7 @@ namespace MaydSchedulerApp
             friSClose.Text = "";
             satSClose.Text = "";
             currentPosition++;
-            titleButton.Text = "Staffing Needs for " + CoreSystem.GetPositionName(currentPosition) + " Position";
+            titleButton.Text = CoreSystem.GetPositionName(currentPosition);
         }
 
         private SerializableDictionary<int, int> GenOpenDict()

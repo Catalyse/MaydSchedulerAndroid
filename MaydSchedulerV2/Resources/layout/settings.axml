@@ -155,6 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:layout_weight="20"
+        android:focusable="false"
         android:id="@+id/btnWeeklySubmit" />
     <LinearLayout
         android:orientation="horizontal"
@@ -165,12 +166,14 @@
             android:text="Cancel"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:focusable="false"
             android:layout_weight="50"
             android:id="@+id/btnSettingsCancel" />
         <Button
             android:text="Submit"
             android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:focusable="false"
             android:layout_weight="50"
             android:id="@+id/btnSettingsSubmit" />
     </LinearLayout>

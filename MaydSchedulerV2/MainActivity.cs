@@ -37,27 +37,6 @@ namespace MaydSchedulerApp
             BtnSettings.Click += BtnSettings_Click;
         }
 
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Layout.testing_menu, menu);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.testing_button1:
-                    EmployeeStorage.employeeList = FileManager.TestingModeLoad(); ;
-                    EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
-                    return true;
-                case Resource.Id.testing_button2:
-                    SystemSettings.LoadTestingSettings();
-                    return true;
-            }
-            return base.OnOptionsItemSelected(item);
-        }
-
         private void SettingsAlert()
         {
             new AlertDialog.Builder(this)

@@ -96,7 +96,8 @@ namespace MaydSchedulerApp
             else
             {
                 selected.empList[clickedIndex].shiftList.Clear();
-                LoadWeekList();
+                weekModified = true;
+                LoadWeek(selected);
             }
             return base.OnContextItemSelected(item);
         }

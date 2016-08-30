@@ -10,6 +10,7 @@ namespace MaydSchedulerApp
     {
         private List<EmployeeScheduleWrapper> mItems;
         private Context mContext;
+        private bool sun = false, mon = false, tue = false, wed = false, thu = false, fri = false, sat = false;
 
         public ScheduleAdapter(Context context, List<EmployeeScheduleWrapper> items)
         {
@@ -53,36 +54,43 @@ namespace MaydSchedulerApp
             TextView txtPosition = row.FindViewById<TextView>(Resource.Id.txtSchedulePosition);
             txtPosition.Text = CoreSystem.GetPositionName(mItems[position].position);
 
-            for(int i = 0; i < mItems[position].shiftList.Count; i++)
+            TextView txtSunday = row.FindViewById<TextView>(Resource.Id.txtSun);
+            TextView txtMonday = row.FindViewById<TextView>(Resource.Id.txtMon);
+            TextView txtTuesday = row.FindViewById<TextView>(Resource.Id.txtTue);
+            TextView txtWednesday = row.FindViewById<TextView>(Resource.Id.txtWed);
+            TextView txtThursday = row.FindViewById<TextView>(Resource.Id.txtThu);
+            TextView txtFriday = row.FindViewById<TextView>(Resource.Id.txtFri);
+            TextView txtSaturday = row.FindViewById<TextView>(Resource.Id.txtSat);
+            txtSunday.Text = "Off";
+            txtMonday.Text = "Off";
+            txtTuesday.Text = "Off";
+            txtWednesday.Text = "Off";
+            txtThursday.Text = "Off";
+            txtFriday.Text = "Off";
+            txtSaturday.Text = "Off";
+            for (int i = 0; i < mItems[position].shiftList.Count; i++)
             {
                 switch (mItems[position].shiftList[i].date)
                 {
                     case DayOfWeek.Sunday:
-                        TextView txtSunday = row.FindViewById<TextView>(Resource.Id.txtSun);
                         txtSunday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                     case DayOfWeek.Monday:
-                        TextView txtMonday = row.FindViewById<TextView>(Resource.Id.txtMon);
                         txtMonday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                     case DayOfWeek.Tuesday:
-                        TextView txtTuesday = row.FindViewById<TextView>(Resource.Id.txtTue);
                         txtTuesday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                     case DayOfWeek.Wednesday:
-                        TextView txtWednesday = row.FindViewById<TextView>(Resource.Id.txtWed);
                         txtWednesday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                     case DayOfWeek.Thursday:
-                        TextView txtThursday = row.FindViewById<TextView>(Resource.Id.txtThu);
                         txtThursday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                     case DayOfWeek.Friday:
-                        TextView txtFriday = row.FindViewById<TextView>(Resource.Id.txtFri);
                         txtFriday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                     case DayOfWeek.Saturday:
-                        TextView txtSaturday = row.FindViewById<TextView>(Resource.Id.txtSat);
                         txtSaturday.Text = mItems[position].shiftList[i].startShift.ToString() + "00 - " + mItems[position].shiftList[i].endShift.ToString() + "00";
                         break;
                 }

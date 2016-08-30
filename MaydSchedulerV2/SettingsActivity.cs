@@ -42,6 +42,35 @@ namespace MaydSchedulerApp
             submitButton = FindViewById<Button>(Resource.Id.btnSettingsSubmit);
             submitButton.Click += SubmitButton_Click;
         }
+        
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Layout.testing_menu, menu);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.testing_button1:
+                    EmployeeStorage.employeeList = FileManager.TestingModeLoad(); ;
+                    EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
+                    return true;
+                case Resource.Id.testing_button2:
+                    SystemSettings.LoadTestingSettings();
+                    return true;
+            }
+            switch (item.ItemId)
+            {
+                case Android.Resource.Id.Home:
+                    Finish();
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
 
         public override void OnBackPressed()
         {
@@ -95,8 +124,7 @@ namespace MaydSchedulerApp
             new AlertDialog.Builder(this)
             .SetPositiveButton("Okay", (sender, args) =>
             {
-                Intent intent = new Intent(this, typeof(SettingsActivity));
-                this.StartActivity(intent);
+                //DO NOTHING
             })
             .SetNegativeButton("Close Application", (sender, args) =>
             {
@@ -124,19 +152,6 @@ namespace MaydSchedulerApp
             }
             else
                 settingsSet = false;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Android.Resource.Id.Home:
-                    Finish();
-                    return true;
-
-                default:
-                    return base.OnOptionsItemSelected(item);
-            }
         }
     }
 }

@@ -78,6 +78,7 @@ namespace MaydSchedulerApp
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
+            loaded = true;
             editor.PutBoolean("loaded", true);
             defaultShift = _defaultShift;
             editor.PutInt("defaultShift", defaultShift);

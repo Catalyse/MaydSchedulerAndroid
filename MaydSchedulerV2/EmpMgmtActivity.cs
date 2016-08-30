@@ -50,8 +50,24 @@ namespace MaydSchedulerApp
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)menuInfo;
             var clicked = lv.GetItemAtPosition(acmi.Position);
 
-            menu.Add("Edit");
-            menu.Add("Delete");
+            menu.Add(0, 0, 0, "Edit");
+            menu.Add(1, 1, 1, "Delete");
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
+            int index = info.Position;
+            if(item.ItemId == 0)
+            {
+                //edit
+            }
+            else
+            {
+                //delete
+            }
+            Console.WriteLine(item.ItemId);
+            return base.OnContextItemSelected(item);
         }
 
         public void GenerateEmpList(List<Employee> empList)

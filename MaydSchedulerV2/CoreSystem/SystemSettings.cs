@@ -15,7 +15,7 @@ namespace MaydSchedulerApp
         public static int defaultOpenAvail, defaultCloseAvail;
         public static int skillLevelCap;
         public static Dictionary<int, string> positionList = new Dictionary<int, string>();
-        public static Dictionary<DateTime, Week> sortedWeekList = new Dictionary<DateTime, Week>();
+        public static List<DateTime> weekIndex = new List<DateTime>();
         public static List<Week> weekList = new List<Week>();
         public static int sunOpenPref, monOpenPref, tueOpenPref, wedOpenPref, thuOpenPref, friOpenPref, satOpenPref;
         public static int sunClosePref, monClosePref, tueClosePref, wedClosePref, thuClosePref, friClosePref, satClosePref;
@@ -30,6 +30,9 @@ namespace MaydSchedulerApp
             positionsCreated = CheckPositionsExist();
             if (positionsCreated)
                 GetPositionList();
+            weeksLoaded = CheckSavedWeeks();
+            if (weeksLoaded)
+                LoadWeeks();
         }
 
         private static bool CheckIfSettingsExist()
@@ -45,6 +48,12 @@ namespace MaydSchedulerApp
         }
 
         private static bool CheckPositionsExist()
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            return prefs.GetBoolean("positionsCreated", false);
+        }
+
+        private static bool CheckSavedWeeks()
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
             return prefs.GetBoolean("positionsCreated", false);
@@ -104,25 +113,37 @@ namespace MaydSchedulerApp
         {
             StringWriter writer = new StringWriter();
             XmlSerializer serializer = new XmlSerializer(typeof(Week));
-            serializer.Serialize(writer, week);
-            string serializedWeek = writer.ToString();
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             int count = prefs.GetInt("savedWeekCount", 0);
-            editor.PutString("week"+count.ToString(), serializedWeek);
-            editor.PutInt("savedWeekCount", count + 1);
-            editor.PutBoolean("weeksSaved", true);
-            editor.Apply();
-            LoadWeeks();
+            if (!weekIndex.Contains(week.startDate))
+            {
+                week.saveIndex = count;
+                serializer.Serialize(writer, week);
+                string serializedWeek = writer.ToString();
+                editor.PutString("week" + count.ToString(), serializedWeek);
+                editor.PutInt("savedWeekCount", count + 1);
+                editor.PutBoolean("weeksSaved", true);
+                editor.Apply();
+                LoadWeeks();
+            }
+            else
+            {
+                serializer.Serialize(writer, week);
+                string serializedWeek = writer.ToString();
+                editor.PutString("week" + week.saveIndex.ToString(), serializedWeek);
+                editor.PutBoolean("weeksSaved", true);
+                editor.Apply();
+            }
         }
 
         public static void LoadWeeks()
         {
             weekList = new List<Week>();
-            sortedWeekList = new Dictionary<DateTime, Week>();
+            weekIndex = new List<DateTime>();
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
-            if(prefs.GetBoolean("weeksSaved", false))
+            if(weeksLoaded)
             {
                 int count = prefs.GetInt("savedWeekCount", 0);
                 if(count < 1)//This likely means nothing is saved and the bool is fucked up
@@ -138,14 +159,10 @@ namespace MaydSchedulerApp
                         XmlSerializer serializer = new XmlSerializer(typeof(Week));
                         Week des = (Week)serializer.Deserialize(reader);
                         weekList.Add(des);
-                        sortedWeekList.Add(des.startDate, des);
+                        weekIndex.Add(des.startDate);
                     }
                     SortList();
                 }
-            }
-            else
-            {
-                //We have no weeks saved
             }
         }
 
@@ -211,6 +228,7 @@ namespace MaydSchedulerApp
             editor.PutInt("saC", saC);
             editor.PutBoolean("facilityDefaults", true);
             editor.Apply();
+            facilityDefaults = true;
         }
 
         public static int GetIntPref(string prefName)

@@ -112,7 +112,7 @@ namespace MaydSchedulerApp
         /// </summary>
         private void LoadSettings()
         {
-            if (SystemSettings.CheckIfLoaded())
+            if (SystemSettings.loaded)
             {
                 defaultShift.Text = SystemSettings.defaultShift.ToString();
                 minShift.Text = SystemSettings.minShift.ToString();

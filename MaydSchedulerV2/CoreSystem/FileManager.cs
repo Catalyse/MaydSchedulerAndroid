@@ -87,7 +87,7 @@ namespace MaydSchedulerApp
             }
         }
 
-        public static void SerializeCoreSave()
+        /*public static void SerializeCoreSave()
         {
             try
             {
@@ -106,7 +106,7 @@ namespace MaydSchedulerApp
                 System.Console.WriteLine(ex.Message);
                 System.Console.WriteLine(ex.InnerException);
             }
-        }
+        }*/
 
         /// <summary>
         /// This is specifically meant for the CoreSave since the file can be quite large
@@ -114,7 +114,7 @@ namespace MaydSchedulerApp
         /// <typeparam name="T"></typeparam>
         /// <param name="fileName"></param>
         /// <returns></returns>
-        public static void DeserializeCoreSave(string fileName)
+        /*public static void DeserializeCoreSave(string fileName)
         {
             Context context = CoreSystem.currentActivity;
             CoreSaveType returnObject;
@@ -137,7 +137,7 @@ namespace MaydSchedulerApp
                 System.Console.WriteLine("Deserialization Error! (Or the file is missing, or something else)");
                 System.Console.WriteLine(ex.Message);
             }
-        }
+        }*/
         //FILE SERIALIZATION ========================================================================================
     }
 }

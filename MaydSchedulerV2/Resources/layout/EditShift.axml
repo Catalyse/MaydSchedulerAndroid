@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:weightSum="90">
+    <Button
+        android:clickable="false"
+        android:text="ChangeThisInCode"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_weight="10"
+        android:id="@+id/btnEditTitle" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Sunday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSSunClose"
+            android:id="@+id/editInputSSunOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSMonOpen"
+            android:id="@+id/editInputSSunClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Monday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSMonClose"
+            android:id="@+id/editInputSMonOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSTueOpen"
+            android:id="@+id/editInputSMonClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Tuesday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSTueClose"
+            android:id="@+id/editInputSTueOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSWedOpen"
+            android:id="@+id/editInputSTueClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Wednesday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSWedClose"
+            android:id="@+id/editInputSWedOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSThuOpen"
+            android:id="@+id/editInputSWedClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Thursday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSThuClose"
+            android:id="@+id/editInputSThuOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSFriOpen"
+            android:id="@+id/editInputSThuClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Friday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSFriClose"
+            android:id="@+id/editInputSFriOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSSatOpen"
+            android:id="@+id/editInputSFriClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="150">
+        <TextView
+            android:text="Saturday"
+            android:textSize="20sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="50" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/editInputSSatClose"
+            android:id="@+id/editInputSSatOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_weight="50"
+            android:layout_height="match_parent"
+            android:id="@+id/editInputSSatClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:weightSum="20">
+        <Button
+            android:text="Cancel"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_weight="10"
+            android:focusable="false"
+            android:id="@+id/btnEditCancel" />
+        <Button
+            android:text="Submit"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:layout_weight="10"
+            android:focusable="false"
+            android:id="@+id/btnEditSubmit" />
+    </LinearLayout>
+</LinearLayout>

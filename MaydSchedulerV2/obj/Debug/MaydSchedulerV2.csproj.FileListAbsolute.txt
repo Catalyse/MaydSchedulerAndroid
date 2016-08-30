@@ -12,7 +12,6 @@ C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\newweek.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\pickweeklayout.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\schedulelistview.xml
-C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\setempneeds.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\sethours.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\settings.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\staffingneeds.xml
@@ -54,5 +53,7 @@ C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\as
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\assets\System.ServiceModel.Internals.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\assets\System.Xml.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\schedulehistory.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\editshift.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\MaydScheduler.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\bin\Debug\MaydScheduler.dll.mdb

@@ -6,6 +6,7 @@ namespace MaydSchedulerApp
 {
     public class Week
     {
+        public int saveIndex;
         public int julianStartDay;//Needed before algorithm
         public DateTime startDate;//Needed before algorithm
         public int earliestStart, latestEnd;//idk what this is //FIXTHIS//

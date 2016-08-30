@@ -17,6 +17,7 @@ namespace MaydSchedulerApp
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
+            CoreSystem.currentActivity = this;
             EmployeeStorage.Start();
             SystemSettings.SystemStartup();
             if (!SystemSettings.loaded)
@@ -85,7 +86,8 @@ namespace MaydSchedulerApp
 
         private void BtnHistory_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Intent intent = new Intent(this, typeof(HistoryActivity));
+            this.StartActivity(intent);
         }
 
         private void BtnEditWeek_Click(object sender, EventArgs e)

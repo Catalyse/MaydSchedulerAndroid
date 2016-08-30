@@ -91,8 +91,9 @@
     <AndroidResource Include="Resources\layout\Main.axml" />
     <AndroidResource Include="Resources\layout\NewWeek.axml" />
     <AndroidResource Include="Resources\layout\PickWeekLayout.axml" />
-    <AndroidResource Include="Resources\layout\ScheduleListView.axml" />
-    <AndroidResource Include="Resources\layout\SetEmpNeeds.axml" />
+    <AndroidResource Include="Resources\layout\ScheduleListView.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\layout\SetHours.axml" />
     <AndroidResource Include="Resources\layout\settings.axml">
       <SubType>Designer</SubType>
@@ -100,6 +101,10 @@
     <AndroidResource Include="Resources\layout\StaffingNeeds.axml" />
     <AndroidResource Include="Resources\layout\ToolBar.axml" />
     <AndroidResource Include="Resources\layout\WeeklyConfig.axml" />
+    <AndroidResource Include="Resources\layout\ScheduleHistory.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\EditShift.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml" />

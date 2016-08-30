@@ -20,14 +20,14 @@ namespace MaydSchedulerApp
         public static List<string> savedFileList = new List<string>();
         public static string GenerationDate;
 
-        //Networking Section
-        public static bool networkLoading = false;
-        public static bool networkFailure = false;
+        ////Networking Section
+        //public static bool networkLoading = false;
+        //public static bool networkFailure = false;
 
-        //This section is for thread management of the scheduling algorithm
+        ////This section is for thread management of the scheduling algorithm
         public static Week week;
-        public static bool currentlyProcessing = false;//This is for unity update loops to check if the subthread for the schedule is still running.
-        public static bool loadingCoreSave = false;
+        //public static bool currentlyProcessing = false;//This is for unity update loops to check if the subthread for the schedule is still running.
+        //public static bool loadingCoreSave = false;
 
         /// <summary>
         /// This method is used to load default system settings from file
@@ -75,9 +75,9 @@ namespace MaydSchedulerApp
                     coreSettings.GenerationDate = DateTime.Now.ToString();//THis sets the gen date, although if a save is never completed on a weeklist then the gen date wont be saved
                 }
             }
-        }*/
+        }
 
-        /*public static void CoreSettingsChanged()
+        public static void CoreSettingsChanged()
         {
             
         }*/
@@ -97,7 +97,7 @@ namespace MaydSchedulerApp
             GenerationDate = DateTime.Now.ToString();
             coreSettingsLoaded = true;
             Console.WriteLine("Core Settings File Loaded!");
-        }*/
+        }
 
         public static void LoadCoreSave()
         {
@@ -141,7 +141,7 @@ namespace MaydSchedulerApp
             coreSaveLoaded = true;
             weekList = coreSave.weekList;
             //NetworkIO.SendCoreSave();
-        }
+        }*/
 
         public static Week FindWeek(DateTime weekStartDate)
         {
@@ -172,7 +172,7 @@ namespace MaydSchedulerApp
         public static void GenerateSchedule(Week w)
         {
             Console.WriteLine("Starting Schedule Generation");
-            currentlyProcessing = true;//This allows instanced objects to track whether the threaded generation is done or not
+            //currentlyProcessing = true;//This allows instanced objects to track whether the threaded generation is done or not
             week = w;
             Thread scheduleProcess = new Thread(new ThreadStart(SchedulingAlgorithm.StartScheduleGen));
             scheduleProcess.Start();
@@ -181,7 +181,7 @@ namespace MaydSchedulerApp
         public static void GenerationComplete(Week w)
         {
             week = w;
-            currentlyProcessing = false;
+            //currentlyProcessing = false;
             if (weekList.ContainsKey(w.startDate))//This will overwrite the week in the event that it already existed and we are regenerating it.
             {
                 weekList.Remove(w.startDate);
@@ -191,7 +191,7 @@ namespace MaydSchedulerApp
             {
                 weekList.Add(w.startDate, w);
             }
-            
+            SystemSettings.SaveWeek(w);
             scheduler.DrawSchedule();
         }
 

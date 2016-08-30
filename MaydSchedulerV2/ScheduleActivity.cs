@@ -433,7 +433,7 @@ namespace MaydSchedulerApp
         public void DrawSchedule()
         {
             mode = 1;
-            this.Title = "Schedule for the week of " + pickedWeek.startDate.ToShortDateString();
+            this.Title = "Schedule for " + pickedWeek.startDate.ToShortDateString();
             SetContentView(Resource.Layout.ScheduleView);
             ScheduleAdapter adapter = new ScheduleAdapter(this, CoreSystem.week.empList);
             ListView scheduleView = FindViewById<ListView>(Resource.Id.scheduleListView);

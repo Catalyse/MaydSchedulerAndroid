@@ -38,6 +38,7 @@ namespace MaydSchedulerApp
         /// </summary>
         public static void StartScheduleGen()
         {
+            ClearVars();
             try
             {
                 week = CoreSystem.week;
@@ -50,6 +51,19 @@ namespace MaydSchedulerApp
             {
                 CoreSystem.ErrorCatch("StartScheduleGen() Exception || This is likely a fallthrough error, debug", ex);
             }
+        }
+
+        private static void ClearVars()
+        {
+            week = new Week();
+            pickedDays = new List<int>();
+            weeklyNeededShifts = new Dictionary<int, int>();
+            weeklyAvailShifts = new Dictionary<int, int>();
+            weeklyAvailabilityStatus = new Dictionary<int, bool>();
+            dailyNeededShifts = new Dictionary<int, Dictionary<int, int>>();
+            dailyAvailShifts = new Dictionary<int, Dictionary<int, int>>();
+            dailyAvailabilityStatus = new Dictionary<int, Dictionary<int, bool>>();
+            employeePositionDictionary = new Dictionary<int, List<EmployeeScheduleWrapper>>();
         }
 
         /// <summary>

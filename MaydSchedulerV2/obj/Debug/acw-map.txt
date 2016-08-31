@@ -30,3 +30,7 @@ MaydSchedulerApp.SettingsActivity, MaydScheduler;md57a5e2202be1f4c89cbd45492b2eb
 MaydSchedulerApp.SettingsActivity, MaydScheduler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57a5e2202be1f4c89cbd45492b2eba6fb.SettingsActivity
 MaydSchedulerApp.SettingsActivity;md57a5e2202be1f4c89cbd45492b2eba6fb.SettingsActivity
 maydschedulerapp.SettingsActivity;md57a5e2202be1f4c89cbd45492b2eba6fb.SettingsActivity
+MaydSchedulerApp.Splash, MaydScheduler;md57a5e2202be1f4c89cbd45492b2eba6fb.Splash
+MaydSchedulerApp.Splash, MaydScheduler, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md57a5e2202be1f4c89cbd45492b2eba6fb.Splash
+MaydSchedulerApp.Splash;md57a5e2202be1f4c89cbd45492b2eba6fb.Splash
+maydschedulerapp.Splash;md57a5e2202be1f4c89cbd45492b2eba6fb.Splash

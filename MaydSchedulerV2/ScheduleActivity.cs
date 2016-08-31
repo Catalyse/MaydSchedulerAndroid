@@ -172,7 +172,7 @@ namespace MaydSchedulerApp
         private bool CheckIfDefaultsExist()
         {
             bool exist = SystemSettings.facilityDefaults;
-            if (exist)
+            if (exist)//fixthis //need to add checkss
             {
                 sunOpen.Text = SystemSettings.GetIntPref("suO").ToString();
                 monOpen.Text = SystemSettings.GetIntPref("mO").ToString();

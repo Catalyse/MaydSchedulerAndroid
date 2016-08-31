@@ -6,15 +6,20 @@ using Android.App;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("MaydSchedulerV2")]
+[assembly: AssemblyTitle("Mayd Scheduler")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("MaydSchedulerV2")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCompany("Mayd Technologies")]
+[assembly: AssemblyProduct("Mayd Scheduler")]
+[assembly: AssemblyCopyright("Copyright © Mayd Technologies")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
+#if DEBUG
+[assembly: Application(Debuggable = true)]
+#else
+[assembly: Application(Debuggable = false)]
+#endif
 
 // Version information for an assembly consists of the following four values:
 //

@@ -8,6 +8,7 @@ C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\MaydSchedu
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\bin\MaydTechnologies.MaydScheduler.apk
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\empmgmtlayout.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\empmgmtlistview.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\scheduleview.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\main.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\newweek.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\pickweeklayout.xml
@@ -17,6 +18,10 @@ C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\staffingneeds.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\toolbar.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\weeklyconfig.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\schedulehistory.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\editshift.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\splash.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\employeeview.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\values\strings.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\drawable\icon.png
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\drawable\buttonbluestyle.xml
@@ -25,10 +30,12 @@ C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\drawab
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\drawable\global_bg.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\options_menu.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\popup_menu.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\testing_menu.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\drawable\splash.png
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\values\styles.xml
+C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\drawable\profile.jpg
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\R.cs.flag
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\uploadflags.txt
-C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\scheduleview.xml
-C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\testing_menu.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\bin\Debug\MaydScheduler.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\bin\Debug\Java.Interop.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\bin\Debug\Mono.Android.dll.mdb
@@ -53,7 +60,5 @@ C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\as
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\assets\System.ServiceModel.Internals.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\assets\System.Xml.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\android\assets\System.Xml.Linq.dll.mdb
-C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\schedulehistory.xml
-C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\res\layout\editshift.xml
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\obj\Debug\MaydScheduler.dll.mdb
 C:\Users\Catalyse\Documents\MaydSchedulerV2\MaydSchedulerV2\bin\Debug\MaydScheduler.dll.mdb

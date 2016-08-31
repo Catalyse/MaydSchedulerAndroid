@@ -16,17 +16,24 @@ namespace MaydSchedulerApp
     public class EmpMgmtActivity : Activity
     {
         private Button menu1, menu2, menu3, action1, action2;
-        ListView empListView;
-        EmpMgmtAdapter empListAdapter;
+        private ListView empListView;
+        private EmpMgmtAdapter empListAdapter;
+        private int selected;
+        private bool inEditor = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            SetContentView(Resource.Layout.EmpMgmtLayout);
             //These two methods enable the back button
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
+            GenerateEmployeeListScreen();
+        }
+
+        private void GenerateEmployeeListScreen()
+        {
+            SetContentView(Resource.Layout.EmpMgmtLayout);
             empListView = FindViewById<ListView>(Resource.Id.EmpMgmtList);
 
             GenerateEmpList(EmployeeStorage.employeeList);
@@ -34,21 +41,22 @@ namespace MaydSchedulerApp
             RegisterForContextMenu(empListView);
         }
 
-        private void Menu1_Click(object sender, EventArgs e)
+        public override void OnBackPressed()
         {
-            throw new NotImplementedException();
+            if(inEditor)
+            {
+                GenerateEmployeeListScreen();
+                inEditor = false;
+            }
+            else
+                base.OnBackPressed();
         }
 
-        private void Menu2_Click(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
-            ListView lv = (ListView)v;
-            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)menuInfo;
-            var clicked = lv.GetItemAtPosition(acmi.Position);
+            var info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            selected = info.Position;
 
             menu.Add(0, 0, 0, "Edit");
             menu.Add(1, 1, 1, "Delete");
@@ -56,18 +64,259 @@ namespace MaydSchedulerApp
 
         public override bool OnContextItemSelected(IMenuItem item)
         {
-            var info = (AdapterView.AdapterContextMenuInfo)item.MenuInfo;
-            int index = info.Position;
             if(item.ItemId == 0)
             {
-                //edit
+                OnEditEmployee(EmployeeStorage.employeeList[selected]);
             }
             else
-            {
-                //delete
+            {//delete
+                EmployeeStorage.employeeList.Remove(EmployeeStorage.employeeList[selected]);
             }
             Console.WriteLine(item.ItemId);
             return base.OnContextItemSelected(item);
+        }
+
+        TextView name, position, id;
+        EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose;
+        CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
+        Button cancel, submit;
+
+        public void OnEditEmployee(Employee emp)
+        {
+            inEditor = true;
+            SetContentView(Resource.Layout.EmployeeView);
+
+            cancel = FindViewById<Button>(Resource.Id.btnAvailCancel);
+            submit = FindViewById<Button>(Resource.Id.btnAvailSubmit);
+            name = FindViewById<TextView>(Resource.Id.empPageName);
+            position = FindViewById<TextView>(Resource.Id.empPagePosition);
+            id = FindViewById<TextView>(Resource.Id.empPageID);
+            sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
+            monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
+            tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
+            wedOpen = FindViewById<EditText>(Resource.Id.inputAvailWedOpen);
+            thuOpen = FindViewById<EditText>(Resource.Id.inputAvailThuOpen);
+            friOpen = FindViewById<EditText>(Resource.Id.inputAvailFriOpen);
+            satOpen = FindViewById<EditText>(Resource.Id.inputAvailSatOpen);
+            sunClose = FindViewById<EditText>(Resource.Id.inputAvailSunClose);
+            monClose = FindViewById<EditText>(Resource.Id.inputAvailMonClose);
+            tueClose = FindViewById<EditText>(Resource.Id.inputAvailTueClose);
+            wedClose = FindViewById<EditText>(Resource.Id.inputAvailWedClose);
+            thuClose = FindViewById<EditText>(Resource.Id.inputAvailThuClose);
+            friClose = FindViewById<EditText>(Resource.Id.inputAvailFriClose);
+            satClose = FindViewById<EditText>(Resource.Id.inputAvailSatClose);
+            sunToggle = FindViewById<CheckBox>(Resource.Id.chkAvailSunday);
+            monToggle = FindViewById<CheckBox>(Resource.Id.chkAvailMonday);
+            tueToggle = FindViewById<CheckBox>(Resource.Id.chkAvailTuesday);
+            wedToggle = FindViewById<CheckBox>(Resource.Id.chkAvailWednesday);
+            thuToggle = FindViewById<CheckBox>(Resource.Id.chkAvailThursday);
+            friToggle = FindViewById<CheckBox>(Resource.Id.chkAvailFriday);
+            satToggle = FindViewById<CheckBox>(Resource.Id.chkAvailSaturday);
+            FillData(emp);
+            sunToggle.CheckedChange += Toggle_CheckedChange;
+            monToggle.CheckedChange += Toggle_CheckedChange;
+            tueToggle.CheckedChange += Toggle_CheckedChange;
+            wedToggle.CheckedChange += Toggle_CheckedChange;
+            thuToggle.CheckedChange += Toggle_CheckedChange;
+            friToggle.CheckedChange += Toggle_CheckedChange;
+            satToggle.CheckedChange += Toggle_CheckedChange;
+            submit.Click += Submit_Click;
+            cancel.Click += Cancel_Click;
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            OnBackPressed();
+        }
+
+        private void Submit_Click(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// This catches all events from the toggles and enables or disabled the respective edittext boxes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Toggle_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
+        {
+            CheckBox obj = (CheckBox)sender;
+            switch(obj.Text)
+            {
+                case "Sunday":
+                    if(!sunToggle.Checked)
+                    {
+                        sunOpen.Enabled = false;
+                        sunClose.Enabled = false;
+                    }
+                    else
+                    {
+                        sunOpen.Enabled = true;
+                        sunClose.Enabled = true;
+                    }
+                    break;
+                case "Monday":
+                    if (!monToggle.Checked)
+                    {
+                        monOpen.Enabled = false;
+                        monClose.Enabled = false;
+                    }
+                    else
+                    {
+                        monOpen.Enabled = true;
+                        monClose.Enabled = true;
+                    }
+                    break;
+                case "Tuesday":
+                    if (!tueToggle.Checked)
+                    {
+                        tueOpen.Enabled = false;
+                        tueClose.Enabled = false;
+                    }
+                    else
+                    {
+                        tueOpen.Enabled = true;
+                        tueClose.Enabled = true;
+                    }
+                    break;
+                case "Wednesday":
+                    if (!wedToggle.Checked)
+                    {
+                        wedOpen.Enabled = false;
+                        wedClose.Enabled = false;
+                    }
+                    else
+                    {
+                        wedOpen.Enabled = true;
+                        wedClose.Enabled = true;
+                    }
+                    break;
+                case "Thursday":
+                    if (!thuToggle.Checked)
+                    {
+                        thuOpen.Enabled = false;
+                        thuClose.Enabled = false;
+                    }
+                    else
+                    {
+                        thuOpen.Enabled = true;
+                        thuClose.Enabled = true;
+                    }
+                    break;
+                case "Friday":
+                    if (!friToggle.Checked)
+                    {
+                        friOpen.Enabled = false;
+                        friClose.Enabled = false;
+                    }
+                    else
+                    {
+                        friOpen.Enabled = true;
+                        friClose.Enabled = true;
+                    }
+                    break;
+                case "Saturday":
+                    if (!satToggle.Checked)
+                    {
+                        satOpen.Enabled = false;
+                        satClose.Enabled = false;
+                    }
+                    else
+                    {
+                        satOpen.Enabled = true;
+                        satClose.Enabled = true;
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// This populates the screen with existing employee data.
+        /// </summary>
+        /// <param name="emp"></param>
+        private void FillData(Employee emp)
+        {
+            name.Text = emp.empLastName + ", " + emp.empFirstName;
+            position.Text = SystemSettings.positionList[emp.position];
+            id.Text = emp.empID.ToString();
+            sunToggle.Checked = emp.availability.sunday.available;
+            monToggle.Checked = emp.availability.sunday.available;
+            tueToggle.Checked = emp.availability.sunday.available;
+            wedToggle.Checked = emp.availability.sunday.available;
+            thuToggle.Checked = emp.availability.sunday.available;
+            friToggle.Checked = emp.availability.sunday.available;
+            satToggle.Checked = emp.availability.sunday.available;
+            if (sunToggle.Checked)
+            {
+                sunOpen.Text = emp.availability.sunday.startTime.ToString();
+                sunClose.Text = emp.availability.sunday.endTime.ToString();
+            }
+            else
+            {
+                sunOpen.Text = "";
+                sunClose.Text = "";
+            }
+            if (monToggle.Checked)
+            {
+                monOpen.Text = emp.availability.monday.startTime.ToString();
+                monClose.Text = emp.availability.monday.endTime.ToString();
+            }
+            else
+            {
+                monOpen.Text = "";
+                monClose.Text = "";
+            }
+            if (tueToggle.Checked)
+            {
+                tueOpen.Text = emp.availability.tuesday.startTime.ToString();
+                tueClose.Text = emp.availability.tuesday.endTime.ToString();
+            }
+            else
+            {
+                tueOpen.Text = "";
+                tueClose.Text = "";
+            }
+            if (wedToggle.Checked)
+            {
+                wedOpen.Text = emp.availability.wednesday.startTime.ToString();
+                wedClose.Text = emp.availability.wednesday.endTime.ToString();
+            }
+            else
+            {
+                wedOpen.Text = "";
+                wedClose.Text = "";
+            }
+            if (thuToggle.Checked)
+            {
+                thuOpen.Text = emp.availability.thursday.startTime.ToString();
+                thuClose.Text = emp.availability.thursday.endTime.ToString();
+            }
+            else
+            {
+                thuOpen.Text = "";
+                thuClose.Text = "";
+            }
+            if (friToggle.Checked)
+            {
+                friOpen.Text = emp.availability.friday.startTime.ToString();
+                friClose.Text = emp.availability.friday.endTime.ToString();
+            }
+            else
+            {
+                friOpen.Text = "";
+                friClose.Text = "";
+            }
+            if (satToggle.Checked)
+            {
+                satOpen.Text = emp.availability.saturday.startTime.ToString();
+                satClose.Text = emp.availability.saturday.endTime.ToString();
+            }
+            else
+            {
+                satOpen.Text = "";
+                satClose.Text = "";
+            }
         }
 
         public void GenerateEmpList(List<Employee> empList)
@@ -93,7 +342,7 @@ namespace MaydSchedulerApp
             switch (item.ItemId)
             {
                 case Android.Resource.Id.Home:
-                    Finish();
+                    OnBackPressed();
                     return true;
 
                 default:

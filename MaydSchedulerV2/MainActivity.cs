@@ -8,7 +8,7 @@ using Android.Preferences;
 
 namespace MaydSchedulerApp
 {
-    [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, MainLauncher = true, Icon = "@drawable/icon")]
+    [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
         public static bool testingMode = false;

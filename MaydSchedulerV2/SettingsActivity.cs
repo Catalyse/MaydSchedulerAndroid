@@ -60,9 +60,6 @@ namespace MaydSchedulerApp
                 case Resource.Id.testing_button2:
                     SystemSettings.LoadTestingSettings();
                     return true;
-            }
-            switch (item.ItemId)
-            {
                 case Android.Resource.Id.Home:
                     Finish();
                     return true;

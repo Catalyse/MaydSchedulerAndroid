@@ -4,14 +4,14 @@ using Android.App;
 using Android.Content;
 using Android.Widget;
 using Android.OS;
-using Android.Views;
-using Android.Preferences;
+using Firebase.Analytics;
 
 namespace MaydSchedulerApp
 {
     [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
+        private FirebaseAnalytics analytics;
         public static bool testingMode = false, weekClicked = false;
         private Button BtnNewWeek, BtnQuickWeek, BtnHistory, BtnEmpMgmt, BtnAbout, BtnSettings;
         private int count;
@@ -22,6 +22,7 @@ namespace MaydSchedulerApp
         {
             base.OnCreate(bundle);
             CoreSystem.currentActivity = this;
+            analytics = FirebaseAnalytics.GetInstance(this);
             EmployeeStorage.Start();
             SystemSettings.SystemStartup();
             if (!SystemSettings.loaded)
@@ -95,30 +96,8 @@ namespace MaydSchedulerApp
 
         private void RecentView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            switch(e.Position)
-            {
-                case 0:
-                    weekClicked = true;
-                    clickedIndex = 1;
-                    break;
-
-                case 1:
-                    weekClicked = true;
-                    clickedIndex = 2;
-                    break;
-                case 2:
-                    weekClicked = true;
-                    clickedIndex = 3;
-                    break;
-                case 3:
-                    weekClicked = true;
-                    clickedIndex = 4;
-                    break;
-                case 4:
-                    weekClicked = true;
-                    clickedIndex = 5;
-                    break;
-            }
+            weekClicked = true;
+            clickedIndex = e.Position;
             Intent intent = new Intent(this, typeof(HistoryActivity));
             this.StartActivity(intent);
         }

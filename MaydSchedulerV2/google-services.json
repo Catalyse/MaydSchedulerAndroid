@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1005717397327",
+    "firebase_url": "https://mayd-scheduler.firebaseio.com",
+    "project_id": "mayd-scheduler",
+    "storage_bucket": "mayd-scheduler.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1005717397327:android:3a8b03639347e823",
+        "android_client_info": {
+          "package_name": "MaydTechnologies.MaydScheduler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1005717397327-k39n36u4gbehioq6begjmh8cpmmp9kc6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "MaydTechnologies.MaydScheduler",
+            "certificate_hash": "8A59D412DBB763AFD2B56103D7EE7A557FF7C5A5"
+          }
+        },
+        {
+          "client_id": "1005717397327-vkji55a4omd8keqj8gf34gf5kjt3b6j0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlCWessCCCC2j_9JGPhH7HYFUwTcX4kvc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1005717397327-vkji55a4omd8keqj8gf34gf5kjt3b6j0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

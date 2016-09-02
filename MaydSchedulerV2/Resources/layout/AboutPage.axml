@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="18sp"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_weight="90"
+        android:text="Thank you for using the Mayd Scheduler! I strive to put the best I have into everything I make, so if you have a suggestion or found something that annoys you please let me know so I can try to fix it, or to improve the overall user experience." />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="10"
+        android:gravity="bottom"
+        android:text="This project includes the use of Google Play Services for error reporting and analytics, minimal data usage will occur." />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_weight="10"
+        android:gravity="bottom"
+        android:text="Copyright © Taylor May / Mayd Technologies" />
+</LinearLayout>

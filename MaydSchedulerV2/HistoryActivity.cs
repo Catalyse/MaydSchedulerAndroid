@@ -8,21 +8,29 @@ using Android.Widget;
 
 namespace MaydSchedulerApp
 {
-    [Activity(Label = "Schedule History", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan)]
+    [Activity(Label = "Schedule History/Editor", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan)]
     public class HistoryActivity : Activity
     {
         private Week selected;
         private EmployeeScheduleWrapper currentEmp;
         private bool weekSelected = false, editSubmitChanged = false, weekModified = false, inEditor = false;
         private int clickedIndex = 0;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
-            LoadWeekList();
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
+            if(MainActivity.weekClicked)
+            {
+                selected = SystemSettings.weekList[MainActivity.clickedIndex];
+                LoadWeek(selected);
+            }
+            else
+                LoadWeekList();
         }
 
+        #region OVERRIDE
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
             switch (item.ItemId)
@@ -43,14 +51,20 @@ namespace MaydSchedulerApp
                 LoadWeek(selected);
                 inEditor = false;
             }
+            else if (MainActivity.weekClicked)
+            {
+                weekSelected = false;
+                MainActivity.weekClicked = false;
+                Finish();
+            }
             else if (weekSelected)
             {
-                if(weekModified)
+                if (weekModified)
                 {
                     SystemSettings.SaveWeek(selected);
                 }
-                LoadWeekList();
                 weekSelected = false;
+                LoadWeekList();
             }
             else
                 base.OnBackPressed();
@@ -66,17 +80,6 @@ namespace MaydSchedulerApp
             return base.DispatchTouchEvent(ev);
         }
 
-        private void LoadWeek(Week w)
-        {
-            weekSelected = true;
-            this.Title = "Schedule for " + selected.startDate.ToShortDateString();
-            SetContentView(Resource.Layout.ScheduleView);
-            ScheduleAdapter adapter = new ScheduleAdapter(this, w.empList);
-            ListView scheduleView = FindViewById<ListView>(Resource.Id.scheduleListView);
-            scheduleView.Adapter = adapter;
-            RegisterForContextMenu(scheduleView);
-        }
-
         public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
         {
             ListView lv = (ListView)v;
@@ -89,7 +92,7 @@ namespace MaydSchedulerApp
 
         public override bool OnContextItemSelected(IMenuItem item)
         {
-            if(item.ItemId == 0)
+            if (item.ItemId == 0)
             {
                 EditEmployeeShift(selected.empList[clickedIndex]);
             }
@@ -100,6 +103,18 @@ namespace MaydSchedulerApp
                 LoadWeek(selected);
             }
             return base.OnContextItemSelected(item);
+        }
+        #endregion OVERRIDE
+
+        private void LoadWeek(Week w)
+        {
+            weekSelected = true;
+            this.Title = "Schedule for " + w.startDate.ToShortDateString();
+            SetContentView(Resource.Layout.ScheduleView);
+            ScheduleAdapter adapter = new ScheduleAdapter(this, w.empList);
+            ListView scheduleView = FindViewById<ListView>(Resource.Id.scheduleListView);
+            scheduleView.Adapter = adapter;
+            RegisterForContextMenu(scheduleView);
         }
 
         EditText sunOpen, monOpen, tueOpen, wedOpen, thuOpen, friOpen, satOpen, sunClose, monClose, tueClose, wedClose, thuClose, friClose, satClose;
@@ -262,7 +277,9 @@ namespace MaydSchedulerApp
         private void LoadWeekList()
         {
             SetContentView(Resource.Layout.ScheduleHistory);
-
+            inEditor = false;
+            weekSelected = false;
+            this.Title = "Schedule History/Editor";
             ListView historyView = FindViewById<ListView>(Resource.Id.historyListView);
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ConvertToStringList());
             historyView.Adapter = adapter;

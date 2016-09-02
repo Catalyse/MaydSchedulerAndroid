@@ -182,7 +182,7 @@ namespace MaydSchedulerApp
                     {
                         current = weekList[i];
                         next = weekList[i + 1];
-                        if (DateTime.Compare(current.startDate, next.startDate) > 0)
+                        if (DateTime.Compare(current.startDate, next.startDate) < 0)
                         {
                             weekList[i] = next;
                             weekList[i + 1] = current;

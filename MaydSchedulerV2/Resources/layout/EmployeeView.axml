@@ -33,29 +33,52 @@
                 android:layout_weight="10"
                 android:layout_marginLeft="3dp"
                 android:weightSum="30">
-                <TextView
-                    android:text="May, Taylor"
-                    android:textSize="18dp"
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_height="0dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:layout_weight="10"
-                    android:id="@+id/empPageName" />
-                <TextView
+                    android:layout_marginLeft="3dp">
+                    <EditText
+                        android:text="May"
+                        android:textSize="18dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_weight="10"
+                        android:background="@android:color/transparent"
+                        android:hint="Last Name"
+                        android:id="@+id/empPageLastName" />
+                    <EditText
+                        android:text="Taylor"
+                        android:textSize="18dp"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:layout_weight="10"
+                        android:background="@android:color/transparent"
+                        android:hint="First Name"
+                        android:id="@+id/empPageFirstName" />
+                </LinearLayout>
+                <EditText
                     android:text="Solutions Specialist"
                     android:textSize="18dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:gravity="center_vertical"
                     android:layout_weight="10"
+                    android:background="@android:color/transparent"
+                    android:hint="Employee Position"
                     android:id="@+id/empPagePosition" />
-                <TextView
+                <EditText
                     android:text="1234567"
                     android:textSize="18dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:gravity="center_vertical"
                     android:layout_weight="10"
+                    android:background="@android:color/transparent"
+                    android:hint="Employee ID"
                     android:id="@+id/empPageID" />
             </LinearLayout>
         </LinearLayout>

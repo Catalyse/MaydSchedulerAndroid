@@ -4,68 +4,109 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/global_bg"
-    android:weightSum="100"
     android:minWidth="25px"
     android:minHeight="25px">
-    <Button
-        android:text="New Week"
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:gravity="center"
+        android:text="Recent Schedules" />
+    <ListView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="20"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/ButtonBlueStyle"
-        android:textSize="20sp"
-        android:id="@+id/newWeekBtn" />
-    <Button
-        android:text="Edit Week"
+        android:dividerHeight="1px"
+        android:divider="#737373"
+        android:id="@+id/homeRecentWeeks" />
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/ButtonBlueStyle"
-        android:textSize="20sp"
-        android:id="@+id/editWeekBtn" />
-    <Button
-        android:text="Schedule History"
+        android:layout_weight="20">
+        <Button
+            android:text="New Week"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ButtonBlueStyle"
+            android:textSize="20sp"
+            android:id="@+id/newWeekBtn" />
+        <Button
+            android:text="Quick Week"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ButtonBlueStyle"
+            android:textSize="20sp"
+            android:id="@+id/quickWeekBtn" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/ButtonBlueStyle"
-        android:textSize="20sp"
-        android:id="@+id/historyBtn" />
-    <Button
-        android:text="Employee Management"
+        android:layout_weight="20">
+        <Button
+            android:text="History/Editor"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ButtonBlueStyle"
+            android:textSize="20sp"
+            android:id="@+id/historyBtn" />
+        <Button
+            android:text="Employees"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ButtonBlueStyle"
+            android:textSize="20sp"
+            android:id="@+id/empMgmtBtn" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="20"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/ButtonBlueStyle"
-        android:textSize="20sp"
-        android:id="@+id/empMgmtBtn" />
-    <Button
-        android:text="Settings"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="20"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="5dp"
-        android:textColor="#FFFFFF"
-        android:background="@drawable/ButtonBlueStyle"
-        android:textSize="20sp"
-        android:id="@+id/settingsBtn" />
+        android:layout_weight="20">
+        <Button
+            android:text="About"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="2dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ButtonBlueStyle"
+            android:textSize="20sp"
+            android:id="@+id/aboutBtn" />
+        <Button
+            android:text="Settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="20"
+            android:layout_marginLeft="2dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="5dp"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/ButtonBlueStyle"
+            android:textSize="20sp"
+            android:id="@+id/settingsBtn" />
+    </LinearLayout>
 </LinearLayout>

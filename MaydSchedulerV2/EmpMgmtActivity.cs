@@ -12,15 +12,16 @@ using Android.Widget;
 
 namespace MaydSchedulerApp
 {
-    [Activity(Label = "Employee Management", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Theme = "@android:style/Theme.Material")]
+    [Activity(Label = "Employee Management", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Theme = "@android:style/Theme.Material", WindowSoftInputMode = SoftInput.AdjustPan)]
     public class EmpMgmtActivity : Activity
     {
         private Button menu1, menu2, action1, action2;
         private ListView empListView;
         private EmpMgmtAdapter empListAdapter;
         private int selected;
-        private bool inEditor = false;
+        private bool inEditor = false, submitChanged = false;
 
+        #region override
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -31,14 +32,14 @@ namespace MaydSchedulerApp
             GenerateEmployeeListScreen();
         }
 
-        private void GenerateEmployeeListScreen()
+        public override bool DispatchTouchEvent(MotionEvent ev)
         {
-            SetContentView(Resource.Layout.EmpMgmtLayout);
-            empListView = FindViewById<ListView>(Resource.Id.EmpMgmtList);
-
-            GenerateEmpList(EmployeeStorage.employeeList);
-
-            RegisterForContextMenu(empListView);
+            if (submitChanged)
+            {
+                submit.Text = "Submit";
+                submitChanged = false;
+            }
+            return base.DispatchTouchEvent(ev);
         }
 
         public override void OnBackPressed()
@@ -76,7 +77,45 @@ namespace MaydSchedulerApp
             return base.OnContextItemSelected(item);
         }
 
-        TextView name, position, id;
+        public override bool OnCreateOptionsMenu(IMenu menu)
+        {
+            MenuInflater.Inflate(Resource.Layout.options_menu, menu);
+            action1 = FindViewById<Button>(Resource.Id.action_button1);
+            action2 = FindViewById<Button>(Resource.Id.action_button2);
+            return true;
+        }
+
+        public override bool OnOptionsItemSelected(IMenuItem item)
+        {
+            switch (item.ItemId)
+            {
+                case Resource.Id.action_button1:
+                    OnAddEmployee();
+                    return true;
+                case Resource.Id.action_button2:
+
+                    return true;
+                case Android.Resource.Id.Home:
+                    OnBackPressed();
+                    return true;
+
+                default:
+                    return base.OnOptionsItemSelected(item);
+            }
+        }
+        #endregion override
+
+        private void GenerateEmployeeListScreen()
+        {
+            SetContentView(Resource.Layout.EmpMgmtLayout);
+            empListView = FindViewById<ListView>(Resource.Id.EmpMgmtList);
+
+            GenerateEmpList(EmployeeStorage.employeeList);
+
+            RegisterForContextMenu(empListView);
+        }
+
+        EditText firstName, lastName, position, id;
         EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose;
         CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
         Button cancel, submit;
@@ -88,9 +127,18 @@ namespace MaydSchedulerApp
 
             cancel = FindViewById<Button>(Resource.Id.btnAvailCancel);
             submit = FindViewById<Button>(Resource.Id.btnAvailSubmit);
-            name = FindViewById<TextView>(Resource.Id.empPageName);
-            position = FindViewById<TextView>(Resource.Id.empPagePosition);
-            id = FindViewById<TextView>(Resource.Id.empPageID);
+            firstName = FindViewById<EditText>(Resource.Id.empPageFirstName);
+            firstName.Text = "";
+            firstName.Focusable = true;
+            lastName = FindViewById<EditText>(Resource.Id.empPageLastName);
+            lastName.Focusable = true;
+            lastName.Text = "";
+            position = FindViewById<EditText>(Resource.Id.empPagePosition);
+            position.Focusable = true;
+            position.Text = "";
+            id = FindViewById<EditText>(Resource.Id.empPageID);
+            id.Focusable = true;
+
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
@@ -130,9 +178,14 @@ namespace MaydSchedulerApp
 
             cancel = FindViewById<Button>(Resource.Id.btnAvailCancel);
             submit = FindViewById<Button>(Resource.Id.btnAvailSubmit);
-            name = FindViewById<TextView>(Resource.Id.empPageName);
-            position = FindViewById<TextView>(Resource.Id.empPagePosition);
-            id = FindViewById<TextView>(Resource.Id.empPageID);
+            firstName = FindViewById<EditText>(Resource.Id.empPageFirstName);
+            firstName.Focusable = false;
+            lastName = FindViewById<EditText>(Resource.Id.empPageLastName);
+            lastName.Focusable = false;
+            position = FindViewById<EditText>(Resource.Id.empPagePosition);
+            position.Focusable = false;
+            id = FindViewById<EditText>(Resource.Id.empPageID);
+            id.Focusable = false;
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
@@ -237,16 +290,76 @@ namespace MaydSchedulerApp
 
         private void SubmitAdd_Click(object sender, EventArgs e)
         {
+            #region avail
+            Availability avail = new Availability();
+            if (sunToggle.Checked)
+            {
+                avail.sunday.available = true;
+                avail.sunday.startTime = int.Parse(sunOpen.Text);
+                avail.sunday.endTime = int.Parse(sunClose.Text);
+            }
+            else
+                avail.sunday.available = false;
+            if (monToggle.Checked)
+            {
+                avail.monday.available = true;
+                avail.monday.startTime = int.Parse(monOpen.Text);
+                avail.monday.endTime = int.Parse(monClose.Text);
+            }
+            else
+                avail.monday.available = false;
+            if (tueToggle.Checked)
+            {
+                avail.tuesday.available = true;
+                avail.tuesday.startTime = int.Parse(tueOpen.Text);
+                avail.tuesday.endTime = int.Parse(tueClose.Text);
+            }
+            else
+                avail.tuesday.available = false;
+            if (wedToggle.Checked)
+            {
+                avail.wednesday.available = true;
+                avail.wednesday.startTime = int.Parse(wedOpen.Text);
+                avail.wednesday.endTime = int.Parse(wedClose.Text);
+            }
+            else
+                avail.wednesday.available = false;
+            if (thuToggle.Checked)
+            {
+                avail.thursday.available = true;
+                avail.thursday.startTime = int.Parse(thuOpen.Text);
+                avail.thursday.endTime = int.Parse(thuClose.Text);
+            }
+            else
+                avail.thursday.available = false;
+            if (friToggle.Checked)
+            {
+                avail.friday.available = true;
+                avail.friday.startTime = int.Parse(friOpen.Text);
+                avail.friday.endTime = int.Parse(friClose.Text);
+            }
+            else
+                avail.friday.available = false;
+            if (satToggle.Checked)
+            {
+                avail.saturday.available = true;
+                avail.saturday.startTime = int.Parse(satOpen.Text);
+                avail.saturday.endTime = int.Parse(satClose.Text);
+            }
+            else
+                avail.saturday.available = false;
+            #endregion avail
 
         }
 
-        private void FieldValidation()
+        private bool FieldValidation()
         {
             if (sunToggle.Checked)
             {
                 if(sunOpen.Text == "" || sunClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
             if (monToggle.Checked)
@@ -254,6 +367,7 @@ namespace MaydSchedulerApp
                 if (monOpen.Text == "" || monClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
             if (tueToggle.Checked)
@@ -261,6 +375,7 @@ namespace MaydSchedulerApp
                 if (tueOpen.Text == "" || tueClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
             if (wedToggle.Checked)
@@ -268,6 +383,7 @@ namespace MaydSchedulerApp
                 if (wedOpen.Text == "" || wedClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
             if (thuToggle.Checked)
@@ -275,6 +391,7 @@ namespace MaydSchedulerApp
                 if (thuOpen.Text == "" || thuClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
             if (friToggle.Checked)
@@ -282,6 +399,7 @@ namespace MaydSchedulerApp
                 if (friOpen.Text == "" || friClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
             if (satToggle.Checked)
@@ -289,13 +407,16 @@ namespace MaydSchedulerApp
                 if (satOpen.Text == "" || satClose.Text == "")
                 {
                     ValidationFailure();
+                    return false;
                 }
             }
+            return true;
         }
 
         private void ValidationFailure()
         {
-
+            submit.Text = "Fill out all fields!";
+            submitChanged = true;
         }
 
         /// <summary>
@@ -401,7 +522,8 @@ namespace MaydSchedulerApp
         /// <param name="emp"></param>
         private void FillData(Employee emp)
         {
-            name.Text = emp.empLastName + ", " + emp.empFirstName;
+            firstName.Text = emp.empFirstName;
+            lastName.Text = emp.empLastName;
             position.Text = SystemSettings.positionList[emp.position];
             id.Text = emp.empID.ToString();
             sunToggle.Checked = emp.availability.sunday.available;
@@ -490,33 +612,6 @@ namespace MaydSchedulerApp
                 empListAdapter = new EmpMgmtAdapter(this, empList);
 
                 empListView.Adapter = empListAdapter;
-            }
-        }
-        
-        public override bool OnCreateOptionsMenu(IMenu menu)
-        {
-            MenuInflater.Inflate(Resource.Layout.options_menu, menu);
-            action1 = FindViewById<Button>(Resource.Id.action_button1);
-            action2 = FindViewById<Button>(Resource.Id.action_button2);
-            return true;
-        }
-
-        public override bool OnOptionsItemSelected(IMenuItem item)
-        {
-            switch (item.ItemId)
-            {
-                case Resource.Id.pop_button1:
-                    OnAddEmployee();
-                    return true;
-                case Resource.Id.pop_button2:
-
-                    return true;
-                case Android.Resource.Id.Home:
-                    OnBackPressed();
-                    return true;
-
-                default:
-                    return base.OnOptionsItemSelected(item);
             }
         }
     }

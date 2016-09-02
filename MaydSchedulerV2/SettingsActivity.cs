@@ -42,15 +42,39 @@ namespace MaydSchedulerApp
             submitButton = FindViewById<Button>(Resource.Id.btnSettingsSubmit);
             submitButton.Click += SubmitButton_Click;
         }
-        
+
+        #region OVERRIDE
+        public override void OnBackPressed()
+        {
+            if (!settingsSet)
+            {
+                SettingsNotLoadedAlert();
+            }
+            else
+                base.OnBackPressed();
+        }
+
+        public override bool DispatchTouchEvent(MotionEvent ev)
+        {
+            if (submitChanged)
+            {
+                submitButton.Text = "Submit";
+                submitChanged = false;
+            }
+            return base.DispatchTouchEvent(ev);
+        }
+
+        #if DEBUG
         public override bool OnCreateOptionsMenu(IMenu menu)
         {
             MenuInflater.Inflate(Resource.Layout.testing_menu, menu);
             return true;
         }
+        #endif
 
         public override bool OnOptionsItemSelected(IMenuItem item)
         {
+            #if DEBUG
             switch (item.ItemId)
             {
                 case Resource.Id.testing_button1:
@@ -60,6 +84,10 @@ namespace MaydSchedulerApp
                 case Resource.Id.testing_button2:
                     SystemSettings.LoadTestingSettings();
                     return true;
+            #else
+            switch(item.ItemId)
+            {
+            #endif
                 case Android.Resource.Id.Home:
                     Finish();
                     return true;
@@ -68,16 +96,7 @@ namespace MaydSchedulerApp
                     return base.OnOptionsItemSelected(item);
             }
         }
-
-        public override void OnBackPressed()
-        {
-            if(!settingsSet)
-            {
-                SettingsNotLoadedAlert();
-            }
-            else
-                base.OnBackPressed();
-        }
+        #endregion OVERRIDE
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
@@ -94,17 +113,6 @@ namespace MaydSchedulerApp
                 Finish();
             }
         }
-
-        public override bool DispatchTouchEvent(MotionEvent ev)
-        {
-            if (submitChanged)
-            {
-                submitButton.Text = "Submit";
-                submitChanged = false;
-            }
-            return base.DispatchTouchEvent(ev);
-        }
-
 
         private void CancelButton_Click(object sender, EventArgs e)
         {

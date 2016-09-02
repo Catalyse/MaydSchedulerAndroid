@@ -10,7 +10,6 @@ namespace MaydSchedulerApp
     {
         private List<EmployeeScheduleWrapper> mItems;
         private Context mContext;
-        private bool sun = false, mon = false, tue = false, wed = false, thu = false, fri = false, sat = false;
 
         public ScheduleAdapter(Context context, List<EmployeeScheduleWrapper> items)
         {

@@ -71,7 +71,7 @@ namespace MaydSchedulerApp
             }
             else
             {//delete
-                EmployeeStorage.employeeList.Remove(EmployeeStorage.employeeList[selected]);
+                RemovalAlert();
             }
             Console.WriteLine(item.ItemId);
             return base.OnContextItemSelected(item);
@@ -104,6 +104,22 @@ namespace MaydSchedulerApp
             }
         }
         #endregion override
+
+        private void RemovalAlert()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Yes", (sender, args) =>
+            {
+                EmployeeStorage.RemoveEmployee(selected);
+            })
+            .SetNegativeButton("No", (sender, args) =>
+            {
+                //do nothing
+            })
+            .SetMessage("Are you sure you want to remove " + EmployeeStorage.employeeList[selected].empLastName + ", " + EmployeeStorage.employeeList[selected].empFirstName + " from the employee list?")
+            .SetTitle("Remove Employee?")
+            .Show();
+        }
 
         private void GenerateEmployeeListScreen()
         {

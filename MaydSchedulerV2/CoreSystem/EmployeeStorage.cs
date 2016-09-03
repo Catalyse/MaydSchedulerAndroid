@@ -1,6 +1,7 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace MaydSchedulerApp
 {
@@ -8,12 +9,27 @@ namespace MaydSchedulerApp
     {
         public static List<Employee> employeeList = new List<Employee>();
 
+        public static void TestingModeLoad()
+        {
+            List<Employee> storage = new List<Employee>();
+
+            XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));
+
+            TextReader reader = new StringReader(TempData.EmpList);
+            if (reader == null)
+            { }
+            //throw new EmpListNotFoundErr();
+            storage = (List<Employee>)serializer.Deserialize(reader);
+            reader.Close();
+
+            employeeList = storage;
+        }
+
         public static void Start()
         {
             if (MainActivity.testingMode)
             {
-                employeeList = FileManager.TestingModeLoad();
-
+                TestingModeLoad();
             }
             else
             {
@@ -30,6 +46,12 @@ namespace MaydSchedulerApp
         public static void AddEmployee(Employee toAdd)
         {
             employeeList.Add(toAdd);
+            SortList();
+        }
+
+        public static void RemoveEmployee(int toRemove)
+        {
+            employeeList.RemoveAt(toRemove);
             SortList();
         }
 

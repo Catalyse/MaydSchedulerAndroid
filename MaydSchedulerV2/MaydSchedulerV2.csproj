@@ -72,7 +72,6 @@
     <Compile Include="CoreSystem\EmpListSerializer.cs" />
     <Compile Include="CoreSystem\EmployeeStorage.cs" />
     <Compile Include="CoreSystem\FileManager.cs" />
-    <Compile Include="CoreSystem\NetworkIO.cs" />
     <Compile Include="CoreSystem\SchedulingAlgorithm.cs" />
     <Compile Include="CoreSystem\ServerCommand.cs" />
     <Compile Include="CoreSystem\SystemSettings.cs" />
@@ -145,7 +144,6 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="empList.xml" />
     <AndroidResource Include="Resources\drawable\ButtonBlueStyle.xml" />
     <AndroidResource Include="Resources\drawable\ButtonSignUp.xml" />
     <AndroidResource Include="Resources\drawable\edit_text_style.xml" />

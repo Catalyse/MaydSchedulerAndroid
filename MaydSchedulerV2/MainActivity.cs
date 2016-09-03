@@ -43,26 +43,42 @@ namespace MaydSchedulerApp
             BtnAbout.Click += BtnAbout_Click;
             BtnSettings.Click += BtnSettings_Click;
 
+            StartAnalytics();
             FillRecentList();
             SetupButtons();
         }
-
-        private void StartAnalytics()
-        {
-            //check if they have a UUID, or make one
-            tracker = GoogleAnalytics.GetInstance(Application.Context).NewTracker(TrackerId);
-            tracker.SetScreenName("MaydScheduler");
-            tracker.SetClientId(Java.Util.UUID.RandomUUID().ToString());
-            tracker.Send(new HitBuilders.ScreenViewBuilder().Build());
-            tracker.EnableAutoActivityTracking(true);
-            tracker.EnableExceptionReporting(true);
-        }
-        
+        #region OVERRIDE
         protected override void OnRestart()
         {
             recentView.ItemClick -= RecentView_ItemClick;
             FillRecentList();
             base.OnRestart();
+        }
+
+        protected override void OnDestroy()
+        {
+            EmployeeStorage.OnDestroy();
+            base.OnDestroy();
+        }
+        #endregion OVERRIDE
+        private void StartAnalytics()
+        {
+            string UUID;
+            if(SystemSettings.UUIDLoaded)
+            {
+                UUID = SystemSettings.UUID;
+            }
+            else
+            {
+                UUID = Java.Util.UUID.RandomUUID().ToString();
+                SystemSettings.SetUUID(UUID);
+            }
+            tracker = GoogleAnalytics.GetInstance(Application.Context).NewTracker(TrackerId);
+            tracker.SetScreenName("MaydScheduler");
+            tracker.SetClientId(UUID);
+            tracker.Send(new HitBuilders.ScreenViewBuilder().Build());
+            tracker.EnableAutoActivityTracking(true);
+            tracker.EnableExceptionReporting(true);
         }
 
         private void SetupButtons()

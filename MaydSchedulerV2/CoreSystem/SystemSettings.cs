@@ -19,7 +19,8 @@ namespace MaydSchedulerApp
         public static List<Week> weekList = new List<Week>();
         public static int sunOpenPref, monOpenPref, tueOpenPref, wedOpenPref, thuOpenPref, friOpenPref, satOpenPref;
         public static int sunClosePref, monClosePref, tueClosePref, wedClosePref, thuClosePref, friClosePref, satClosePref;
-        public static bool loaded, facilityDefaults, positionsCreated, weeksLoaded;
+        public static bool loaded, facilityDefaults, positionsCreated, weeksLoaded, UUIDLoaded;
+        public static string UUID;
 
         public static void SystemStartup()
         {
@@ -33,6 +34,9 @@ namespace MaydSchedulerApp
             weeksLoaded = CheckSavedWeeks();
             if (weeksLoaded)
                 LoadWeeks();
+            UUIDLoaded = CheckUUID();
+            if (UUIDLoaded)
+                GetUUID();
         }
 
         private static bool CheckIfSettingsExist()
@@ -57,6 +61,29 @@ namespace MaydSchedulerApp
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
             return prefs.GetBoolean("positionsCreated", false);
+        }
+
+        private static bool CheckUUID()
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            return prefs.GetBoolean("UUID", false);
+        }
+
+        private static string GetUUID()
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            return prefs.GetString("UUID", "null");
+        }
+
+        public static void SetUUID(string id)
+        {
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferencesEditor editor = prefs.Edit();
+            editor.PutString("UUID", id);
+            editor.PutBoolean("UUID", true);
+            UUIDLoaded = true;
+            UUID = id.ToString();
+            editor.Apply();
         }
 
         public static void LoadTestingSettings()

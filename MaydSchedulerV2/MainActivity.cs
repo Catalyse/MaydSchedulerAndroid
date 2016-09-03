@@ -4,14 +4,15 @@ using Android.App;
 using Android.Content;
 using Android.Widget;
 using Android.OS;
-using Firebase.Analytics;
+using Android.Gms.Analytics;
 
 namespace MaydSchedulerApp
 {
     [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/icon")]
     public class MainActivity : Activity
     {
-        private FirebaseAnalytics analytics;
+        private string TrackerId = "UA-18006016-7";
+        public static Tracker tracker;
         public static bool testingMode = false, weekClicked = false;
         private Button BtnNewWeek, BtnQuickWeek, BtnHistory, BtnEmpMgmt, BtnAbout, BtnSettings;
         private int count;
@@ -22,7 +23,6 @@ namespace MaydSchedulerApp
         {
             base.OnCreate(bundle);
             CoreSystem.currentActivity = this;
-            analytics = FirebaseAnalytics.GetInstance(this);
             EmployeeStorage.Start();
             SystemSettings.SystemStartup();
             if (!SystemSettings.loaded)
@@ -45,6 +45,17 @@ namespace MaydSchedulerApp
 
             FillRecentList();
             SetupButtons();
+        }
+
+        private void StartAnalytics()
+        {
+            //check if they have a UUID, or make one
+            tracker = GoogleAnalytics.GetInstance(Application.Context).NewTracker(TrackerId);
+            tracker.SetScreenName("MaydScheduler");
+            tracker.SetClientId(Java.Util.UUID.RandomUUID().ToString());
+            tracker.Send(new HitBuilders.ScreenViewBuilder().Build());
+            tracker.EnableAutoActivityTracking(true);
+            tracker.EnableExceptionReporting(true);
         }
         
         protected override void OnRestart()
@@ -118,7 +129,8 @@ namespace MaydSchedulerApp
 
         private void BtnAbout_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            Intent intent = new Intent(this, typeof(AboutActivity));
+            this.StartActivity(intent);
         }
 
         private void BtnQuickWeek_Click(object sender, EventArgs e)

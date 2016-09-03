@@ -15,8 +15,8 @@ using Android.App;
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
-[assembly: UsesPermission(Android.Manifest.Permission.Internet)]
-[assembly: UsesPermission(Android.Manifest.Permission.AccessNetworkState)]
+[assembly: UsesPermission (Android.Manifest.Permission.Internet)]
+[assembly: UsesPermission (Android.Manifest.Permission.AccessNetworkState)]
 #if DEBUG
 [assembly: Application(Debuggable = true)]
 #else

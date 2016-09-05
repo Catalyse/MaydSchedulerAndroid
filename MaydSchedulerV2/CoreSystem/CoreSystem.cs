@@ -16,18 +16,7 @@ namespace MaydSchedulerApp
         public static ScheduleActivity scheduler;
         public static bool coreSettingsLoaded = false;
         public static bool coreSaveLoaded = false;
-        public static SerializableDictionary<DateTime, Week> weekList = new SerializableDictionary<DateTime, Week>();
-        public static List<string> savedFileList = new List<string>();
-        public static string GenerationDate;
-
-        ////Networking Section
-        //public static bool networkLoading = false;
-        //public static bool networkFailure = false;
-
-        ////This section is for thread management of the scheduling algorithm
         public static Week week;
-        //public static bool currentlyProcessing = false;//This is for unity update loops to check if the subthread for the schedule is still running.
-        //public static bool loadingCoreSave = false;
 
         /// <summary>
         /// This method is used to load default system settings from file
@@ -143,14 +132,6 @@ namespace MaydSchedulerApp
             //NetworkIO.SendCoreSave();
         }*/
 
-        public static Week FindWeek(DateTime weekStartDate)
-        {
-            if(weekList.ContainsKey(weekStartDate.Date))
-                return weekList[weekStartDate.Date];
-            else
-                return null;
-        }
-
         public static string GetPositionName(int type)
         {
             if (SystemSettings.positionList.ContainsKey(type))
@@ -181,16 +162,6 @@ namespace MaydSchedulerApp
         public static void GenerationComplete(Week w)
         {
             week = w;
-            //currentlyProcessing = false;
-            if (weekList.ContainsKey(w.startDate))//This will overwrite the week in the event that it already existed and we are regenerating it.
-            {
-                weekList.Remove(w.startDate);
-                weekList.Add(w.startDate, w);
-            }
-            else
-            {
-                weekList.Add(w.startDate, w);
-            }
             SystemSettings.SaveWeek(w);
             scheduler.DrawSchedule();
         }

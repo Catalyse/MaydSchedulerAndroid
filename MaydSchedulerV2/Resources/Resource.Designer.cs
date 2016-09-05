@@ -622,6 +622,9 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f050002
 			public const int common_google_play_services_unknown_issue = 2131034114;
 			
+			// aapt resource value: 0x7f050005
+			public const int posPrompt = 2131034117;
+			
 			static String()
 			{
 				global::Android.Runtime.ResourceIdManager.UpdateIdValues();

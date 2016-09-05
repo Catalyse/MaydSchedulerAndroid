@@ -21,18 +21,9 @@ namespace MaydSchedulerApp
             {
                 int daysToFirstWeek = DayOfWeekValue(date.DayOfWeek);
                 date = date.AddDays(daysToFirstWeek);
-                Week tempWeek = CoreSystem.FindWeek(date);
-                if (tempWeek == null)//Week has not been created, generate
-                {
-                    tempWeek = new Week(date);
-                    CoreSystem.weekList.Add(date, tempWeek);
-                    weekList.Add(tempWeek);
-                }
-                else//Week has been generated, and we will replace it if chosen
-                {
-                    tempWeek = new Week(date);
-                    weekList.Add(tempWeek);
-                }
+                Week tempWeek;
+                tempWeek = new Week(date);
+                weekList.Add(tempWeek);
             }
 
             List<string> weekListString = new List<string>();

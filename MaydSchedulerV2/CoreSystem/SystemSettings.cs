@@ -66,7 +66,7 @@ namespace MaydSchedulerApp
         private static bool CheckUUID()
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
-            return prefs.GetBoolean("UUID", false);
+            return prefs.GetBoolean("UUIDSet", false);
         }
 
         private static string GetUUID()
@@ -84,6 +84,14 @@ namespace MaydSchedulerApp
             UUIDLoaded = true;
             UUID = id.ToString();
             editor.Apply();
+        }
+
+        public static bool FindWeek(DateTime weekStartDate)
+        {
+            if (weekIndex.Contains(weekStartDate))
+                return true;
+            else
+                return false;
         }
 
         public static void LoadTestingSettings()

@@ -14,11 +14,10 @@
             android:orientation="horizontal"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_weight="70"
-            android:weightSum="20">
+            android:layout_weight="70">
             <ImageView
                 android:src="@drawable/profile"
-                android:layout_width="fill_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="2dp"
                 android:layout_marginTop="5dp"
@@ -29,8 +28,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="10"
+                android:layout_width="0dp"
+                android:layout_weight="15"
                 android:layout_marginLeft="3dp"
                 android:weightSum="30">
                 <LinearLayout
@@ -60,15 +59,12 @@
                         android:hint="First Name"
                         android:id="@+id/empPageFirstName" />
                 </LinearLayout>
-                <EditText
-                    android:text="Solutions Specialist"
-                    android:textSize="18dp"
+                <Spinner
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:gravity="center_vertical"
                     android:layout_weight="10"
-                    android:background="@android:color/transparent"
-                    android:hint="Employee Position"
+                    android:layout_marginRight="10dp"
+                    android:prompt="@string/posPrompt"
                     android:id="@+id/empPagePosition" />
                 <EditText
                     android:text="1234567"

@@ -64,16 +64,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutActivity.cs" />
-    <Compile Include="CoreSystem\AzureManager.cs" />
     <Compile Include="CoreSystem\CoreSystem.cs" />
-    <Compile Include="CoreSystem\Design\ScheduleAdapter.cs" />
-    <Compile Include="CoreSystem\Design\EmpMgmtAdapter.cs" />
-    <Compile Include="CoreSystem\Design\PickWeek.cs" />
+    <Compile Include="CoreSystem\ScheduleAdapter.cs" />
+    <Compile Include="CoreSystem\EmpMgmtAdapter.cs" />
+    <Compile Include="CoreSystem\PickWeek.cs" />
     <Compile Include="CoreSystem\EmpListSerializer.cs" />
     <Compile Include="CoreSystem\EmployeeStorage.cs" />
-    <Compile Include="CoreSystem\FileManager.cs" />
     <Compile Include="CoreSystem\SchedulingAlgorithm.cs" />
-    <Compile Include="CoreSystem\ServerCommand.cs" />
     <Compile Include="CoreSystem\SystemSettings.cs" />
     <Compile Include="CoreSystem\Types\Availability.cs" />
     <Compile Include="CoreSystem\Types\CoreSaveType.cs" />
@@ -135,7 +132,9 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\Strings.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\Icon.png" />

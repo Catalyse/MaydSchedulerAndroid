@@ -6,8 +6,8 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
+using Android.Views.InputMethods;
 using Android.Widget;
 
 namespace MaydSchedulerApp
@@ -46,6 +46,8 @@ namespace MaydSchedulerApp
         {
             if(inEditor)
             {
+                InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                imm.HideSoftInputFromWindow(this.CurrentFocus.WindowToken, HideSoftInputFlags.None);
                 GenerateEmployeeListScreen();
                 inEditor = false;
             }
@@ -131,7 +133,8 @@ namespace MaydSchedulerApp
             RegisterForContextMenu(empListView);
         }
 
-        EditText firstName, lastName, position, id;
+        EditText firstName, lastName, id;
+        Spinner position;
         EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose;
         CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
         Button cancel, submit;
@@ -149,9 +152,10 @@ namespace MaydSchedulerApp
             lastName = FindViewById<EditText>(Resource.Id.empPageLastName);
             lastName.Focusable = true;
             lastName.Text = "";
-            position = FindViewById<EditText>(Resource.Id.empPagePosition);
+            position = FindViewById<Spinner>(Resource.Id.empPagePosition);
+            position.Adapter = FillSpinner();
             position.Focusable = true;
-            position.Text = "";
+            position.SetSelection(0);
             id = FindViewById<EditText>(Resource.Id.empPageID);
             id.Focusable = true;
 
@@ -198,8 +202,11 @@ namespace MaydSchedulerApp
             firstName.Focusable = false;
             lastName = FindViewById<EditText>(Resource.Id.empPageLastName);
             lastName.Focusable = false;
-            position = FindViewById<EditText>(Resource.Id.empPagePosition);
+            position = FindViewById<Spinner>(Resource.Id.empPagePosition);
+            position.Adapter = FillSpinner();
             position.Focusable = false;
+            position.SetSelection(emp.position+1);
+            position.Enabled = false;
             id = FindViewById<EditText>(Resource.Id.empPageID);
             id.Focusable = false;
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
@@ -242,6 +249,8 @@ namespace MaydSchedulerApp
 
         private void Submit_Click(object sender, EventArgs e)
         {
+            if (!FieldValidation())
+                return;
             Availability avail = new Availability();
             if(sunToggle.Checked)
             {
@@ -306,6 +315,8 @@ namespace MaydSchedulerApp
 
         private void SubmitAdd_Click(object sender, EventArgs e)
         {
+            if (!FieldValidation())
+                return;
             #region avail
             Availability avail = new Availability();
             if (sunToggle.Checked)
@@ -366,10 +377,36 @@ namespace MaydSchedulerApp
                 avail.saturday.available = false;
             #endregion avail
 
+            Employee newEmp = new Employee();
+            newEmp.availability = avail;
+            newEmp.empFirstName = firstName.Text;
+            newEmp.empLastName = lastName.Text;
+            newEmp.position = position.SelectedItemPosition-1;
+            newEmp.empID = int.Parse(id.Text);
+        }
+
+        private ArrayAdapter<string> FillSpinner()
+        {
+            List<string> posList = new List<string>();
+            posList.Add("Select One");
+            posList.AddRange(SystemSettings.positionList.Values);
+            var adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleSpinnerItem, posList);
+            adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            return adapter;
         }
 
         private bool FieldValidation()
         {
+            if (firstName.Text == "" || lastName.Text == "" || position.SelectedItemPosition == 0 || id.Text == "")
+            {
+                ValidationFailure();
+                return false;
+            }
+            if (!sunToggle.Checked && !monToggle.Checked && !tueToggle.Checked && !wedToggle.Checked && !thuToggle.Checked && !friToggle.Checked && !satToggle.Checked)
+            {
+                ValidationFailure();
+                return false;
+            }
             if (sunToggle.Checked)
             {
                 if(sunOpen.Text == "" || sunClose.Text == "")
@@ -540,7 +577,7 @@ namespace MaydSchedulerApp
         {
             firstName.Text = emp.empFirstName;
             lastName.Text = emp.empLastName;
-            position.Text = SystemSettings.positionList[emp.position];
+            //position.Text = SystemSettings.positionList[emp.position];
             id.Text = emp.empID.ToString();
             sunToggle.Checked = emp.availability.sunday.available;
             monToggle.Checked = emp.availability.monday.available;

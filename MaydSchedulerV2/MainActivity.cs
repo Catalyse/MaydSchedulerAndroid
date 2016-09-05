@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Android.App;
+using Android.Views;
 using Android.Content;
 using Android.Widget;
 using Android.OS;
@@ -8,7 +9,7 @@ using Android.Gms.Analytics;
 
 namespace MaydSchedulerApp
 {
-    [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/icon")]
+    [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/icon", WindowSoftInputMode = SoftInput.AdjustPan)]
     public class MainActivity : Activity
     {
         private string TrackerId = "UA-18006016-7";
@@ -52,6 +53,7 @@ namespace MaydSchedulerApp
         {
             recentView.ItemClick -= RecentView_ItemClick;
             FillRecentList();
+            SetupButtons();
             base.OnRestart();
         }
 
@@ -85,11 +87,13 @@ namespace MaydSchedulerApp
         {
             if(SystemSettings.weeksLoaded)
             {
-
+                string recentWeek = SystemSettings.weekList[0].startDate.ToShortDateString();
+                BtnQuickWeek.Enabled = true;
+                BtnQuickWeek.Text = "Quick Week Based on: " + recentWeek;
             }
             else
-            {
-
+            {//Since we have nothing to base a quick week on.
+                BtnQuickWeek.Enabled = false;
             }
         }
 
@@ -151,7 +155,26 @@ namespace MaydSchedulerApp
 
         private void BtnQuickWeek_Click(object sender, EventArgs e)
         {
-            throw new NotImplementedException();
+            QuickPrompt();
+        }
+
+        private void QuickPrompt()
+        {
+            new AlertDialog.Builder(this)
+            .SetCancelable(false)
+            .SetPositiveButton("Copy hours and staffing", (sender, args) =>
+            {
+                Intent intent = new Intent(this, typeof(SettingsActivity));
+                this.StartActivity(intent);
+            })
+            .SetNegativeButton("Duplicate", (sender, args) =>
+            {
+                Intent intent = new Intent(this, typeof(SettingsActivity));
+                this.StartActivity(intent);
+            })
+            .SetMessage("You can either duplicate the previous week exactly, then modify it if you wish, or generate a new week with the same facility hours and staffing needs.")
+            .SetTitle("Quick Week")
+            .Show();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)

@@ -9,7 +9,7 @@
     <Button
         android:clickable="false"
         android:text="ChangeThisInCode"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
         android:textSize="20sp"
         android:gravity="center"
@@ -18,14 +18,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Sunday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSSunClose"
@@ -33,7 +33,7 @@
         <EditText
             android:hint="Sunday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSMonOpen"
@@ -42,14 +42,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Monday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSMonClose"
@@ -57,7 +57,7 @@
         <EditText
             android:hint="Monday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSTueOpen"
@@ -66,14 +66,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Tuesday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSTueClose"
@@ -81,7 +81,7 @@
         <EditText
             android:hint="Tuesday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSWedOpen"
@@ -90,14 +90,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Wednesday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSWedClose"
@@ -105,7 +105,7 @@
         <EditText
             android:hint="Wednesday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSThuOpen"
@@ -114,14 +114,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Thursday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSThuClose"
@@ -129,7 +129,7 @@
         <EditText
             android:hint="Thursday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSFriOpen"
@@ -138,14 +138,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Friday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSFriClose"
@@ -153,7 +153,7 @@
         <EditText
             android:hint="Friday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSSatOpen"
@@ -162,14 +162,14 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="10"
         android:minHeight="25px"
         android:weightSum="100">
         <EditText
             android:hint="Saturday Open"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:nextFocusDown="@+id/inputSSatClose"
@@ -177,14 +177,14 @@
         <EditText
             android:hint="Saturday Close"
             android:inputType="number"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_weight="50"
             android:layout_height="match_parent"
             android:id="@+id/inputSSatClose" />
     </LinearLayout>
     <Button
         android:text="Submit"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="10"
         android:focusable="false"

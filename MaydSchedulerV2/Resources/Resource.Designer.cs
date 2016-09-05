@@ -558,25 +558,22 @@ namespace MaydSchedulerApp
 			public const int ScheduleView = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int SetHours = 2130903053;
+			public const int settings = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int settings = 2130903054;
+			public const int Splash = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int Splash = 2130903055;
+			public const int StaffingNeeds = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int StaffingNeeds = 2130903056;
+			public const int testing_menu = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int testing_menu = 2130903057;
+			public const int ToolBar = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int ToolBar = 2130903058;
-			
-			// aapt resource value: 0x7f030013
-			public const int WeeklyConfig = 2130903059;
+			public const int WeeklyConfig = 2130903058;
 			
 			static Layout()
 			{

@@ -113,6 +113,7 @@ namespace MaydSchedulerApp
             .SetPositiveButton("Yes", (sender, args) =>
             {
                 EmployeeStorage.RemoveEmployee(selected);
+                GenerateEmployeeListScreen();
             })
             .SetNegativeButton("No", (sender, args) =>
             {
@@ -135,8 +136,8 @@ namespace MaydSchedulerApp
 
         EditText firstName, lastName, id;
         Spinner position;
-        EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose;
-        CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
+        EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, skillLevel, shiftPref;
+        CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle, fullTime, overTime;
         Button cancel, submit;
 
         public void OnAddEmployee()
@@ -158,7 +159,14 @@ namespace MaydSchedulerApp
             position.SetSelection(0);
             id = FindViewById<EditText>(Resource.Id.empPageID);
             id.Focusable = true;
-
+            fullTime = FindViewById<CheckBox>(Resource.Id.chkFullTime);
+            fullTime.Checked = true;
+            overTime = FindViewById<CheckBox>(Resource.Id.chkOvertime);
+            overTime.Checked = false;
+            skillLevel = FindViewById<EditText>(Resource.Id.inputSkillLevel);
+            skillLevel.Text = "";
+            shiftPref = FindViewById<EditText>(Resource.Id.inputShiftPref);
+            shiftPref.Text = "";
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
@@ -209,6 +217,15 @@ namespace MaydSchedulerApp
             position.Enabled = false;
             id = FindViewById<EditText>(Resource.Id.empPageID);
             id.Focusable = false;
+            fullTime = FindViewById<CheckBox>(Resource.Id.chkFullTime);
+            if (emp.hourTarget >= 40) fullTime.Checked = true;
+            else fullTime.Checked = false;
+            overTime = FindViewById<CheckBox>(Resource.Id.chkOvertime);
+            overTime.Checked = emp.overtimeAllowed;
+            skillLevel = FindViewById<EditText>(Resource.Id.inputSkillLevel);
+            skillLevel.Text = emp.skillLevel.ToString();
+            shiftPref = FindViewById<EditText>(Resource.Id.inputShiftPref);
+            shiftPref.Text = emp.shiftPreference.ToString();
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
@@ -397,7 +414,7 @@ namespace MaydSchedulerApp
 
         private bool FieldValidation()
         {
-            if (firstName.Text == "" || lastName.Text == "" || position.SelectedItemPosition == 0 || id.Text == "")
+            if (firstName.Text == "" || lastName.Text == "" || position.SelectedItemPosition == 0 || id.Text == "" || shiftPref.Text == "" || skillLevel.Text == "")
             {
                 ValidationFailure();
                 return false;

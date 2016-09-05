@@ -1,329 +1,378 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minWidth="25px"
+    android:minHeight="25px"
+    android:id="@+id/weeklyConfigLayout">
     <LinearLayout
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:minWidth="25px"
-        android:minHeight="25px"
-        android:weightSum="160"
-        android:id="@+id/weeklyConfigLayout">
+        android:layout_weight="40">
+        <ImageView
+            android:src="@drawable/profile"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="5dp"
+            android:scaleType="fitCenter"
+            android:maxHeight="50px"
+            android:adjustViewBounds="true"
+            android:layout_weight="10" />
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_weight="70">
-            <ImageView
-                android:src="@drawable/profile"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="2dp"
-                android:layout_marginTop="5dp"
-                android:scaleType="fitCenter"
-                android:maxHeight="50px"
-                android:adjustViewBounds="true"
-                android:layout_weight="10" />
+            android:orientation="vertical"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="15"
+            android:layout_marginLeft="3dp">
             <LinearLayout
-                android:orientation="vertical"
-                android:layout_height="match_parent"
-                android:layout_width="0dp"
-                android:layout_weight="15"
-                android:layout_marginLeft="3dp"
-                android:weightSum="30">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:layout_height="0dp"
-                    android:layout_width="match_parent"
-                    android:layout_weight="10"
-                    android:layout_marginLeft="3dp">
-                    <EditText
-                        android:text="May"
-                        android:textSize="18dp"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_weight="10"
-                        android:background="@android:color/transparent"
-                        android:hint="Last Name"
-                        android:id="@+id/empPageLastName" />
-                    <EditText
-                        android:text="Taylor"
-                        android:textSize="18dp"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:layout_weight="10"
-                        android:background="@android:color/transparent"
-                        android:hint="First Name"
-                        android:id="@+id/empPageFirstName" />
-                </LinearLayout>
-                <Spinner
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="10"
-                    android:layout_marginRight="10dp"
-                    android:prompt="@string/posPrompt"
-                    android:id="@+id/empPagePosition" />
+                android:orientation="horizontal"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="10"
+                android:layout_marginLeft="3dp">
                 <EditText
-                    android:text="1234567"
+                    android:text="Employee"
                     android:textSize="18dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:layout_weight="10"
                     android:background="@android:color/transparent"
-                    android:hint="Employee ID"
-                    android:id="@+id/empPageID" />
+                    android:hint="Last Name"
+                    android:id="@+id/empPageLastName" />
+                <EditText
+                    android:text="Test"
+                    android:textSize="18dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:layout_weight="10"
+                    android:background="@android:color/transparent"
+                    android:hint="First Name"
+                    android:id="@+id/empPageFirstName" />
+            </LinearLayout>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="10"
+                android:layout_marginRight="10dp"
+                android:prompt="@string/posPrompt"
+                android:id="@+id/empPagePosition" />
+            <EditText
+                android:text="1234567"
+                android:inputType="number"
+                android:textSize="18dp"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center_vertical"
+                android:layout_weight="10"
+                android:background="@android:color/transparent"
+                android:hint="Employee ID"
+                android:id="@+id/empPageID" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_height="0dp"
+                android:layout_width="match_parent"
+                android:layout_weight="10">
+                <CheckBox
+                    android:id="@+id/chkFullTime"
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_height="match_parent"
+                    android:text="FullTime"
+                    android:checked="true" />
+                <CheckBox
+                    android:id="@+id/chkOvertime"
+                    android:layout_width="0dp"
+                    android:layout_weight="10"
+                    android:layout_height="match_parent"
+                    android:text="Overtime Allowed"
+                    android:checked="true" />
             </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:text="Availability"
-            android:textSize="20sp"
-            android:layout_weight="10"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginBottom="2dp"
-            android:gravity="center" />
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailSunday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Sunday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailSunClose"
-                android:id="@+id/inputAvailSunOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailMonOpen"
-                android:id="@+id/inputAvailSunClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailMonday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Monday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailMonClose"
-                android:id="@+id/inputAvailMonOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailTueOpen"
-                android:id="@+id/inputAvailMonClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailTuesday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Tuesday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailTueClose"
-                android:id="@+id/inputAvailTueOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailWedOpen"
-                android:id="@+id/inputAvailTueClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailWednesday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Wednesday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailWedClose"
-                android:id="@+id/inputAvailWedOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailThuOpen"
-                android:id="@+id/inputAvailWedClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailThursday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Thursday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailThuClose"
-                android:id="@+id/inputAvailThuOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailFriOpen"
-                android:id="@+id/inputAvailThuClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailFriday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Friday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailFriClose"
-                android:id="@+id/inputAvailFriOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailSatOpen"
-                android:id="@+id/inputAvailFriClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="10"
-            android:minHeight="25px"
-            android:weightSum="100">
-            <CheckBox
-                android:id="@+id/chkAvailSaturday"
-                android:layout_width="match_parent"
-                android:layout_weight="34"
-                android:layout_height="match_parent"
-                android:text="Saturday"
-                android:checked="true" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:nextFocusDown="@+id/inputAvailSatClose"
-                android:id="@+id/inputAvailSatOpen" />
-            <EditText
-                android:hint="Off"
-                android:inputType="number"
-                android:layout_width="match_parent"
-                android:layout_weight="33"
-                android:layout_height="match_parent"
-                android:id="@+id/inputAvailSatClose" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_weight="10"
-            android:weightSum="20"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent">
-            <Button
-                android:text="Cancel"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="10"
-                android:focusable="false"
-                android:id="@+id/btnAvailCancel" />
-            <Button
-                android:text="Submit"
-                android:layout_height="match_parent"
-                android:layout_width="match_parent"
-                android:layout_weight="10"
-                android:focusable="false"
-                android:id="@+id/btnAvailSubmit" />
-        </LinearLayout>
     </LinearLayout>
-</FrameLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_weight="10">
+        <TextView
+            android:text="Skill Level"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical" />
+        <EditText
+            android:hint="e.g. 5"
+            android:inputType="number"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/inputSkillLevel"
+            android:nextFocusDown="@+id/inputShiftPref" />
+        <TextView
+            android:text="Shift Preference"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:gravity="center_vertical" />
+        <EditText
+            android:hint="e.g. 8"
+            android:inputType="number"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:id="@+id/inputShiftPref"
+            android:nextFocusDown="@+id/inputAvailSunOpen" />
+    </LinearLayout>
+    <TextView
+        android:text="Availability"
+        android:textSize="20sp"
+        android:layout_weight="6"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:gravity="center" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailSunday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Sunday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailSunClose"
+            android:id="@+id/inputAvailSunOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailMonOpen"
+            android:id="@+id/inputAvailSunClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailMonday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Monday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailMonClose"
+            android:id="@+id/inputAvailMonOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailTueOpen"
+            android:id="@+id/inputAvailMonClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailTuesday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Tuesday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailTueClose"
+            android:id="@+id/inputAvailTueOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailWedOpen"
+            android:id="@+id/inputAvailTueClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailWednesday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Wednesday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailWedClose"
+            android:id="@+id/inputAvailWedOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailThuOpen"
+            android:id="@+id/inputAvailWedClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailThursday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Thursday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailThuClose"
+            android:id="@+id/inputAvailThuOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailFriOpen"
+            android:id="@+id/inputAvailThuClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailFriday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Friday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailFriClose"
+            android:id="@+id/inputAvailFriOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailSatOpen"
+            android:id="@+id/inputAvailFriClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"
+        android:minHeight="25px"
+        android:weightSum="100">
+        <CheckBox
+            android:id="@+id/chkAvailSaturday"
+            android:layout_width="0dp"
+            android:layout_weight="34"
+            android:layout_height="match_parent"
+            android:text="Saturday"
+            android:checked="true" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:nextFocusDown="@+id/inputAvailSatClose"
+            android:id="@+id/inputAvailSatOpen" />
+        <EditText
+            android:hint="Off"
+            android:inputType="number"
+            android:layout_width="0dp"
+            android:layout_weight="33"
+            android:layout_height="match_parent"
+            android:id="@+id/inputAvailSatClose" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:layout_width="match_parent">
+        <Button
+            android:text="Cancel"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:focusable="false"
+            android:id="@+id/btnAvailCancel" />
+        <Button
+            android:text="Submit"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:focusable="false"
+            android:id="@+id/btnAvailSubmit" />
+    </LinearLayout>
+</LinearLayout>

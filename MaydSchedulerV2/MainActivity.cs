@@ -59,7 +59,7 @@ namespace MaydSchedulerApp
 
         protected override void OnDestroy()
         {
-            EmployeeStorage.OnDestroy();
+            EmployeeStorage.OnSaveList();
             base.OnDestroy();
         }
         #endregion OVERRIDE

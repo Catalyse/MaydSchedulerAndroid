@@ -47,12 +47,14 @@ namespace MaydSchedulerApp
         {
             employeeList.Add(toAdd);
             SortList();
+            OnSaveList();
         }
 
         public static void RemoveEmployee(int toRemove)
         {
             employeeList.RemoveAt(toRemove);
             SortList();
+            OnSaveList();
         }
 
         public static void OverWriteList(List<Employee> empList)
@@ -132,7 +134,7 @@ namespace MaydSchedulerApp
             EmpListSerializer.DeleteEmpListFile();
         }
 
-        public static void OnDestroy()
+        public static void OnSaveList()
         {
             if (employeeList.Count > 0)
             {

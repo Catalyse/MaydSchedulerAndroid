@@ -64,7 +64,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutActivity.cs" />
-    <Compile Include="CoreSystem\CoreSystem.cs" />
     <Compile Include="CoreSystem\ScheduleAdapter.cs" />
     <Compile Include="CoreSystem\EmpMgmtAdapter.cs" />
     <Compile Include="CoreSystem\PickWeek.cs" />
@@ -127,6 +126,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\AboutPage.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\PositionManager.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

@@ -18,7 +18,7 @@ namespace MaydSchedulerApp
 
             try
             {
-                Context context = CoreSystem.currentActivity;
+                Context context = MainActivity.currentActivity;
                 XmlDocument xmlDocument = new XmlDocument();
                 XmlSerializer serializer = new XmlSerializer(list.GetType());
                 Stream stream = context.OpenFileOutput(fileName, FileCreationMode.Private);
@@ -38,7 +38,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                Context context = CoreSystem.currentActivity;
+                Context context = MainActivity.currentActivity;
                 List<Employee> storage = new List<Employee>();
 
                 XmlSerializer serializer = new XmlSerializer(typeof(List<Employee>));

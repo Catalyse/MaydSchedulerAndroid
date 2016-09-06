@@ -120,20 +120,20 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080003
 			public const int btnEditTitle = 2131230723;
 			
-			// aapt resource value: 0x7f080060
-			public const int btnSettingsCancel = 2131230816;
+			// aapt resource value: 0x7f08005d
+			public const int btnSettingsCancel = 2131230813;
 			
-			// aapt resource value: 0x7f080061
-			public const int btnSettingsSubmit = 2131230817;
+			// aapt resource value: 0x7f08005e
+			public const int btnSettingsSubmit = 2131230814;
 			
-			// aapt resource value: 0x7f080071
-			public const int btnStaffingSubmit = 2131230833;
-			
-			// aapt resource value: 0x7f080062
-			public const int btnStaffingTitle = 2131230818;
+			// aapt resource value: 0x7f08006e
+			public const int btnStaffingSubmit = 2131230830;
 			
 			// aapt resource value: 0x7f08005f
-			public const int btnWeeklySubmit = 2131230815;
+			public const int btnStaffingTitle = 2131230815;
+			
+			// aapt resource value: 0x7f08005c
+			public const int btnWeeklySubmit = 2131230812;
 			
 			// aapt resource value: 0x7f08002d
 			public const int chkAvailFriday = 2131230765;
@@ -156,32 +156,32 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080027
 			public const int chkAvailWednesday = 2131230759;
 			
-			// aapt resource value: 0x7f080085
-			public const int chkFriday = 2131230853;
+			// aapt resource value: 0x7f080082
+			public const int chkFriday = 2131230850;
 			
 			// aapt resource value: 0x7f080019
 			public const int chkFullTime = 2131230745;
 			
-			// aapt resource value: 0x7f080079
-			public const int chkMonday = 2131230841;
+			// aapt resource value: 0x7f080076
+			public const int chkMonday = 2131230838;
 			
 			// aapt resource value: 0x7f08001a
 			public const int chkOvertime = 2131230746;
 			
-			// aapt resource value: 0x7f080088
-			public const int chkSaturday = 2131230856;
+			// aapt resource value: 0x7f080085
+			public const int chkSaturday = 2131230853;
 			
-			// aapt resource value: 0x7f080075
-			public const int chkSunday = 2131230837;
-			
-			// aapt resource value: 0x7f080082
-			public const int chkThursday = 2131230850;
-			
-			// aapt resource value: 0x7f08007c
-			public const int chkTuesday = 2131230844;
+			// aapt resource value: 0x7f080072
+			public const int chkSunday = 2131230834;
 			
 			// aapt resource value: 0x7f08007f
-			public const int chkWednesday = 2131230847;
+			public const int chkThursday = 2131230847;
+			
+			// aapt resource value: 0x7f080079
+			public const int chkTuesday = 2131230841;
+			
+			// aapt resource value: 0x7f08007c
+			public const int chkWednesday = 2131230844;
 			
 			// aapt resource value: 0x7f080045
 			public const int chooseWeekListView = 2131230789;
@@ -294,113 +294,113 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080026
 			public const int inputAvailWedOpen = 2131230758;
 			
-			// aapt resource value: 0x7f08005e
-			public const int inputDefaultClose = 2131230814;
-			
-			// aapt resource value: 0x7f08005c
-			public const int inputDefaultOpen = 2131230812;
-			
 			// aapt resource value: 0x7f080054
 			public const int inputDefaultShift = 2131230804;
 			
-			// aapt resource value: 0x7f080086
-			public const int inputFriClose = 2131230854;
+			// aapt resource value: 0x7f080083
+			public const int inputFriClose = 2131230851;
 			
-			// aapt resource value: 0x7f080084
-			public const int inputFriOpen = 2131230852;
+			// aapt resource value: 0x7f080081
+			public const int inputFriOpen = 2131230849;
 			
-			// aapt resource value: 0x7f080058
-			public const int inputMaxShift = 2131230808;
+			// aapt resource value: 0x7f08005b
+			public const int inputFullTime = 2131230811;
 			
 			// aapt resource value: 0x7f080056
-			public const int inputMinShift = 2131230806;
+			public const int inputMaxShift = 2131230806;
 			
-			// aapt resource value: 0x7f08007a
-			public const int inputMonClose = 2131230842;
+			// aapt resource value: 0x7f080055
+			public const int inputMinShift = 2131230805;
 			
-			// aapt resource value: 0x7f080078
-			public const int inputMonOpen = 2131230840;
+			// aapt resource value: 0x7f080077
+			public const int inputMonClose = 2131230839;
 			
-			// aapt resource value: 0x7f08006e
-			public const int inputSFriClose = 2131230830;
+			// aapt resource value: 0x7f080075
+			public const int inputMonOpen = 2131230837;
 			
-			// aapt resource value: 0x7f08006d
-			public const int inputSFriOpen = 2131230829;
-			
-			// aapt resource value: 0x7f080066
-			public const int inputSMonClose = 2131230822;
-			
-			// aapt resource value: 0x7f080065
-			public const int inputSMonOpen = 2131230821;
-			
-			// aapt resource value: 0x7f080070
-			public const int inputSSatClose = 2131230832;
-			
-			// aapt resource value: 0x7f08006f
-			public const int inputSSatOpen = 2131230831;
-			
-			// aapt resource value: 0x7f080063
-			public const int inputSSunClose = 2131230819;
-			
-			// aapt resource value: 0x7f080064
-			public const int inputSSunOpen = 2131230820;
-			
-			// aapt resource value: 0x7f08006c
-			public const int inputSThuClose = 2131230828;
+			// aapt resource value: 0x7f08005a
+			public const int inputPartTime = 2131230810;
 			
 			// aapt resource value: 0x7f08006b
-			public const int inputSThuOpen = 2131230827;
-			
-			// aapt resource value: 0x7f080068
-			public const int inputSTueClose = 2131230824;
-			
-			// aapt resource value: 0x7f080067
-			public const int inputSTueOpen = 2131230823;
+			public const int inputSFriClose = 2131230827;
 			
 			// aapt resource value: 0x7f08006a
-			public const int inputSWedClose = 2131230826;
+			public const int inputSFriOpen = 2131230826;
+			
+			// aapt resource value: 0x7f080063
+			public const int inputSMonClose = 2131230819;
+			
+			// aapt resource value: 0x7f080062
+			public const int inputSMonOpen = 2131230818;
+			
+			// aapt resource value: 0x7f08006d
+			public const int inputSSatClose = 2131230829;
+			
+			// aapt resource value: 0x7f08006c
+			public const int inputSSatOpen = 2131230828;
+			
+			// aapt resource value: 0x7f080060
+			public const int inputSSunClose = 2131230816;
+			
+			// aapt resource value: 0x7f080061
+			public const int inputSSunOpen = 2131230817;
 			
 			// aapt resource value: 0x7f080069
-			public const int inputSWedOpen = 2131230825;
+			public const int inputSThuClose = 2131230825;
 			
-			// aapt resource value: 0x7f080089
-			public const int inputSatClose = 2131230857;
+			// aapt resource value: 0x7f080068
+			public const int inputSThuOpen = 2131230824;
 			
-			// aapt resource value: 0x7f080087
-			public const int inputSatOpen = 2131230855;
+			// aapt resource value: 0x7f080065
+			public const int inputSTueClose = 2131230821;
+			
+			// aapt resource value: 0x7f080064
+			public const int inputSTueOpen = 2131230820;
+			
+			// aapt resource value: 0x7f080067
+			public const int inputSWedClose = 2131230823;
+			
+			// aapt resource value: 0x7f080066
+			public const int inputSWedOpen = 2131230822;
+			
+			// aapt resource value: 0x7f080086
+			public const int inputSatClose = 2131230854;
+			
+			// aapt resource value: 0x7f080084
+			public const int inputSatOpen = 2131230852;
 			
 			// aapt resource value: 0x7f08001c
 			public const int inputShiftPref = 2131230748;
 			
-			// aapt resource value: 0x7f08005a
-			public const int inputSkillCap = 2131230810;
+			// aapt resource value: 0x7f080058
+			public const int inputSkillCap = 2131230808;
 			
 			// aapt resource value: 0x7f08001b
 			public const int inputSkillLevel = 2131230747;
 			
-			// aapt resource value: 0x7f080076
-			public const int inputSunClose = 2131230838;
+			// aapt resource value: 0x7f080073
+			public const int inputSunClose = 2131230835;
 			
-			// aapt resource value: 0x7f080077
-			public const int inputSunOpen = 2131230839;
-			
-			// aapt resource value: 0x7f080083
-			public const int inputThuClose = 2131230851;
-			
-			// aapt resource value: 0x7f080081
-			public const int inputThuOpen = 2131230849;
-			
-			// aapt resource value: 0x7f08007d
-			public const int inputTueClose = 2131230845;
-			
-			// aapt resource value: 0x7f08007b
-			public const int inputTueOpen = 2131230843;
+			// aapt resource value: 0x7f080074
+			public const int inputSunOpen = 2131230836;
 			
 			// aapt resource value: 0x7f080080
-			public const int inputWedClose = 2131230848;
+			public const int inputThuClose = 2131230848;
 			
 			// aapt resource value: 0x7f08007e
-			public const int inputWedOpen = 2131230846;
+			public const int inputThuOpen = 2131230846;
+			
+			// aapt resource value: 0x7f08007a
+			public const int inputTueClose = 2131230842;
+			
+			// aapt resource value: 0x7f080078
+			public const int inputTueOpen = 2131230840;
+			
+			// aapt resource value: 0x7f08007d
+			public const int inputWedClose = 2131230845;
+			
+			// aapt resource value: 0x7f08007b
+			public const int inputWedOpen = 2131230843;
 			
 			// aapt resource value: 0x7f080042
 			public const int myListView = 2131230786;
@@ -426,32 +426,23 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080040
 			public const int settingsBtn = 2131230784;
 			
-			// aapt resource value: 0x7f080072
-			public const int testing_button1 = 2131230834;
+			// aapt resource value: 0x7f08006f
+			public const int testing_button1 = 2131230831;
 			
-			// aapt resource value: 0x7f080073
-			public const int testing_button2 = 2131230835;
-			
-			// aapt resource value: 0x7f08005d
-			public const int textDefaultClose = 2131230813;
-			
-			// aapt resource value: 0x7f08005b
-			public const int textDefaultOpen = 2131230811;
+			// aapt resource value: 0x7f080070
+			public const int testing_button2 = 2131230832;
 			
 			// aapt resource value: 0x7f080053
 			public const int textDefaultShift = 2131230803;
 			
-			// aapt resource value: 0x7f080057
-			public const int textMaxShift = 2131230807;
-			
-			// aapt resource value: 0x7f080055
-			public const int textMinShift = 2131230805;
-			
 			// aapt resource value: 0x7f080059
-			public const int textSkillCap = 2131230809;
+			public const int textHourTarget = 2131230809;
 			
-			// aapt resource value: 0x7f080074
-			public const int toolbar = 2131230836;
+			// aapt resource value: 0x7f080057
+			public const int textSkillCap = 2131230807;
+			
+			// aapt resource value: 0x7f080071
+			public const int toolbar = 2131230833;
 			
 			// aapt resource value: 0x7f080041
 			public const int txtCreateAccount = 2131230785;
@@ -561,31 +552,34 @@ namespace MaydSchedulerApp
 			public const int popup_menu = 2130903049;
 			
 			// aapt resource value: 0x7f03000a
-			public const int ScheduleHistory = 2130903050;
+			public const int PositionManager = 2130903050;
 			
 			// aapt resource value: 0x7f03000b
-			public const int ScheduleListView = 2130903051;
+			public const int ScheduleHistory = 2130903051;
 			
 			// aapt resource value: 0x7f03000c
-			public const int ScheduleView = 2130903052;
+			public const int ScheduleListView = 2130903052;
 			
 			// aapt resource value: 0x7f03000d
-			public const int settings = 2130903053;
+			public const int ScheduleView = 2130903053;
 			
 			// aapt resource value: 0x7f03000e
-			public const int Splash = 2130903054;
+			public const int settings = 2130903054;
 			
 			// aapt resource value: 0x7f03000f
-			public const int StaffingNeeds = 2130903055;
+			public const int Splash = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int testing_menu = 2130903056;
+			public const int StaffingNeeds = 2130903056;
 			
 			// aapt resource value: 0x7f030011
-			public const int ToolBar = 2130903057;
+			public const int testing_menu = 2130903057;
 			
 			// aapt resource value: 0x7f030012
-			public const int WeeklyConfig = 2130903058;
+			public const int ToolBar = 2130903058;
+			
+			// aapt resource value: 0x7f030013
+			public const int WeeklyConfig = 2130903059;
 			
 			static Layout()
 			{

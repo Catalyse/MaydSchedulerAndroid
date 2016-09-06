@@ -12,18 +12,31 @@ namespace MaydSchedulerApp
     [Activity(Label = "Mayd Scheduler", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Icon = "@drawable/icon", WindowSoftInputMode = SoftInput.AdjustPan)]
     public class MainActivity : Activity
     {
+        #region Analytics
         private string TrackerId = "UA-18006016-7";
         public static Tracker tracker;
-        public static bool testingMode = false, weekClicked = false;
-        private Button BtnNewWeek, BtnQuickWeek, BtnHistory, BtnEmpMgmt, BtnAbout, BtnSettings;
+        #endregion Analytics
+
+        //Temp
+        public static bool testingMode = false;
+        
         private int count;
         public static int clickedIndex;
+        public static bool weekClicked = false;
+        public static Week week;//This is just a global storage location for this
+
+        #region InterfaceVars
         private ListView recentView;
+        private Button BtnNewWeek, BtnQuickWeek, BtnHistory, BtnEmpMgmt, BtnAbout, BtnSettings;
+        #endregion InterfaceVars
+
+        public static Activity currentActivity;
+        public static ScheduleActivity scheduler;
 
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            CoreSystem.currentActivity = this;
+            currentActivity = this;
             EmployeeStorage.Start();
             SystemSettings.SystemStartup();
             if (!SystemSettings.loaded)
@@ -63,6 +76,7 @@ namespace MaydSchedulerApp
             base.OnDestroy();
         }
         #endregion OVERRIDE
+
         private void StartAnalytics()
         {
             string UUID;
@@ -128,7 +142,15 @@ namespace MaydSchedulerApp
         private void RecentView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
             weekClicked = true;
-            clickedIndex = e.Position;
+            week = SystemSettings.weekList[e.Position];
+            Intent intent = new Intent(this, typeof(HistoryActivity));
+            this.StartActivity(intent);
+        }
+
+        private void SchedulerPassoff(Week w)
+        {
+            weekClicked = true;
+            week = w;
             Intent intent = new Intent(this, typeof(HistoryActivity));
             this.StartActivity(intent);
         }
@@ -142,7 +164,7 @@ namespace MaydSchedulerApp
                 Intent intent = new Intent(this, typeof(SettingsActivity));
                 this.StartActivity(intent);
             })
-            .SetMessage("Thank you for trying out the Mayd Scheduler! We hope that it becomes an important tool in your day to day operations.  Now please set up your default settings so we can get you making schedules as fast as possible!")
+            .SetMessage("Thank you for trying out the Mayd Scheduler! We hope that it becomes an important tool in your day to day operations. \n Now please set up your default settings so we can get you making schedules as fast as possible!")
             .SetTitle("Welcome")
             .Show();
         }

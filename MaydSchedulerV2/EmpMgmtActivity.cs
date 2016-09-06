@@ -47,7 +47,7 @@ namespace MaydSchedulerApp
             if(inEditor)
             {
                 InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                imm.HideSoftInputFromWindow(CoreSystem.currentActivity.CurrentFocus.WindowToken, HideSoftInputFlags.None);
+                imm.HideSoftInputFromWindow(MainActivity.currentActivity.CurrentFocus.WindowToken, HideSoftInputFlags.None);
                 GenerateEmployeeListScreen();
                 inEditor = false;
             }
@@ -400,6 +400,12 @@ namespace MaydSchedulerApp
             newEmp.empLastName = lastName.Text;
             newEmp.position = position.SelectedItemPosition-1;
             newEmp.empID = int.Parse(id.Text);
+            newEmp.overtimeAllowed = overTime.Checked;
+            if (fullTime.Checked) newEmp.hourTarget = SystemSettings.fullTimeHours;
+            else newEmp.hourTarget = SystemSettings.partTimeHours;
+            newEmp.shiftPreference = int.Parse(shiftPref.Text);
+            newEmp.skillLevel = int.Parse(skillLevel.Text);
+            newEmp.active = true;
         }
 
         private ArrayAdapter<string> FillSpinner()

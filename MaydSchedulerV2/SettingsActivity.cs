@@ -15,7 +15,7 @@ namespace MaydSchedulerApp
     [Activity(Label = "System Settings", Theme = "@android:style/Theme.Material", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, WindowSoftInputMode = SoftInput.AdjustPan)]
     public class SettingsActivity : Activity
     {
-        EditText defaultShift, minShift, maxShift, defaultOpen, defaultClose, skillCap;
+        EditText defaultShift, minShift, maxShift, skillCap, partTime, fullTime;
         private Button cancelButton, submitButton;
         private bool submitChanged = false;
         private bool settingsSet = true;
@@ -30,9 +30,9 @@ namespace MaydSchedulerApp
             defaultShift = FindViewById<EditText>(Resource.Id.inputDefaultShift);
             minShift = FindViewById<EditText>(Resource.Id.inputMinShift);
             maxShift = FindViewById<EditText>(Resource.Id.inputMaxShift);
-            defaultOpen = FindViewById<EditText>(Resource.Id.inputDefaultOpen);
-            defaultClose = FindViewById<EditText>(Resource.Id.inputDefaultClose);
             skillCap = FindViewById<EditText>(Resource.Id.inputSkillCap);
+            partTime = FindViewById<EditText>(Resource.Id.inputPartTime);
+            fullTime = FindViewById<EditText>(Resource.Id.inputFullTime);
 
             LoadSettings();
 
@@ -100,7 +100,7 @@ namespace MaydSchedulerApp
 
         private void SubmitButton_Click(object sender, EventArgs e)
         {
-            if(defaultShift.Text == "" || minShift.Text == "" || maxShift.Text == "" || defaultOpen.Text == "" || defaultClose.Text == "" || skillCap.Text == "")
+            if(defaultShift.Text == "" || minShift.Text == "" || maxShift.Text == "" || skillCap.Text == "" || partTime.Text == "" || fullTime.Text == "")
             {
                 submitButton.Text = "Please fill out all settings!";
                 submitChanged = true;
@@ -108,7 +108,7 @@ namespace MaydSchedulerApp
             else
             {
                 SystemSettings.InitialSetup(int.Parse(defaultShift.Text), int.Parse(minShift.Text), int.Parse(maxShift.Text),
-                    int.Parse(skillCap.Text), int.Parse(defaultOpen.Text), int.Parse(defaultClose.Text));
+                    int.Parse(skillCap.Text), int.Parse(partTime.Text), int.Parse(fullTime.Text));
                 settingsSet = true;
                 Finish();
             }
@@ -150,8 +150,8 @@ namespace MaydSchedulerApp
                 defaultShift.Text = SystemSettings.defaultShift.ToString();
                 minShift.Text = SystemSettings.minShift.ToString();
                 maxShift.Text = SystemSettings.maxShift.ToString();
-                defaultOpen.Text = SystemSettings.defaultOpenAvail.ToString();
-                defaultClose.Text = SystemSettings.defaultCloseAvail.ToString();
+                partTime.Text = SystemSettings.partTimeHours.ToString();
+                fullTime.Text = SystemSettings.fullTimeHours.ToString();
                 skillCap.Text = SystemSettings.skillLevelCap.ToString();
                 settingsSet = true;
             }

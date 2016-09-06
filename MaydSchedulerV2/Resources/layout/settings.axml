@@ -4,177 +4,125 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:descendantFocusability="beforeDescendants"
-    android:focusableInTouchMode="true"
-    android:weightSum="160">
+    android:focusableInTouchMode="true">
+    <TextView
+        android:text="Shift Lengths"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_weight="5"
+        android:layout_height="0dp"
+        android:id="@+id/textDefaultShift" />
+    <EditText
+        android:hint="Default"
+        android:gravity="center"
+        android:inputType="number"
+        android:layout_width="match_parent"
+        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:id="@+id/inputDefaultShift" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="wrap_content"
-        android:minHeight="50px"
-        android:weightSum="100">
-        <TextView
-            android:text="Default Shift Length"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
-            android:layout_height="match_parent"
-            android:id="@+id/textDefaultShift" />
+        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:minHeight="50px">
         <EditText
-            android:hint="8"
+            android:hint="Minimum"
             android:gravity="center"
             android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
-            android:layout_height="match_parent"
-            android:id="@+id/inputDefaultShift" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="wrap_content"
-        android:minHeight="50px"
-        android:weightSum="100">
-        <TextView
-            android:text="Minimum Shift Length"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
-            android:layout_height="match_parent"
-            android:id="@+id/textMinShift" />
-        <EditText
-            android:hint="6"
-            android:gravity="center"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="match_parent"
             android:id="@+id/inputMinShift" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="wrap_content"
-        android:minHeight="50px"
-        android:weightSum="100">
-        <TextView
-            android:text="Maximum Shift Length"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
-            android:layout_height="match_parent"
-            android:id="@+id/textMaxShift" />
         <EditText
-            android:hint="10"
+            android:hint="Maximum"
             android:gravity="center"
             android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="match_parent"
             android:id="@+id/inputMaxShift" />
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="wrap_content"
-        android:minHeight="50px"
-        android:weightSum="100">
+        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:minHeight="50px">
         <TextView
-            android:text="Skill Level Cap"
+            android:text="Skill Level Cap:"
             android:gravity="center"
             android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="match_parent"
             android:id="@+id/textSkillCap" />
         <EditText
             android:hint="10"
             android:gravity="center"
             android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="match_parent"
             android:id="@+id/inputSkillCap" />
     </LinearLayout>
+    <TextView
+        android:text="Hour Targets"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:layout_width="match_parent"
+        android:layout_weight="5"
+        android:layout_height="0dp"
+        android:id="@+id/textHourTarget" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="wrap_content"
-        android:minHeight="50px"
-        android:weightSum="100">
-        <TextView
-            android:text="Default Open Availability"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
-            android:layout_height="match_parent"
-            android:id="@+id/textDefaultOpen" />
+        android:layout_weight="10"
+        android:layout_height="0dp"
+        android:minHeight="50px">
         <EditText
-            android:hint="6"
+            android:hint="PartTime"
             android:gravity="center"
             android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="match_parent"
-            android:id="@+id/inputDefaultOpen" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_weight="20"
-        android:layout_height="wrap_content"
-        android:minHeight="50px"
-        android:weightSum="100">
-        <TextView
-            android:text="Default Close Availability"
-            android:gravity="center"
-            android:textSize="18sp"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
-            android:layout_height="match_parent"
-            android:id="@+id/textDefaultClose" />
+            android:id="@+id/inputPartTime" />
         <EditText
-            android:hint="22"
+            android:hint="FullTime"
             android:gravity="center"
             android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_weight="50"
+            android:layout_width="0dp"
+            android:layout_weight="10"
             android:layout_height="match_parent"
-            android:id="@+id/inputDefaultClose" />
+            android:id="@+id/inputFullTime" />
     </LinearLayout>
     <Button
         android:text="Add/Remove Positions"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_weight="20"
+        android:layout_weight="10"
         android:focusable="false"
         android:id="@+id/btnWeeklySubmit" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="20">
+        android:layout_height="0dp"
+        android:layout_weight="10">
         <Button
             android:text="Cancel"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:focusable="false"
-            android:layout_weight="50"
+            android:layout_weight="10"
             android:id="@+id/btnSettingsCancel" />
         <Button
             android:text="Submit"
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:focusable="false"
-            android:layout_weight="50"
+            android:layout_weight="10"
             android:id="@+id/btnSettingsSubmit" />
     </LinearLayout>
 </LinearLayout>

@@ -12,7 +12,7 @@ namespace MaydSchedulerApp
     public static class SystemSettings
     {
         public static int defaultShift, minShift, maxShift;//Need to make config window
-        public static int defaultOpenAvail, defaultCloseAvail;
+        public static int partTimeHours, fullTimeHours;
         public static int skillLevelCap;
         public static Dictionary<int, string> positionList = new Dictionary<int, string>();
         public static List<DateTime> weekIndex = new List<DateTime>();
@@ -41,43 +41,43 @@ namespace MaydSchedulerApp
 
         private static bool CheckIfSettingsExist()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetBoolean("loaded", false);
         }
 
         private static bool CheckFacDefaults()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetBoolean("facilityDefaults", false);
         }
 
         private static bool CheckPositionsExist()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetBoolean("positionsCreated", false);
         }
 
         private static bool CheckSavedWeeks()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetBoolean("positionsCreated", false);
         }
 
         private static bool CheckUUID()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetBoolean("UUIDSet", false);
         }
 
         private static string GetUUID()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetString("UUID", "null");
         }
 
         public static void SetUUID(string id)
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutString("UUID", id);
             editor.PutBoolean("UUID", true);
@@ -98,7 +98,7 @@ namespace MaydSchedulerApp
         {
             InitialSetup(8, 6, 10, 10, 8, 22);
             SetupFacilityPreferences(10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20);
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             editor.PutBoolean("positionsCreated", true);
             editor.PutInt("positionCount", 2);
@@ -109,9 +109,9 @@ namespace MaydSchedulerApp
             GetPositionList();
         }
 
-        public static void InitialSetup(int _defaultShift, int _minShift, int _maxShift, int _skillCap, int _defaultOpenAvail, int _defaultCloseAvail)
+        public static void InitialSetup(int _defaultShift, int _minShift, int _maxShift, int _skillCap, int _partTime, int _fullTime)
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             loaded = true;
             editor.PutBoolean("loaded", true);
@@ -121,10 +121,10 @@ namespace MaydSchedulerApp
             editor.PutInt("minShift", minShift);
             maxShift = _maxShift;
             editor.PutInt("maxShift", maxShift);
-            defaultOpenAvail = _defaultOpenAvail;
-            editor.PutInt("defaultOpenAvail", defaultOpenAvail);
-            defaultCloseAvail = _defaultCloseAvail;
-            editor.PutInt("defaultCloseAvail", defaultCloseAvail);
+            partTimeHours = _partTime;
+            editor.PutInt("partTime", partTimeHours);
+            fullTimeHours = _fullTime;
+            editor.PutInt("fullTime", fullTimeHours);
             skillLevelCap = _skillCap;
             editor.PutInt("skillCap", skillLevelCap);
             editor.Apply();
@@ -132,14 +132,14 @@ namespace MaydSchedulerApp
 
         public static bool InitialLoad()
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             defaultShift = prefs.GetInt("defaultShift", -1);
             minShift = prefs.GetInt("minShift", -1);
             maxShift = prefs.GetInt("maxShift", -1);
-            defaultOpenAvail = prefs.GetInt("defaultOpenAvail", -1);
-            defaultCloseAvail = prefs.GetInt("defaultCloseAvail", -1);
+            partTimeHours = prefs.GetInt("partTime", -1);
+            fullTimeHours = prefs.GetInt("fullTime", -1);
             skillLevelCap = prefs.GetInt("skillCap", -1);
-            if (defaultShift == -1 || minShift == -1 || maxShift == -1 || defaultOpenAvail == -1 || defaultCloseAvail == -1 || skillLevelCap == -1)
+            if (defaultShift == -1 || minShift == -1 || maxShift == -1 || partTimeHours == -1 || fullTimeHours == -1 || skillLevelCap == -1)
                 return false;
             else
                 return true;
@@ -150,16 +150,16 @@ namespace MaydSchedulerApp
             StringWriter writer = new StringWriter();
             XmlSerializer serializer = new XmlSerializer(typeof(Week));
 
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
-            int count = prefs.GetInt("savedWeekCount", 0);
+            int count = prefs.GetInt("savedWeekIterator", 0);
             if (!weekIndex.Contains(week.startDate))
             {
                 week.saveIndex = count;
                 serializer.Serialize(writer, week);
                 string serializedWeek = writer.ToString();
                 editor.PutString("week" + count.ToString(), serializedWeek);
-                editor.PutInt("savedWeekCount", count + 1);
+                editor.PutInt("savedWeekIterator", count + 1);
                 editor.PutBoolean("weeksSaved", true);
                 editor.Apply();
                 LoadWeeks();
@@ -178,10 +178,10 @@ namespace MaydSchedulerApp
         {
             weekList = new List<Week>();
             weekIndex = new List<DateTime>();
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             if(weeksLoaded)
             {
-                int count = prefs.GetInt("savedWeekCount", 0);
+                int count = prefs.GetInt("savedWeekIterator", 0);
                 if(count < 1)//This likely means nothing is saved and the bool is fucked up
                 {
                     Console.WriteLine("LoadWeeks() Failure, weeksSaved bool reports we have weeks saved but count reports zero, unable to load");
@@ -191,11 +191,14 @@ namespace MaydSchedulerApp
                     for(int i = 0; i < count; i++)
                     {
                         string loadedWeek = prefs.GetString("week" + i, "null");
-                        StringReader reader = new StringReader(loadedWeek);
-                        XmlSerializer serializer = new XmlSerializer(typeof(Week));
-                        Week des = (Week)serializer.Deserialize(reader);
-                        weekList.Add(des);
-                        weekIndex.Add(des.startDate);
+                        if (loadedWeek != "null")//This week was deleted if it is null
+                        {//Since the list doesnt actually contain the iterator it doesnt really matter. We do not need to reshuffle the data in the prefs file its a waste of time
+                            StringReader reader = new StringReader(loadedWeek);
+                            XmlSerializer serializer = new XmlSerializer(typeof(Week));
+                            Week des = (Week)serializer.Deserialize(reader);
+                            weekList.Add(des);
+                            weekIndex.Add(des.startDate);
+                        }
                     }
                     SortList();
                 }
@@ -232,7 +235,7 @@ namespace MaydSchedulerApp
         public static void SetupFacilityPreferences(int suO, int mO, int tuO, int wO, int thO, int fO, int saO, 
                                                     int suC, int mC, int tuC, int wC, int thC, int fC, int saC)
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             sunOpenPref = suO;
             monOpenPref = mO;
@@ -269,14 +272,14 @@ namespace MaydSchedulerApp
 
         public static int GetIntPref(string prefName)
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             return prefs.GetInt(prefName, -1);
         }
 
         public static bool GetPositionList()
         {
             positionList = new SerializableDictionary<int, string>();
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             if (!prefs.GetBoolean("positionsCreated", false))
                 return false;
             else
@@ -300,7 +303,7 @@ namespace MaydSchedulerApp
 
         public static bool AddPosition(string positionName)
         {
-            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(CoreSystem.currentActivity);
+            ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             if (!prefs.GetBoolean("positionsCreated", false))
             {//No positions made, first added
@@ -325,6 +328,19 @@ namespace MaydSchedulerApp
                     editor.Apply();
                     return true;
                 }
+            }
+        }
+
+        public static string GetPositionName(int type)
+        {
+            if (positionList.ContainsKey(type))
+            {
+                return positionList[type];
+            }
+            else
+            {
+                Console.WriteLine("Position that does not exist was queried for! || MainActivity.cs || GetPositionName || TypeNo: " + type);
+                return "ErrNotFound";
             }
         }
     }

@@ -24,13 +24,13 @@ namespace MaydSchedulerApp
         private static List<int> pickedDays = new List<int>();
         //These arent super important, may get rid of them
         private static Dictionary<int, int> weeklyNeededShifts = new Dictionary<int,int>(), weeklyAvailShifts = new Dictionary<int,int>();
-        //                        position, status(true = enough shifts available, false = not enough shifts available)
+        //                   position, status(true = enough shifts available, false = not enough shifts available)
         private static Dictionary<int, bool> weeklyAvailabilityStatus = new Dictionary<int, bool>();
-        //                        position        day, count
+        //                   position,            day, count
         private static Dictionary<int, Dictionary<int, int>> dailyNeededShifts = new Dictionary<int,Dictionary<int,int>>(), dailyAvailShifts = new Dictionary<int,Dictionary<int,int>>();
-        //                        position        day, status(true = enough shifts available, false = not enough shifts available)
+        //                   position,            day, status(true = enough shifts available, false = not enough shifts available)
         private static Dictionary<int, Dictionary<int, bool>> dailyAvailabilityStatus = new Dictionary<int, Dictionary<int, bool>>();
-        //                        position, employeeList
+        //                   position, employeeList
         private static Dictionary<int, List<EmployeeScheduleWrapper>> employeePositionDictionary = new Dictionary<int, List<EmployeeScheduleWrapper>>();
 
         /// <summary>
@@ -41,7 +41,7 @@ namespace MaydSchedulerApp
             ClearVars();
             try
             {
-                week = CoreSystem.week;
+                week = MainActivity.week;
                 GeneratePositionLists();
                 CalcPositionVars();
                 AnalyzeResources();
@@ -49,7 +49,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("StartScheduleGen() Exception || This is likely a fallthrough error, debug", ex);
+                Console.WriteLine("StartScheduleGen() Exception || This is likely a fallthrough error, debug", ex);
             }
         }
 
@@ -86,7 +86,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("GeneratePositionLists() Exception || ScheduleAlgorithm.cs", ex);
+                Console.WriteLine("GeneratePositionLists() Exception || ScheduleAlgorithm.cs", ex);
             }
         }
 
@@ -143,7 +143,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("CalcPositionVars() Exception", ex);
+                Console.WriteLine("CalcPositionVars() Exception", ex);
             }
         }
 
@@ -158,7 +158,7 @@ namespace MaydSchedulerApp
                 {
                     if (weeklyNeededShifts[k] > weeklyAvailShifts[k])//We have less available employee shifts for the week than we need.
                     {
-                        CoreSystem.ErrorCatch("Not enough Available shifts for the week! Position: " + CoreSystem.GetPositionName(k));
+                        Console.WriteLine("Not enough Available shifts for the week! Position: " + SystemSettings.GetPositionName(k));
                         weeklyAvailabilityStatus.Add(k, false);
                     }
                     else
@@ -169,7 +169,7 @@ namespace MaydSchedulerApp
                         if (dailyAvailShifts[k][i] < dailyNeededShifts[k][i])
                         {
                             dailyAvailabilityStatus[k].Add(i, false);
-                            CoreSystem.ErrorCatch("Not enough available shifts for day: " + (i + 1) + " Position: " + (k+1));
+                            Console.WriteLine("Not enough available shifts for day: " + (i + 1) + " Position: " + (k+1));
                         }
                         else
                             dailyAvailabilityStatus[k].Add(i, true);
@@ -178,7 +178,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("AnalyzeResources() Exception", ex);
+                Console.WriteLine("AnalyzeResources() Exception", ex);
             }
         }
 
@@ -200,7 +200,7 @@ namespace MaydSchedulerApp
                         //This will pick days based on if they are critical or not, if all critical days have been selected, or there are none, it will pick in order from sunday to saturday(ignoring ones already picked)
                         DailySchedule day = PickDay(pos);
                         //This converts the dayofweek enum to int for use in indexing
-                        int dayInt = CoreSystem.ConvertDoWToInt(day.dayOfWeek);
+                        int dayInt = ConvertDoWToInt(day.dayOfWeek);
                         //This will generate 
                         Dictionary<int, List<EmployeeScheduleWrapper>> priorityList = GeneratePriorityList(employeePositionDictionary[pos], d);
                         //         priorityListLevel, list of picks
@@ -307,11 +307,11 @@ namespace MaydSchedulerApp
                     }
                 }
                 ScheduleFill();
-                CoreSystem.GenerationComplete(week);
+                MainActivity.scheduler.GenerationComplete(week);
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("GenerateSchedule() Exception", ex);
+                Console.WriteLine("GenerateSchedule() Exception", ex);
             }
         }
 
@@ -343,7 +343,7 @@ namespace MaydSchedulerApp
                 //This is the daily average skill of the employees assigned to the day
                 float dailyAvg = CalculateSkillAvg(empList);
                 //In order to prevent certain employees from always opening we will simply randomly pick the first assigned shift.
-                bool openFirst = CoreSystem.RandomBool();
+                bool openFirst = RandomBool();
                 //This will sort the employee list so we have them in order of skill(worst to best 0 - N)
                 Dictionary<int, EmployeeScheduleWrapper> sortedEmployees = SortList(empList);
                 //These will be the lists that are returns to be processed into shifts
@@ -434,7 +434,7 @@ namespace MaydSchedulerApp
             }
             catch(Exception ex)
             {
-                CoreSystem.ErrorCatch("AssignShiftsBW() Exception", ex);
+                Console.WriteLine("AssignShiftsBW() Exception", ex);
             }
         }
 
@@ -450,7 +450,7 @@ namespace MaydSchedulerApp
                 //This is the daily average skill of the employees assigned to the day
                 float dailyAvg = CalculateSkillAvg(empList);
                 //In order to prevent certain employees from always opening we will simply randomly pick the first assigned shift.
-                bool openFirst = CoreSystem.RandomBool();
+                bool openFirst = RandomBool();
                 //This will sort the employee list so we have them in order of skill(worst to best 0 - N)
                 Dictionary<int, EmployeeScheduleWrapper> sortedEmployees = SortList(empList);
                 //These will be the lists that are returns to be processed into shifts
@@ -541,7 +541,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("AssignShiftsBW() Exception", ex);
+                Console.WriteLine("AssignShiftsBW() Exception", ex);
             }
         }
 
@@ -623,7 +623,7 @@ namespace MaydSchedulerApp
                             for (int e = 0; e < employeesNeedingShifts.Count; e++)
                             {
                                 //This will make sure they can work that day, and arent already scheduled that day
-                                if (employeesNeedingShifts[e].GetAvailability(CoreSystem.ConvertDoWToInt(day.dayOfWeek)) && !day.shiftDictionary.ContainsKey(employeesNeedingShifts[e]))
+                                if (employeesNeedingShifts[e].GetAvailability(ConvertDoWToInt(day.dayOfWeek)) && !day.shiftDictionary.ContainsKey(employeesNeedingShifts[e]))
                                 {
                                     ScheduleEmployee(employeesNeedingShifts[e], day);
                                     employeesNeedingShifts.Remove(employeesNeedingShifts[e]);
@@ -641,7 +641,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception e)
             {
-                CoreSystem.ErrorCatch("ScheduleFill() Exception", e);
+                Console.WriteLine("ScheduleFill() Exception", e);
             }
         }
 
@@ -682,7 +682,7 @@ namespace MaydSchedulerApp
                     employeesNeedingShifts.Add(empList[i]);
                 }
             }
-            CoreSystem.ErrorCatch("CheckIfShiftsNeeded reports " + employeesNeedingShifts.Count + " " + CoreSystem.GetPositionName(pos) + "s still need shifts.");
+            Console.WriteLine("CheckIfShiftsNeeded reports " + employeesNeedingShifts.Count + " " + SystemSettings.GetPositionName(pos) + "s still need shifts.");
             return employeesNeedingShifts;
         }
 
@@ -762,7 +762,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("SortList() Exception", ex);
+                Console.WriteLine("SortList() Exception", ex);
                 return null;
             }
         }
@@ -790,7 +790,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("GenerateOpenShifts() Exception", ex);
+                Console.WriteLine("GenerateOpenShifts() Exception", ex);
             }
         }
 
@@ -819,7 +819,7 @@ namespace MaydSchedulerApp
             }
             catch(Exception ex)
             {
-                CoreSystem.ErrorCatch("GenerateCloseShifts() Exception", ex);
+                Console.WriteLine("GenerateCloseShifts() Exception", ex);
             }
         }
 
@@ -837,7 +837,7 @@ namespace MaydSchedulerApp
                 {
                     if (!dailyAvailabilityStatus[pos][i] && !pickedDays.Contains(i))
                     {
-                        CoreSystem.ErrorCatch("PickDay() || Priority Picked: " + (i + 1));
+                        Console.WriteLine("PickDay() || Priority Picked: " + (i + 1));
                         pickedDays.Add(i);
                         return week.SelectDay(i);
                     }
@@ -846,17 +846,17 @@ namespace MaydSchedulerApp
                 {
                     if (!pickedDays.Contains(i))
                     {
-                        CoreSystem.ErrorCatch("PickDay() || Picked: " + (i + 1));
+                        Console.WriteLine("PickDay() || Picked: " + (i + 1));
                         pickedDays.Add(i);
                         return week.SelectDay(i);
                     }
                 }
-                CoreSystem.ErrorCatch("PickDay() Error! || Returning Null");
+                Console.WriteLine("PickDay() Error! || Returning Null");
                 return null;//This is bad though, cause then we didnt pick one at all for some reason, this shouldn't ever happen as that means we tried to pick too many days
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("PickDay() Exception", ex);
+                Console.WriteLine("PickDay() Exception", ex);
                 return null;
             }
         }
@@ -875,7 +875,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("CalculateSkillAvg() Exception", ex);
+                Console.WriteLine("CalculateSkillAvg() Exception", ex);
                 return 0;
             }
         }
@@ -912,8 +912,60 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                CoreSystem.ErrorCatch("GeneratePriorityList() Exception", ex);
+                Console.WriteLine("GeneratePriorityList() Exception", ex);
                 return null;
+            }
+        }
+
+        public static int RandomInt(int count)
+        {
+            Random gen = new Random();
+            int returnVal = gen.Next(count);
+            return returnVal;
+        }
+
+        public static bool RandomBool()
+        {
+            Random gen = new Random();
+            int prob = gen.Next(100);
+            if (prob < 50)
+                return true;
+            else
+                return false;
+        }
+
+        public static int ConvertToMilitaryTime(int time)
+        {
+            if (time <= 12)
+            {
+                time += 12;
+                return time;
+            }
+            else
+                return time;
+        }
+
+        public static int ConvertDoWToInt(DayOfWeek d)
+        {
+            switch (d)
+            {
+                case DayOfWeek.Sunday:
+                    return 0;
+                case DayOfWeek.Monday:
+                    return 1;
+                case DayOfWeek.Tuesday:
+                    return 2;
+                case DayOfWeek.Wednesday:
+                    return 3;
+                case DayOfWeek.Thursday:
+                    return 4;
+                case DayOfWeek.Friday:
+                    return 5;
+                case DayOfWeek.Saturday:
+                    return 6;
+                default:
+                    Console.WriteLine("ConvertDoWToInt() Error || Invalid DayOfWeek provided");
+                    return -1;
             }
         }
     }

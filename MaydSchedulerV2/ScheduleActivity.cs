@@ -26,7 +26,7 @@ namespace MaydSchedulerApp
             ChooseWeek();
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            CoreSystem.scheduler = this;
+            MainActivity.scheduler = this;
         }
 
         public override bool DispatchTouchEvent(MotionEvent ev)
@@ -172,7 +172,7 @@ namespace MaydSchedulerApp
         private bool CheckIfDefaultsExist()
         {
             bool exist = SystemSettings.facilityDefaults;
-            if (exist)//fixthis //need to add checkss
+            if (exist)
             {
                 sunOpen.Text = SystemSettings.GetIntPref("suO").ToString();
                 monOpen.Text = SystemSettings.GetIntPref("mO").ToString();
@@ -310,7 +310,7 @@ namespace MaydSchedulerApp
             titleButton = FindViewById<Button>(Resource.Id.btnStaffingTitle);
             staffingSubmit = FindViewById<Button>(Resource.Id.btnStaffingSubmit);
             staffingSubmit.Click += StaffingSubmit_Check;
-            titleButton.Text = CoreSystem.GetPositionName(currentPosition);
+            titleButton.Text = SystemSettings.GetPositionName(currentPosition);
         }
 
         private void StaffingPositionReset()
@@ -330,7 +330,7 @@ namespace MaydSchedulerApp
             friSClose.Text = "";
             satSClose.Text = "";
             currentPosition++;
-            titleButton.Text = CoreSystem.GetPositionName(currentPosition);
+            titleButton.Text = SystemSettings.GetPositionName(currentPosition);
         }
 
         private SerializableDictionary<int, int> GenOpenDict()
@@ -426,8 +426,14 @@ namespace MaydSchedulerApp
         private void GenerateSchedule()
         {
             GenerateWrapperList();
-            CoreSystem.week = pickedWeek;
+            MainActivity.week = pickedWeek;
             SchedulingAlgorithm.StartScheduleGen();
+        }
+
+        public void GenerationComplete(Week week)
+        {
+            MainActivity.week = week;
+            SystemSettings.SaveWeek(week);
         }
 
         public void DrawSchedule()
@@ -435,7 +441,7 @@ namespace MaydSchedulerApp
             mode = 1;
             this.Title = "Schedule for " + pickedWeek.startDate.ToShortDateString();
             SetContentView(Resource.Layout.ScheduleView);
-            ScheduleAdapter adapter = new ScheduleAdapter(this, CoreSystem.week.empList);
+            ScheduleAdapter adapter = new ScheduleAdapter(this, MainActivity.week.empList);
             ListView scheduleView = FindViewById<ListView>(Resource.Id.scheduleListView);
             scheduleView.Adapter = adapter;
         }

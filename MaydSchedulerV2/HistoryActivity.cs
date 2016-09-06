@@ -23,7 +23,7 @@ namespace MaydSchedulerApp
             ActionBar.SetDisplayHomeAsUpEnabled(true);
             if(MainActivity.weekClicked)
             {
-                selected = SystemSettings.weekList[MainActivity.clickedIndex];
+                selected = MainActivity.week;
                 LoadWeek(selected);
             }
             else

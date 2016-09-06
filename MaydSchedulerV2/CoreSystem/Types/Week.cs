@@ -9,7 +9,6 @@ namespace MaydSchedulerApp
         public int saveIndex;
         public int julianStartDay;//Needed before algorithm
         public DateTime startDate;//Needed before algorithm
-        public int earliestStart, latestEnd;//idk what this is //FIXTHIS//
         public List<EmployeeScheduleWrapper> empList;//Including temp avail, as well as shifts(which can also be found daily) //Needed before algorithm
         public DailySchedule sunday, monday, tuesday, wednesday, thursday, friday, saturday;//Basic info needed before algorithm
 

@@ -158,7 +158,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"
@@ -195,7 +195,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"
@@ -232,7 +232,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"
@@ -269,7 +269,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"
@@ -306,7 +306,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"
@@ -343,7 +343,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"
@@ -380,7 +380,7 @@
             android:layout_weight="34"
             android:layout_height="match_parent"
             android:text="Open"
-            android:checked="true" />
+            android:checked="false" />
         <EditText
             android:hint="Off"
             android:inputType="number"

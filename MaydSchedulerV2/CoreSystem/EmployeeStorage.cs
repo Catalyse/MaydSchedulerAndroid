@@ -74,9 +74,9 @@ namespace MaydSchedulerApp
                 }
                 //throw new EmpNotFoundErr();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //e.ThrowMsg();
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
             }
             return null;
@@ -93,9 +93,9 @@ namespace MaydSchedulerApp
                 }
                 //throw new EmpNotFoundErr();
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                //e.ThrowMsg();
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
             }
             return null;

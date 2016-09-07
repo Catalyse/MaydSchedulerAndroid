@@ -59,7 +59,7 @@ namespace MaydSchedulerApp
             txtEID.Text = mItems[position].empID.ToString();
 
             TextView txtPartFullTime = row.FindViewById<TextView>(Resource.Id.txtPartFullTime);
-            if (mItems[position].hourTarget >= 40)
+            if (mItems[position].fullTime)
             {
                 txtPartFullTime.Text = "Full Time";
             }

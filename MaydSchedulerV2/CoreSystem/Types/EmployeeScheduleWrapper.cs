@@ -26,7 +26,10 @@ namespace MaydSchedulerApp
             employee = emp.empID;
             position = emp.position;
             skill = emp.skillLevel;
-            hourTarget = emp.hourTarget;
+            if (emp.fullTime)
+                hourTarget = SystemSettings.fullTimeHours;
+            else
+                hourTarget = SystemSettings.partTimeHours;
             scheduledHours = 0;
             //availability = emp.availability;//Dont init this unless its changed and needs to be saved
             availabilityModified = false;

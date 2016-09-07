@@ -12,7 +12,7 @@ namespace MaydSchedulerApp
         public string empLastName, empFirstName;
         public int empID;
         public int position;
-        public int hourTarget;//If fulltime/parttime
+        public bool fullTime;
         public int shiftPreference;
         public int skillLevel;
         public bool active, overtimeAllowed;
@@ -23,9 +23,9 @@ namespace MaydSchedulerApp
             availability = new Availability();
         }//Default for serialization
 
-        public void SetEmployee(string lastName, string firstName, int id, int pos, int targetHours, int skill, bool sun, bool mon, bool tue, bool wed, bool thu, bool fri, bool sat)
+        public void SetEmployee(string lastName, string firstName, int id, int pos, bool time, int skill, Availability avail)
         {
-            availability = new Availability();
+            availability = new Availability(avail);
             active = true;
             overtimeAllowed = false;
             empLastName = lastName;
@@ -33,20 +33,13 @@ namespace MaydSchedulerApp
             empID = id;
             skillLevel = skill;
             position = pos;
-            hourTarget = targetHours;
-            availability.sunday = new Day(sun);
-            availability.monday = new Day(mon);
-            availability.tuesday = new Day(tue);
-            availability.wednesday = new Day(wed);
-            availability.thursday = new Day(thu);
-            availability.friday = new Day(fri);
-            availability.saturday = new Day(sat);
+            fullTime = time;
             shiftPreference = 8;
         }
         
-        public void SetEmployee(string lastName, string firstName, int id, int pos, int targetHours, int skill, bool sun, bool mon, bool tue, bool wed, bool thu, bool fri, bool sat, int shiftPref)
+        public void SetEmployee(string lastName, string firstName, int id, int pos, bool time, int skill, Availability avail, int shiftPref)
         {
-            availability = new Availability();
+            availability = new Availability(avail);
             active = true;
             overtimeAllowed = false;
             empLastName = lastName;
@@ -54,14 +47,7 @@ namespace MaydSchedulerApp
             empID = id;
             skillLevel = skill;
             position = pos;
-            hourTarget = targetHours;
-            availability.sunday = new Day(sun);
-            availability.monday = new Day(mon);
-            availability.tuesday = new Day(tue);
-            availability.wednesday = new Day(wed);
-            availability.thursday = new Day(thu);
-            availability.friday = new Day(fri);
-            availability.saturday = new Day(sat);
+            fullTime = time;
             shiftPreference = shiftPref;
         }
 

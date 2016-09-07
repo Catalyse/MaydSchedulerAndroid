@@ -15,7 +15,7 @@ namespace MaydSchedulerApp
     [Activity(Label = "Employee Management", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Theme = "@android:style/Theme.Material", WindowSoftInputMode = SoftInput.AdjustPan)]
     public class EmpMgmtActivity : Activity
     {
-        private Button menu1, menu2, action1, action2;
+        private Button action1, action2;
         private ListView empListView;
         private EmpMgmtAdapter empListAdapter;
         private int selected;
@@ -107,6 +107,9 @@ namespace MaydSchedulerApp
         }
         #endregion override
 
+        /// <summary>
+        /// This confirms they want to remove an employee
+        /// </summary>
         private void RemovalAlert()
         {
             new AlertDialog.Builder(this)
@@ -124,6 +127,9 @@ namespace MaydSchedulerApp
             .Show();
         }
 
+        /// <summary>
+        /// Generates the employee list view
+        /// </summary>
         private void GenerateEmployeeListScreen()
         {
             SetContentView(Resource.Layout.EmpMgmtLayout);
@@ -141,6 +147,9 @@ namespace MaydSchedulerApp
         CheckBox openSun, openMon, openTue, openWed, openThu, openFri, openSat;
         Button cancel, submit;
 
+        /// <summary>
+        /// This sets up the employee view when making a new employee
+        /// </summary>
         public void OnAddEmployee()
         {
             inEditor = true;
@@ -208,10 +217,21 @@ namespace MaydSchedulerApp
             thuToggle.CheckedChange += Toggle_CheckedChange;
             friToggle.CheckedChange += Toggle_CheckedChange;
             satToggle.CheckedChange += Toggle_CheckedChange;
+            openSun.CheckedChange += Toggle_CheckedChange;
+            openMon.CheckedChange += Toggle_CheckedChange;
+            openTue.CheckedChange += Toggle_CheckedChange;
+            openWed.CheckedChange += Toggle_CheckedChange;
+            openThu.CheckedChange += Toggle_CheckedChange;
+            openFri.CheckedChange += Toggle_CheckedChange;
+            openSat.CheckedChange += Toggle_CheckedChange;
             submit.Click += SubmitAdd_Click;
             cancel.Click += Cancel_Click;
         }
 
+        /// <summary>
+        /// THis sets up the employee view when editing an existing employee
+        /// </summary>
+        /// <param name="emp"></param>
         public void OnEditEmployee(Employee emp)
         {
             inEditor = true;
@@ -231,8 +251,7 @@ namespace MaydSchedulerApp
             id = FindViewById<EditText>(Resource.Id.empPageID);
             id.Focusable = false;
             fullTime = FindViewById<CheckBox>(Resource.Id.chkFullTime);
-            if (emp.hourTarget >= 40) fullTime.Checked = true;
-            else fullTime.Checked = false;
+            fullTime.Checked = emp.fullTime;
             fullTime.Enabled = false;
             overTime = FindViewById<CheckBox>(Resource.Id.chkOvertime);
             overTime.Checked = emp.overtimeAllowed;
@@ -279,144 +298,53 @@ namespace MaydSchedulerApp
             thuToggle.CheckedChange += Toggle_CheckedChange;
             friToggle.CheckedChange += Toggle_CheckedChange;
             satToggle.CheckedChange += Toggle_CheckedChange;
+            openSun.CheckedChange += Toggle_CheckedChange;
+            openMon.CheckedChange += Toggle_CheckedChange;
+            openTue.CheckedChange += Toggle_CheckedChange;
+            openWed.CheckedChange += Toggle_CheckedChange;
+            openThu.CheckedChange += Toggle_CheckedChange;
+            openFri.CheckedChange += Toggle_CheckedChange;
+            openSat.CheckedChange += Toggle_CheckedChange;
             submit.Click += Submit_Click;
             cancel.Click += Cancel_Click;
         }
 
+        /// <summary>
+        /// This method exits the employee view screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Cancel_Click(object sender, EventArgs e)
         {
             OnBackPressed();
         }
 
+        /// <summary>
+        /// This method modified the availability from the edit screen
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Submit_Click(object sender, EventArgs e)
         {
             if (!FieldValidation())
                 return;
-            Availability avail = new Availability();
-            if(sunToggle.Checked)
-            {
-                avail.sunday.available = true;
-                avail.sunday.startTime = int.Parse(sunOpen.Text);
-                avail.sunday.endTime = int.Parse(sunClose.Text);
-            }
-            else
-                avail.sunday.available = false;
-            if (monToggle.Checked)
-            {
-                avail.monday.available = true;
-                avail.monday.startTime = int.Parse(monOpen.Text);
-                avail.monday.endTime = int.Parse(monClose.Text);
-            }
-            else
-                avail.monday.available = false;
-            if (tueToggle.Checked)
-            {
-                avail.tuesday.available = true;
-                avail.tuesday.startTime = int.Parse(tueOpen.Text);
-                avail.tuesday.endTime = int.Parse(tueClose.Text);
-            }
-            else
-                avail.tuesday.available = false;
-            if (wedToggle.Checked)
-            {
-                avail.wednesday.available = true;
-                avail.wednesday.startTime = int.Parse(wedOpen.Text);
-                avail.wednesday.endTime = int.Parse(wedClose.Text);
-            }
-            else
-                avail.wednesday.available = false;
-            if (thuToggle.Checked)
-            {
-                avail.thursday.available = true;
-                avail.thursday.startTime = int.Parse(thuOpen.Text);
-                avail.thursday.endTime = int.Parse(thuClose.Text);
-            }
-            else
-                avail.thursday.available = false;
-            if (friToggle.Checked)
-            {
-                avail.friday.available = true;
-                avail.friday.startTime = int.Parse(friOpen.Text);
-                avail.friday.endTime = int.Parse(friClose.Text);
-            }
-            else
-                avail.friday.available = false;
-            if (satToggle.Checked)
-            {
-                avail.saturday.available = true;
-                avail.saturday.startTime = int.Parse(satOpen.Text);
-                avail.saturday.endTime = int.Parse(satClose.Text);
-            }
-            else
-                avail.saturday.available = false;
+            Availability avail = GenerateAvailability();
 
             EmployeeStorage.employeeList[selected].availability = avail;
             OnBackPressed();
         }
 
+        /// <summary>
+        /// This method generates a new employee type to be stored
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SubmitAdd_Click(object sender, EventArgs e)
         {
             if (!FieldValidation())
                 return;
-            #region avail
-            Availability avail = new Availability();
-            if (sunToggle.Checked)
-            {
-                avail.sunday.available = true;
-                avail.sunday.startTime = int.Parse(sunOpen.Text);
-                avail.sunday.endTime = int.Parse(sunClose.Text);
-            }
-            else
-                avail.sunday.available = false;
-            if (monToggle.Checked)
-            {
-                avail.monday.available = true;
-                avail.monday.startTime = int.Parse(monOpen.Text);
-                avail.monday.endTime = int.Parse(monClose.Text);
-            }
-            else
-                avail.monday.available = false;
-            if (tueToggle.Checked)
-            {
-                avail.tuesday.available = true;
-                avail.tuesday.startTime = int.Parse(tueOpen.Text);
-                avail.tuesday.endTime = int.Parse(tueClose.Text);
-            }
-            else
-                avail.tuesday.available = false;
-            if (wedToggle.Checked)
-            {
-                avail.wednesday.available = true;
-                avail.wednesday.startTime = int.Parse(wedOpen.Text);
-                avail.wednesday.endTime = int.Parse(wedClose.Text);
-            }
-            else
-                avail.wednesday.available = false;
-            if (thuToggle.Checked)
-            {
-                avail.thursday.available = true;
-                avail.thursday.startTime = int.Parse(thuOpen.Text);
-                avail.thursday.endTime = int.Parse(thuClose.Text);
-            }
-            else
-                avail.thursday.available = false;
-            if (friToggle.Checked)
-            {
-                avail.friday.available = true;
-                avail.friday.startTime = int.Parse(friOpen.Text);
-                avail.friday.endTime = int.Parse(friClose.Text);
-            }
-            else
-                avail.friday.available = false;
-            if (satToggle.Checked)
-            {
-                avail.saturday.available = true;
-                avail.saturday.startTime = int.Parse(satOpen.Text);
-                avail.saturday.endTime = int.Parse(satClose.Text);
-            }
-            else
-                avail.saturday.available = false;
-            #endregion avail
+
+            Availability avail = GenerateAvailability();
 
             Employee newEmp = new Employee();
             newEmp.availability = avail;
@@ -425,8 +353,7 @@ namespace MaydSchedulerApp
             newEmp.position = position.SelectedItemPosition-1;
             newEmp.empID = int.Parse(id.Text);
             newEmp.overtimeAllowed = overTime.Checked;
-            if (fullTime.Checked) newEmp.hourTarget = SystemSettings.fullTimeHours;
-            else newEmp.hourTarget = SystemSettings.partTimeHours;
+            newEmp.fullTime = fullTime.Checked;
             newEmp.shiftPreference = int.Parse(shiftPref.Text);
             newEmp.skillLevel = int.Parse(skillLevel.Text);
             newEmp.active = true;
@@ -434,6 +361,125 @@ namespace MaydSchedulerApp
             OnBackPressed();
         }
 
+        /// <summary>
+        /// This method generates the availability type when submitting changes
+        /// </summary>
+        /// <returns></returns>
+        private Availability GenerateAvailability()
+        {
+            Availability avail;
+            if (openSun.Checked && openMon.Checked && openTue.Checked && openWed.Checked && openThu.Checked && openFri.Checked && openSat.Checked)
+                avail = new Availability(true);
+            else
+            {
+                avail = new Availability(false);
+
+                if (sunToggle.Checked)
+                {
+                    if (openSun.Checked)
+                        avail.sunday.openAvail = true;
+                    else
+                    {
+                        avail.sunday.openAvail = false;
+                        avail.sunday.available = true;
+                        avail.sunday.startTime = int.Parse(sunOpen.Text);
+                        avail.sunday.endTime = int.Parse(sunClose.Text);
+                    }
+                }
+                else
+                    avail.sunday = new Day(false);
+                if (monToggle.Checked)
+                {
+                    if (openMon.Checked)
+                        avail.monday.openAvail = true;
+                    else
+                    {
+                        avail.monday.openAvail = false;
+                        avail.monday.available = true;
+                        avail.monday.startTime = int.Parse(monOpen.Text);
+                        avail.monday.endTime = int.Parse(monClose.Text);
+                    }
+                }
+                else
+                    avail.monday = new Day(false);
+                if (tueToggle.Checked)
+                {
+                    if (openTue.Checked)
+                        avail.tuesday.openAvail = true;
+                    else
+                    {
+                        avail.tuesday.openAvail = false;
+                        avail.tuesday.available = true;
+                        avail.tuesday.startTime = int.Parse(tueOpen.Text);
+                        avail.tuesday.endTime = int.Parse(tueClose.Text);
+                    }
+                }
+                else
+                    avail.tuesday = new Day(false);
+                if (wedToggle.Checked)
+                {
+                    if (openWed.Checked)
+                        avail.wednesday.openAvail = true;
+                    else
+                    {
+                        avail.wednesday.openAvail = false;
+                        avail.wednesday.available = true;
+                        avail.wednesday.startTime = int.Parse(wedOpen.Text);
+                        avail.wednesday.endTime = int.Parse(wedClose.Text);
+                    }
+                }
+                else
+                    avail.wednesday = new Day(false);
+                if (thuToggle.Checked)
+                {
+                    if (openThu.Checked)
+                        avail.thursday.openAvail = true;
+                    else
+                    {
+                        avail.thursday.openAvail = false;
+                        avail.thursday.available = true;
+                        avail.thursday.startTime = int.Parse(thuOpen.Text);
+                        avail.thursday.endTime = int.Parse(thuClose.Text);
+                    }
+                }
+                else
+                    avail.thursday = new Day(false);
+                if (friToggle.Checked)
+                {
+                    if (openFri.Checked)
+                        avail.friday.openAvail = true;
+                    else
+                    {
+                        avail.friday.openAvail = false;
+                        avail.friday.available = true;
+                        avail.friday.startTime = int.Parse(friOpen.Text);
+                        avail.friday.endTime = int.Parse(friClose.Text);
+                    }
+                }
+                else
+                    avail.friday = new Day(false);
+                if (satToggle.Checked)
+                {
+                    if (openSat.Checked)
+                        avail.saturday.openAvail = true;
+                    else
+                    {
+                        avail.saturday.openAvail = false;
+                        avail.saturday.available = true;
+                        avail.saturday.startTime = int.Parse(satOpen.Text);
+                        avail.saturday.endTime = int.Parse(satClose.Text);
+                    }
+                }
+                else
+                    avail.saturday = new Day(false);
+            }
+            return avail;
+        }
+
+        /// <summary>
+        /// This fills the employee view spinner from the position list
+        /// </summary>
+        /// <returns></returns>
         private ArrayAdapter<string> FillSpinner()
         {
             List<string> posList = new List<string>();
@@ -444,6 +490,10 @@ namespace MaydSchedulerApp
             return adapter;
         }
 
+        /// <summary>
+        /// This validates that all fields are filled out properly
+        /// </summary>
+        /// <returns></returns>
         private bool FieldValidation()
         {
             if (firstName.Text == "" || lastName.Text == "" || position.SelectedItemPosition == 0 || id.Text == "" || shiftPref.Text == "" || skillLevel.Text == "")
@@ -515,6 +565,9 @@ namespace MaydSchedulerApp
             return true;
         }
 
+        /// <summary>
+        /// If there is a field that is not properly filled out this is called and submitting is prevented
+        /// </summary>
         private void ValidationFailure()
         {
             submit.Text = "Fill out all fields!";
@@ -529,77 +582,203 @@ namespace MaydSchedulerApp
         private void Toggle_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             CheckBox obj = (CheckBox)sender;
-            if(!sunToggle.Checked)
+            if (obj.Id == sunToggle.Id)
             {
-                sunOpen.Enabled = false;
-                sunClose.Enabled = false;
+                if (!sunToggle.Checked)
+                {
+                    openSun.Enabled = false;
+                    sunOpen.Enabled = false;
+                    sunClose.Enabled = false;
+                }
+                else
+                {
+                    openSun.Enabled = true;
+                    sunOpen.Enabled = true;
+                    sunClose.Enabled = true;
+                }
             }
-            else
+            else if (obj.Id == monToggle.Id)
             {
-                sunOpen.Enabled = true;
-                sunClose.Enabled = true;
+                if (!monToggle.Checked)
+                {
+                    openMon.Enabled = false;
+                    monOpen.Enabled = false;
+                    monClose.Enabled = false;
+                }
+                else
+                {
+                    openMon.Enabled = true;
+                    monOpen.Enabled = true;
+                    monClose.Enabled = true;
+                }
             }
-            if (!monToggle.Checked)
+            else if (obj.Id == tueToggle.Id)
             {
-                monOpen.Enabled = false;
-                monClose.Enabled = false;
+                if (!tueToggle.Checked)
+                {
+                    openTue.Enabled = false;
+                    tueOpen.Enabled = false;
+                    tueClose.Enabled = false;
+                }
+                else
+                {
+                    openTue.Enabled = true;
+                    tueOpen.Enabled = true;
+                    tueClose.Enabled = true;
+                }
             }
-            else
+            else if (obj.Id == wedToggle.Id)
             {
-                monOpen.Enabled = true;
-                monClose.Enabled = true;
+                if (!wedToggle.Checked)
+                {
+                    openWed.Enabled = false;
+                    wedOpen.Enabled = false;
+                    wedClose.Enabled = false;
+                }
+                else
+                {
+                    openWed.Enabled = true;
+                    wedOpen.Enabled = true;
+                    wedClose.Enabled = true;
+                }
             }
-            if (!tueToggle.Checked)
+            else if (obj.Id == thuToggle.Id)
             {
-                tueOpen.Enabled = false;
-                tueClose.Enabled = false;
+                if (!thuToggle.Checked)
+                {
+                    openThu.Enabled = false;
+                    thuOpen.Enabled = false;
+                    thuClose.Enabled = false;
+                }
+                else
+                {
+                    openThu.Enabled = true;
+                    thuOpen.Enabled = true;
+                    thuClose.Enabled = true;
+                }
             }
-            else
+            else if (obj.Id == friToggle.Id)
             {
-                tueOpen.Enabled = true;
-                tueClose.Enabled = true;
+                if (!friToggle.Checked)
+                {
+                    openFri.Enabled = false;
+                    friOpen.Enabled = false;
+                    friClose.Enabled = false;
+                }
+                else
+                {
+                    openFri.Enabled = true;
+                    friOpen.Enabled = true;
+                    friClose.Enabled = true;
+                }
             }
-            if (!wedToggle.Checked)
+            else if (obj.Id == satToggle.Id)
             {
-                wedOpen.Enabled = false;
-                wedClose.Enabled = false;
+                if (!satToggle.Checked)
+                {
+                    openSat.Enabled = false;
+                    satOpen.Enabled = false;
+                    satClose.Enabled = false;
+                }
+                else
+                {
+                    openSat.Enabled = true;
+                    satOpen.Enabled = true;
+                    satClose.Enabled = true;
+                }
             }
-            else
+            //Open availability check
+            else if (obj.Id == openSun.Id)
             {
-                wedOpen.Enabled = true;
-                wedClose.Enabled = true;
+                if (openSun.Checked)
+                {
+                    sunOpen.Enabled = false;
+                    sunClose.Enabled = false;
+                }
+                else
+                {
+                    sunOpen.Enabled = true;
+                    sunClose.Enabled = true;
+                }
             }
-            if (!thuToggle.Checked)
+            else if (obj.Id == openMon.Id)
             {
-                thuOpen.Enabled = false;
-                thuClose.Enabled = false;
+                if (openMon.Checked)
+                {
+                    monOpen.Enabled = false;
+                    monClose.Enabled = false;
+                }
+                else
+                {
+                    monOpen.Enabled = true;
+                    monClose.Enabled = true;
+                }
             }
-            else
+            else if (obj.Id == openTue.Id)
             {
-                thuOpen.Enabled = true;
-                thuClose.Enabled = true;
+                if (openTue.Checked)
+                {
+                    tueOpen.Enabled = false;
+                    tueClose.Enabled = false;
+                }
+                else
+                {
+                    tueOpen.Enabled = true;
+                    tueClose.Enabled = true;
+                }
             }
-            if (!friToggle.Checked)
+            else if (obj.Id == openWed.Id)
             {
-                friOpen.Enabled = false;
-                friClose.Enabled = false;
+                if (openWed.Checked)
+                {
+                    wedOpen.Enabled = false;
+                    wedClose.Enabled = false;
+                }
+                else
+                {
+                    wedOpen.Enabled = true;
+                    wedClose.Enabled = true;
+                }
             }
-            else
+            else if (obj.Id == openThu.Id)
             {
-                friOpen.Enabled = true;
-                friClose.Enabled = true;
+                if (openThu.Checked)
+                {
+                    thuOpen.Enabled = false;
+                    thuClose.Enabled = false;
+                }
+                else
+                {
+                    thuOpen.Enabled = true;
+                    thuClose.Enabled = true;
+                }
             }
-            if (!satToggle.Checked)
+            else if (obj.Id == openFri.Id)
             {
-                satOpen.Enabled = false;
-                satClose.Enabled = false;
+                if (openFri.Checked)
+                {
+                    friOpen.Enabled = false;
+                    friClose.Enabled = false;
+                }
+                else
+                {
+                    friOpen.Enabled = true;
+                    friClose.Enabled = true;
+                }
             }
-            else
+            else if (obj.Id == openSat.Id)
             {
-                satOpen.Enabled = true;
-                satClose.Enabled = true;
+                if (openSat.Checked)
+                {
+                    satOpen.Enabled = false;
+                    satClose.Enabled = false;
+                }
+                else
+                {
+                    satOpen.Enabled = true;
+                    satClose.Enabled = true;
+                }
             }
-            if()
         }
 
         /// <summary>

@@ -60,7 +60,7 @@ namespace MaydSchedulerApp
         private static bool CheckSavedWeeks()
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
-            return prefs.GetBoolean("positionsCreated", false);
+            return prefs.GetBoolean("weeksSaved", false);
         }
 
         private static bool CheckUUID()
@@ -121,12 +121,12 @@ namespace MaydSchedulerApp
             editor.PutInt("minShift", minShift);
             maxShift = _maxShift;
             editor.PutInt("maxShift", maxShift);
+            skillLevelCap = _skillCap;
+            editor.PutInt("skillCap", skillLevelCap);
             partTimeHours = _partTime;
             editor.PutInt("partTime", partTimeHours);
             fullTimeHours = _fullTime;
             editor.PutInt("fullTime", fullTimeHours);
-            skillLevelCap = _skillCap;
-            editor.PutInt("skillCap", skillLevelCap);
             editor.Apply();
         }
 

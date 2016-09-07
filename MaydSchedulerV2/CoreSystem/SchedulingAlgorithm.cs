@@ -49,7 +49,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("StartScheduleGen() Exception || This is likely a fallthrough error, debug", ex);
+                Console.WriteLine("StartScheduleGen() Exception || General Exception Refer to StackTrace");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -86,7 +87,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GeneratePositionLists() Exception || ScheduleAlgorithm.cs", ex);
+                Console.WriteLine("GeneratePositionLists() Exception || ScheduleAlgorithm.cs");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -143,7 +145,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("CalcPositionVars() Exception", ex);
+                Console.WriteLine("CalcPositionVars() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -178,7 +181,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("AnalyzeResources() Exception", ex);
+                Console.WriteLine("AnalyzeResources() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -311,7 +315,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GenerateSchedule() Exception", ex);
+                Console.WriteLine("GenerateSchedule() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -434,7 +439,8 @@ namespace MaydSchedulerApp
             }
             catch(Exception ex)
             {
-                Console.WriteLine("AssignShiftsBW() Exception", ex);
+                Console.WriteLine("AssignShiftsBW() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -541,7 +547,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("AssignShiftsBW() Exception", ex);
+                Console.WriteLine("AssignShiftsBW() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -639,9 +646,10 @@ namespace MaydSchedulerApp
 
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                Console.WriteLine("ScheduleFill() Exception", e);
+                Console.WriteLine("ScheduleFill() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -762,7 +770,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("SortList() Exception", ex);
+                Console.WriteLine("SortList() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
             }
         }
@@ -790,7 +799,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GenerateOpenShifts() Exception", ex);
+                Console.WriteLine("GenerateOpenShifts() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -819,7 +829,8 @@ namespace MaydSchedulerApp
             }
             catch(Exception ex)
             {
-                Console.WriteLine("GenerateCloseShifts() Exception", ex);
+                Console.WriteLine("GenerateCloseShifts() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
         }
 
@@ -856,7 +867,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("PickDay() Exception", ex);
+                Console.WriteLine("PickDay() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
             }
         }
@@ -875,7 +887,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("CalculateSkillAvg() Exception", ex);
+                Console.WriteLine("CalculateSkillAvg() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return 0;
             }
         }
@@ -912,7 +925,8 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine("GeneratePriorityList() Exception", ex);
+                Console.WriteLine("GeneratePriorityList() Exception");
+                Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
             }
         }

@@ -51,7 +51,7 @@ namespace MaydSchedulerApp
             txtName.Text = mItems[position].lName + ", " + mItems[position].fName;
 
             TextView txtPosition = row.FindViewById<TextView>(Resource.Id.txtSchedulePosition);
-            txtPosition.Text = CoreSystem.GetPositionName(mItems[position].position);
+            txtPosition.Text = SystemSettings.GetPositionName(mItems[position].position);
 
             TextView txtSunday = row.FindViewById<TextView>(Resource.Id.txtSun);
             TextView txtMonday = row.FindViewById<TextView>(Resource.Id.txtMon);

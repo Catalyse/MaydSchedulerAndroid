@@ -96,7 +96,7 @@ namespace MaydSchedulerApp
 
         public static void LoadTestingSettings()
         {
-            InitialSetup(8, 6, 10, 10, 8, 22);
+            InitialSetup(8, 6, 10, 10, 28, 40);
             SetupFacilityPreferences(10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20);
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();

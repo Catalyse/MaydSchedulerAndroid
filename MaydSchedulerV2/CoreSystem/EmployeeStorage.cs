@@ -141,8 +141,9 @@ namespace MaydSchedulerApp
                 EmpListSerializer.SerializeEmpList(employeeList);
             }
             else
-            { }
+            {
                 Console.WriteLine("No employee list to serialize!");
+            }
         }
     }
 }

@@ -53,7 +53,7 @@ namespace MaydSchedulerApp
             txtLast.Text = mItems[position].empLastName;
 
             TextView txtPosition = row.FindViewById<TextView>(Resource.Id.txtPosition);
-            txtPosition.Text = CoreSystem.GetPositionName(mItems[position].position);
+            txtPosition.Text = SystemSettings.GetPositionName(mItems[position].position);
 
             TextView txtEID = row.FindViewById<TextView>(Resource.Id.txtEID);
             txtEID.Text = mItems[position].empID.ToString();

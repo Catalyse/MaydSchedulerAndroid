@@ -433,7 +433,9 @@ namespace MaydSchedulerApp
         public void GenerationComplete(Week week)
         {
             MainActivity.week = week;
+            MainActivity.schedulerPassoff = true;
             SystemSettings.SaveWeek(week);
+            Finish();
         }
 
         public void DrawSchedule()

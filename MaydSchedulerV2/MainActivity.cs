@@ -22,7 +22,7 @@ namespace MaydSchedulerApp
         
         private int count;
         public static int clickedIndex;
-        public static bool weekClicked = false;
+        public static bool weekClicked = false, schedulerPassoff = false;
         public static Week week;//This is just a global storage location for this
 
         #region InterfaceVars
@@ -61,13 +61,23 @@ namespace MaydSchedulerApp
             FillRecentList();
             SetupButtons();
         }
+
         #region OVERRIDE
         protected override void OnRestart()
         {
-            recentView.ItemClick -= RecentView_ItemClick;
-            FillRecentList();
-            SetupButtons();
-            base.OnRestart();
+            if (schedulerPassoff)
+            {
+                schedulerPassoff = false;
+                SchedulerPassoff();
+                base.OnRestart();
+            }
+            else
+            {
+                recentView.ItemClick -= RecentView_ItemClick;
+                FillRecentList();
+                SetupButtons();
+                base.OnRestart();
+            }
         }
 
         protected override void OnDestroy()
@@ -147,10 +157,9 @@ namespace MaydSchedulerApp
             this.StartActivity(intent);
         }
 
-        private void SchedulerPassoff(Week w)
+        private void SchedulerPassoff()
         {
             weekClicked = true;
-            week = w;
             Intent intent = new Intent(this, typeof(HistoryActivity));
             this.StartActivity(intent);
         }
@@ -164,7 +173,7 @@ namespace MaydSchedulerApp
                 Intent intent = new Intent(this, typeof(SettingsActivity));
                 this.StartActivity(intent);
             })
-            .SetMessage("Thank you for trying out the Mayd Scheduler! We hope that it becomes an important tool in your day to day operations. \n Now please set up your default settings so we can get you making schedules as fast as possible!")
+            .SetMessage("Thank you for trying out the Mayd Scheduler! We hope that it becomes an important tool in your day to day operations. \nNow please set up your default settings so we can get you making schedules as fast as possible!")
             .SetTitle("Welcome")
             .Show();
         }

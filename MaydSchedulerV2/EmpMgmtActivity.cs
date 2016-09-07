@@ -138,6 +138,7 @@ namespace MaydSchedulerApp
         Spinner position;
         EditText sunOpen, sunClose, monOpen, monClose, tueOpen, tueClose, wedOpen, wedClose, thuOpen, thuClose, friOpen, friClose, satOpen, satClose, skillLevel, shiftPref;
         CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle, fullTime, overTime;
+        CheckBox openSun, openMon, openTue, openWed, openThu, openFri, openSat;
         Button cancel, submit;
 
         public void OnAddEmployee()
@@ -159,8 +160,10 @@ namespace MaydSchedulerApp
             position.SetSelection(0);
             id = FindViewById<EditText>(Resource.Id.empPageID);
             id.Focusable = true;
+            id.Text = "";
             fullTime = FindViewById<CheckBox>(Resource.Id.chkFullTime);
             fullTime.Checked = true;
+            fullTime.Enabled = true;
             overTime = FindViewById<CheckBox>(Resource.Id.chkOvertime);
             overTime.Checked = false;
             skillLevel = FindViewById<EditText>(Resource.Id.inputSkillLevel);
@@ -188,6 +191,13 @@ namespace MaydSchedulerApp
             thuToggle = FindViewById<CheckBox>(Resource.Id.chkAvailThursday);
             friToggle = FindViewById<CheckBox>(Resource.Id.chkAvailFriday);
             satToggle = FindViewById<CheckBox>(Resource.Id.chkAvailSaturday);
+            openSun = FindViewById<CheckBox>(Resource.Id.chkOpenAvailSunday);
+            openMon = FindViewById<CheckBox>(Resource.Id.chkOpenAvailMonday);
+            openTue = FindViewById<CheckBox>(Resource.Id.chkOpenAvailTuesday);
+            openWed = FindViewById<CheckBox>(Resource.Id.chkOpenAvailWednesday);
+            openThu = FindViewById<CheckBox>(Resource.Id.chkOpenAvailThursday);
+            openFri = FindViewById<CheckBox>(Resource.Id.chkOpenAvailFriday);
+            openSat = FindViewById<CheckBox>(Resource.Id.chkOpenAvailSaturday);
             sunToggle.CheckedChange += Toggle_CheckedChange;
             monToggle.CheckedChange += Toggle_CheckedChange;
             tueToggle.CheckedChange += Toggle_CheckedChange;
@@ -247,6 +257,13 @@ namespace MaydSchedulerApp
             thuToggle = FindViewById<CheckBox>(Resource.Id.chkAvailThursday);
             friToggle = FindViewById<CheckBox>(Resource.Id.chkAvailFriday);
             satToggle = FindViewById<CheckBox>(Resource.Id.chkAvailSaturday);
+            openSun = FindViewById<CheckBox>(Resource.Id.chkOpenAvailSunday);
+            openMon = FindViewById<CheckBox>(Resource.Id.chkOpenAvailMonday);
+            openTue = FindViewById<CheckBox>(Resource.Id.chkOpenAvailTuesday);
+            openWed = FindViewById<CheckBox>(Resource.Id.chkOpenAvailWednesday);
+            openThu = FindViewById<CheckBox>(Resource.Id.chkOpenAvailThursday);
+            openFri = FindViewById<CheckBox>(Resource.Id.chkOpenAvailFriday);
+            openSat = FindViewById<CheckBox>(Resource.Id.chkOpenAvailSaturday);
             FillData(emp);
             sunToggle.CheckedChange += Toggle_CheckedChange;
             monToggle.CheckedChange += Toggle_CheckedChange;
@@ -406,6 +423,8 @@ namespace MaydSchedulerApp
             newEmp.shiftPreference = int.Parse(shiftPref.Text);
             newEmp.skillLevel = int.Parse(skillLevel.Text);
             newEmp.active = true;
+            EmployeeStorage.AddEmployee(newEmp);
+            OnBackPressed();
         }
 
         private ArrayAdapter<string> FillSpinner()
@@ -503,93 +522,77 @@ namespace MaydSchedulerApp
         private void Toggle_CheckedChange(object sender, CompoundButton.CheckedChangeEventArgs e)
         {
             CheckBox obj = (CheckBox)sender;
-            switch(obj.Text)
+            if(!sunToggle.Checked)
             {
-                case "Sunday":
-                    if(!sunToggle.Checked)
-                    {
-                        sunOpen.Enabled = false;
-                        sunClose.Enabled = false;
-                    }
-                    else
-                    {
-                        sunOpen.Enabled = true;
-                        sunClose.Enabled = true;
-                    }
-                    break;
-                case "Monday":
-                    if (!monToggle.Checked)
-                    {
-                        monOpen.Enabled = false;
-                        monClose.Enabled = false;
-                    }
-                    else
-                    {
-                        monOpen.Enabled = true;
-                        monClose.Enabled = true;
-                    }
-                    break;
-                case "Tuesday":
-                    if (!tueToggle.Checked)
-                    {
-                        tueOpen.Enabled = false;
-                        tueClose.Enabled = false;
-                    }
-                    else
-                    {
-                        tueOpen.Enabled = true;
-                        tueClose.Enabled = true;
-                    }
-                    break;
-                case "Wednesday":
-                    if (!wedToggle.Checked)
-                    {
-                        wedOpen.Enabled = false;
-                        wedClose.Enabled = false;
-                    }
-                    else
-                    {
-                        wedOpen.Enabled = true;
-                        wedClose.Enabled = true;
-                    }
-                    break;
-                case "Thursday":
-                    if (!thuToggle.Checked)
-                    {
-                        thuOpen.Enabled = false;
-                        thuClose.Enabled = false;
-                    }
-                    else
-                    {
-                        thuOpen.Enabled = true;
-                        thuClose.Enabled = true;
-                    }
-                    break;
-                case "Friday":
-                    if (!friToggle.Checked)
-                    {
-                        friOpen.Enabled = false;
-                        friClose.Enabled = false;
-                    }
-                    else
-                    {
-                        friOpen.Enabled = true;
-                        friClose.Enabled = true;
-                    }
-                    break;
-                case "Saturday":
-                    if (!satToggle.Checked)
-                    {
-                        satOpen.Enabled = false;
-                        satClose.Enabled = false;
-                    }
-                    else
-                    {
-                        satOpen.Enabled = true;
-                        satClose.Enabled = true;
-                    }
-                    break;
+                sunOpen.Enabled = false;
+                sunClose.Enabled = false;
             }
+            else
+            {
+                sunOpen.Enabled = true;
+                sunClose.Enabled = true;
+            }
+            if (!monToggle.Checked)
+            {
+                monOpen.Enabled = false;
+                monClose.Enabled = false;
+            }
+            else
+            {
+                monOpen.Enabled = true;
+                monClose.Enabled = true;
+            }
+            if (!tueToggle.Checked)
+            {
+                tueOpen.Enabled = false;
+                tueClose.Enabled = false;
+            }
+            else
+            {
+                tueOpen.Enabled = true;
+                tueClose.Enabled = true;
+            }
+            if (!wedToggle.Checked)
+            {
+                wedOpen.Enabled = false;
+                wedClose.Enabled = false;
+            }
+            else
+            {
+                wedOpen.Enabled = true;
+                wedClose.Enabled = true;
+            }
+            if (!thuToggle.Checked)
+            {
+                thuOpen.Enabled = false;
+                thuClose.Enabled = false;
+            }
+            else
+            {
+                thuOpen.Enabled = true;
+                thuClose.Enabled = true;
+            }
+            if (!friToggle.Checked)
+            {
+                friOpen.Enabled = false;
+                friClose.Enabled = false;
+            }
+            else
+            {
+                friOpen.Enabled = true;
+                friClose.Enabled = true;
+            }
+            if (!satToggle.Checked)
+            {
+                satOpen.Enabled = false;
+                satClose.Enabled = false;
+            }
+            else
+            {
+                satOpen.Enabled = true;
+                satClose.Enabled = true;
+            }
+            if()
         }
 
         /// <summary>
@@ -681,6 +684,10 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This generates the employee list adapter from a list of employees
+        /// </summary>
+        /// <param name="empList"></param>
         public void GenerateEmpList(List<Employee> empList)
         {
             if (empList.Count > 0)

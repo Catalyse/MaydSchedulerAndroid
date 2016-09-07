@@ -166,10 +166,13 @@ namespace MaydSchedulerApp
             fullTime.Enabled = true;
             overTime = FindViewById<CheckBox>(Resource.Id.chkOvertime);
             overTime.Checked = false;
+            overTime.Enabled = true;
             skillLevel = FindViewById<EditText>(Resource.Id.inputSkillLevel);
             skillLevel.Text = "";
+            skillLevel.Focusable = true;
             shiftPref = FindViewById<EditText>(Resource.Id.inputShiftPref);
             shiftPref.Text = "";
+            shiftPref.Focusable = true;
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
@@ -230,12 +233,16 @@ namespace MaydSchedulerApp
             fullTime = FindViewById<CheckBox>(Resource.Id.chkFullTime);
             if (emp.hourTarget >= 40) fullTime.Checked = true;
             else fullTime.Checked = false;
+            fullTime.Enabled = false;
             overTime = FindViewById<CheckBox>(Resource.Id.chkOvertime);
             overTime.Checked = emp.overtimeAllowed;
+            overTime.Enabled = false;
             skillLevel = FindViewById<EditText>(Resource.Id.inputSkillLevel);
             skillLevel.Text = emp.skillLevel.ToString();
+            skillLevel.Focusable = false;
             shiftPref = FindViewById<EditText>(Resource.Id.inputShiftPref);
             shiftPref.Text = emp.shiftPreference.ToString();
+            shiftPref.Focusable = false;
             sunOpen = FindViewById<EditText>(Resource.Id.inputAvailSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputAvailMonOpen);
             tueOpen = FindViewById<EditText>(Resource.Id.inputAvailTueOpen);
@@ -451,7 +458,7 @@ namespace MaydSchedulerApp
             }
             if (sunToggle.Checked)
             {
-                if(sunOpen.Text == "" || sunClose.Text == "")
+                if((sunOpen.Text == "" || sunClose.Text == "") && !openSun.Checked)
                 {
                     ValidationFailure();
                     return false;
@@ -459,7 +466,7 @@ namespace MaydSchedulerApp
             }
             if (monToggle.Checked)
             {
-                if (monOpen.Text == "" || monClose.Text == "")
+                if ((monOpen.Text == "" || monClose.Text == "") && !openMon.Checked)
                 {
                     ValidationFailure();
                     return false;
@@ -467,7 +474,7 @@ namespace MaydSchedulerApp
             }
             if (tueToggle.Checked)
             {
-                if (tueOpen.Text == "" || tueClose.Text == "")
+                if ((tueOpen.Text == "" || tueClose.Text == "") && !openTue.Checked)
                 {
                     ValidationFailure();
                     return false;
@@ -475,7 +482,7 @@ namespace MaydSchedulerApp
             }
             if (wedToggle.Checked)
             {
-                if (wedOpen.Text == "" || wedClose.Text == "")
+                if ((wedOpen.Text == "" || wedClose.Text == "") && !openWed.Checked)
                 {
                     ValidationFailure();
                     return false;
@@ -483,7 +490,7 @@ namespace MaydSchedulerApp
             }
             if (thuToggle.Checked)
             {
-                if (thuOpen.Text == "" || thuClose.Text == "")
+                if ((thuOpen.Text == "" || thuClose.Text == "") && !openThu.Checked)
                 {
                     ValidationFailure();
                     return false;
@@ -491,7 +498,7 @@ namespace MaydSchedulerApp
             }
             if (friToggle.Checked)
             {
-                if (friOpen.Text == "" || friClose.Text == "")
+                if ((friOpen.Text == "" || friClose.Text == "") && !openFri.Checked)
                 {
                     ValidationFailure();
                     return false;
@@ -499,7 +506,7 @@ namespace MaydSchedulerApp
             }
             if (satToggle.Checked)
             {
-                if (satOpen.Text == "" || satClose.Text == "")
+                if ((satOpen.Text == "" || satClose.Text == "") && !openSun.Checked)
                 {
                     ValidationFailure();
                     return false;

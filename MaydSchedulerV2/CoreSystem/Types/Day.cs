@@ -7,8 +7,6 @@ namespace MaydSchedulerApp
         public bool available;
         public bool openAvail;
         public int startTime, endTime;
-        private int defaultStart = 0800;
-        private int defaultEnd = 2200;
 
         /// <summary>
         /// If Day is instantiated using its default constructor it is assumed to be not available or false.
@@ -30,19 +28,20 @@ namespace MaydSchedulerApp
             if (available)
             {
                 openAvail = true;
-                startTime = defaultStart;
-                endTime = defaultEnd;
             }
             else
             {
                 openAvail = false;
-                startTime = 0;
-                endTime = 0;
             }
         }
-        public Day(bool on, int s, int e)
+        /// <summary>
+        /// If they can work but have limited availability
+        /// </summary>
+        /// <param name="s"></param>
+        /// <param name="e"></param>
+        public Day(int s, int e)
         {
-            available = on;
+            available = true;
             openAvail = false;
             startTime = s;
             endTime = e;

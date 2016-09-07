@@ -5,6 +5,7 @@ namespace MaydSchedulerApp
 {
     public class Availability
     {
+        public bool OpenAvailability;
         public Day sunday { get; set; } 
         public Day monday { get; set; }
         public Day tuesday { get; set; }
@@ -13,7 +14,29 @@ namespace MaydSchedulerApp
         public Day friday { get; set; }
         public Day saturday { get; set; }
 
+        //Default for serialization
         public Availability() { }
+
+        public Availability(bool openAvail)
+        {
+            OpenAvailability = openAvail;
+            if(openAvail)
+            {
+                //do nothing
+            }
+            else
+            {
+                sunday = new Day();
+                monday = new Day();
+                tuesday = new Day();
+                wednesday = new Day();
+                thursday = new Day();
+                friday = new Day();
+                saturday = new Day();
+            }
+        }
+
+        //Copy Const
         public Availability(Availability copy)
         {
             sunday = new Day(copy.sunday);
@@ -25,6 +48,7 @@ namespace MaydSchedulerApp
             saturday = new Day(copy.saturday);
         }
         
+        //Index override
         public Day this[DayOfWeek d]
         {
             get

@@ -104,7 +104,7 @@
         android:layout_width="match_parent"
         android:layout_weight="10"
         android:focusable="false"
-        android:id="@+id/btnWeeklySubmit" />
+        android:id="@+id/btnPositionEdit" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"

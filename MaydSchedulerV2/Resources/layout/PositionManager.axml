@@ -3,5 +3,29 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="80"
+        android:id="@+id/posListView"/>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="20">
+        <Button
+            android:text="Cancel"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:focusable="false"
+            android:id="@+id/btnPosMgrCancel" />
+        <Button
+            android:text="Add Position"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:focusable="false"
+            android:id="@+id/btnPosMgrAdd" />
+    </LinearLayout>
 </LinearLayout>

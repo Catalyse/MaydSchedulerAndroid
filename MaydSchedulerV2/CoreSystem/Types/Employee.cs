@@ -53,48 +53,53 @@ namespace MaydSchedulerApp
 
         public bool GetAvailability(int day)
         {
-            switch (day)
+            if (availability.OpenAvailability)
+                return true;
+            else
             {
-                case 0:
-                    if (availability.sunday.available)
-                        return true;
-                    else
-                        return false;
-                case 1:
-                    if (availability.monday.available)
-                        return true;
-                    else
-                        return false;
-                case 2:
-                    if (availability.tuesday.available)
-                        return true;
-                    else
-                        return false;
-                case 3:
-                    if (availability.wednesday.available)
-                        return true;
-                    else
-                        return false;
-                case 4:
-                    if (availability.thursday.available)
-                        return true;
-                    else
-                        return false;
-                case 5:
-                    if (availability.friday.available)
-                        return true;
-                    else
-                        return false;
-                case 6:
-                    if (availability.saturday.available)
-                        return true;
-                    else
-                        return false;
-                default:
-                    Console.WriteLine("Invalid case chosen! :: Employee.cs :: GetAvailability(int day): Invalid Value for Day Thrown! :: Returning false!");
-                    break;
+                switch (day)
+                {
+                    case 0:
+                        if (availability.sunday.available)
+                            return true;
+                        else
+                            return false;
+                    case 1:
+                        if (availability.monday.available)
+                            return true;
+                        else
+                            return false;
+                    case 2:
+                        if (availability.tuesday.available)
+                            return true;
+                        else
+                            return false;
+                    case 3:
+                        if (availability.wednesday.available)
+                            return true;
+                        else
+                            return false;
+                    case 4:
+                        if (availability.thursday.available)
+                            return true;
+                        else
+                            return false;
+                    case 5:
+                        if (availability.friday.available)
+                            return true;
+                        else
+                            return false;
+                    case 6:
+                        if (availability.saturday.available)
+                            return true;
+                        else
+                            return false;
+                    default:
+                        Console.WriteLine("Invalid case chosen! :: Employee.cs :: GetAvailability(int day): Invalid Value for Day Thrown! :: Returning false!");
+                        break;
+                }
+                return false;
             }
-            return false;
         }
     }
 }

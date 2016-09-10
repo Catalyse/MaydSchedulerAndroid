@@ -57,6 +57,11 @@ namespace MaydSchedulerApp
             return prefs.GetBoolean("positionsCreated", false);
         }
 
+        public static bool CheckIfPositionExists(string name)
+        {
+            return positionList.ContainsValue(name);
+        }
+
         private static bool CheckSavedWeeks()
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
@@ -161,8 +166,8 @@ namespace MaydSchedulerApp
                 editor.PutString("week" + count.ToString(), serializedWeek);
                 editor.PutInt("savedWeekIterator", count + 1);
                 editor.PutBoolean("weeksSaved", true);
+                weeksLoaded = true;
                 editor.Apply();
-                LoadWeeks();
             }
             else
             {
@@ -170,8 +175,10 @@ namespace MaydSchedulerApp
                 string serializedWeek = writer.ToString();
                 editor.PutString("week" + week.saveIndex.ToString(), serializedWeek);
                 editor.PutBoolean("weeksSaved", true);
+                weeksLoaded = true;
                 editor.Apply();
             }
+            LoadWeeks();
         }
 
         public static void LoadWeeks()
@@ -305,13 +312,15 @@ namespace MaydSchedulerApp
         {
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
-            if (!prefs.GetBoolean("positionsCreated", false))
+            if (!positionsCreated)
             {//No positions made, first added
+                positionsCreated = true;
                 editor.PutBoolean("positionsCreated", true);
                 editor.PutInt("positionCount", 1);
                 editor.PutString("0", positionName);
                 positionList.Add(0, positionName);
                 editor.Apply();
+                GetPositionList();
                 return true;
             }
             else
@@ -323,9 +332,10 @@ namespace MaydSchedulerApp
                     int count = prefs.GetInt("positionCount", -1);
                     count++;
                     editor.PutInt("positionCount", count);
-                    editor.PutString(count.ToString(), positionName);
+                    editor.PutString((count-1).ToString(), positionName);
                     positionList.Add(count, positionName);
                     editor.Apply();
+                    GetPositionList();
                     return true;
                 }
             }

@@ -290,6 +290,48 @@ namespace MaydSchedulerApp
   <OpenAvailability>true</OpenAvailability>
   </availability>
   </Employee>
+  <Employee>
+  <empLastName>V</empLastName>
+  <empFirstName>U</empFirstName>
+  <empID>20</empID>
+  <position>1</position>
+  <fullTime>true</fullTime>
+  <shiftPreference>8</shiftPreference>
+  <skillLevel>10</skillLevel>
+  <active>true</active>
+  <overtimeAllowed>false</overtimeAllowed>
+  <availability>
+  <OpenAvailability>true</OpenAvailability>
+  </availability>
+  </Employee>
+  <Employee>
+  <empLastName>W</empLastName>
+  <empFirstName>V</empFirstName>
+  <empID>20</empID>
+  <position>1</position>
+  <fullTime>true</fullTime>
+  <shiftPreference>8</shiftPreference>
+  <skillLevel>10</skillLevel>
+  <active>true</active>
+  <overtimeAllowed>false</overtimeAllowed>
+  <availability>
+  <OpenAvailability>true</OpenAvailability>
+  </availability>
+  </Employee>
+  <Employee>
+  <empLastName>X</empLastName>
+  <empFirstName>W</empFirstName>
+  <empID>20</empID>
+  <position>1</position>
+  <fullTime>true</fullTime>
+  <shiftPreference>8</shiftPreference>
+  <skillLevel>10</skillLevel>
+  <active>true</active>
+  <overtimeAllowed>false</overtimeAllowed>
+  <availability>
+  <OpenAvailability>true</OpenAvailability>
+  </availability>
+  </Employee>
 </ArrayOfEmployee>";
     }
 }

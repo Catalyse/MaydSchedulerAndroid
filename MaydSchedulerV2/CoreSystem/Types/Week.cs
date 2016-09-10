@@ -44,17 +44,35 @@ namespace MaydSchedulerApp
             switch (i)
             {
                 case 0:
-                    return sunday;
+                    if (sunday.activeDay)
+                        return sunday;
+                    else
+                        return SelectDay(i + 1);
                 case 1:
-                    return monday;
+                    if (monday.activeDay)
+                        return monday;
+                    else
+                        return SelectDay(i + 1);
                 case 2:
-                    return tuesday;
+                    if (tuesday.activeDay)
+                        return tuesday;
+                    else
+                        return SelectDay(i + 1);
                 case 3:
-                    return wednesday;
+                    if (wednesday.activeDay)
+                        return wednesday;
+                    else
+                        return SelectDay(i + 1);
                 case 4:
-                    return thursday;
+                    if (thursday.activeDay)
+                        return thursday;
+                    else
+                        return SelectDay(i + 1);
                 case 5:
-                    return friday;
+                    if (friday.activeDay)
+                        return friday;
+                    else
+                        return SelectDay(i + 1);
                 case 6:
                     return saturday;
                 default:

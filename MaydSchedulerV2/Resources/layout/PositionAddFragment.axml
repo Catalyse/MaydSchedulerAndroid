@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:minHeight="200dp"
+    android:minWidth="100dp">
+    <TextView
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Add Position"
+        android:id="@+id/txtPosFrag" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:hint="Position Name"
+        android:layout_below="@id/txtPosFrag"
+        android:id="@+id/inputPosFrag" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/inputPosFrag">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Cancel"
+            android:layout_weight="10"
+            android:layout_below="@id/inputPosFrag" 
+            android:id="@+id/btnPosFragCancel"/>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:text="Submit"
+            android:layout_weight="10"
+            android:layout_below="@id/inputPosFrag"
+            android:id="@+id/btnPosFragSubmit" />
+    </LinearLayout>
+</RelativeLayout>

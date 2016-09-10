@@ -16,15 +16,22 @@ namespace MaydSchedulerApp
     public class SettingsActivity : Activity
     {
         EditText defaultShift, minShift, maxShift, skillCap, partTime, fullTime;
-        private Button cancelButton, submitButton;
+        private Button cancelButton, submitButton, positionButton;
         private bool submitChanged = false;
         private bool settingsSet = true;
+        private bool onPosScreen = false;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
+
+            SettingsScreen();
+        }
+
+        private void SettingsScreen()
+        {
             SetContentView(Resource.Layout.settings);
 
             defaultShift = FindViewById<EditText>(Resource.Id.inputDefaultShift);
@@ -33,20 +40,30 @@ namespace MaydSchedulerApp
             skillCap = FindViewById<EditText>(Resource.Id.inputSkillCap);
             partTime = FindViewById<EditText>(Resource.Id.inputPartTime);
             fullTime = FindViewById<EditText>(Resource.Id.inputFullTime);
-
             LoadSettings();
 
             cancelButton = FindViewById<Button>(Resource.Id.btnSettingsCancel);
+            cancelButton.Click -= CancelButton_Click;
             cancelButton.Click += CancelButton_Click;
 
             submitButton = FindViewById<Button>(Resource.Id.btnSettingsSubmit);
+            submitButton.Click -= SubmitButton_Click;
             submitButton.Click += SubmitButton_Click;
+
+            positionButton = FindViewById<Button>(Resource.Id.btnPositionEdit);
+            positionButton.Click -= PositionButton_Click;
+            positionButton.Click += PositionButton_Click;
         }
 
         #region OVERRIDE
         public override void OnBackPressed()
         {
-            if (!settingsSet)
+            if(onPosScreen)
+            {
+                SettingsScreen();
+                onPosScreen = false;
+            }
+            else if (!settingsSet)
             {
                 SettingsNotLoadedAlert();
             }
@@ -89,7 +106,7 @@ namespace MaydSchedulerApp
             {
             #endif
                 case Android.Resource.Id.Home:
-                    Finish();
+                    OnBackPressed();
                     return true;
 
                 default:
@@ -124,6 +141,46 @@ namespace MaydSchedulerApp
                 Finish();
         }
 
+        Button positionCancel, positionAdd;
+        ListView positionList;
+
+        private void PositionButton_Click(object sender, EventArgs e)
+        {
+            onPosScreen = true;
+            SetContentView(Resource.Layout.PositionManager);
+            positionAdd = FindViewById<Button>(Resource.Id.btnPosMgrAdd);
+            positionCancel = FindViewById<Button>(Resource.Id.btnPosMgrCancel);
+            positionAdd.Click += PositionAdd_Click;
+            positionCancel.Click += PositionCancel_Click;
+
+            positionList = FindViewById<ListView>(Resource.Id.posListView);
+            LoadPositionList();
+        }
+
+        public void LoadPositionList()
+        {
+            List<string> tempList = new List<string>();
+            for (int i = 0; i < SystemSettings.positionList.Count; i++)
+            {
+                tempList.Add(SystemSettings.positionList[i]);
+            }
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, tempList);
+
+            positionList.Adapter = adapter;
+        }
+
+        private void PositionCancel_Click(object sender, EventArgs e)
+        {
+            OnBackPressed();
+        }
+
+        private void PositionAdd_Click(object sender, EventArgs e)
+        {
+            FragmentTransaction transaction = FragmentManager.BeginTransaction();
+            PositionAdd posAdd = new PositionAdd();
+            posAdd.Show(transaction, "posAddFragment");
+        }
+
         private void SettingsNotLoadedAlert()
         {
             new AlertDialog.Builder(this)
@@ -133,7 +190,8 @@ namespace MaydSchedulerApp
             })
             .SetNegativeButton("Close Application", (sender, args) =>
             {
-                System.Environment.Exit(0);
+                Process.KillProcess(Process.MyPid());
+                //Java.Lang.JavaSystem.Exit(0);
             })
             .SetMessage("The system cannot run without default settings!")
             .SetTitle("System Settings")

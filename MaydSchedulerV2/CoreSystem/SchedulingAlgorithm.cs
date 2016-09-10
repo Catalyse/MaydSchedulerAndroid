@@ -32,6 +32,10 @@ namespace MaydSchedulerApp
         private static Dictionary<int, Dictionary<int, bool>> dailyAvailabilityStatus = new Dictionary<int, Dictionary<int, bool>>();
         //                   position, employeeList
         private static Dictionary<int, List<EmployeeScheduleWrapper>> employeePositionDictionary = new Dictionary<int, List<EmployeeScheduleWrapper>>();
+        //This is the number of positions that actually have employees in it
+        private static int activePositions;
+        //This is the number of days the store is open
+        private static int activeDays;
 
         /// <summary>
         /// This is the threaded method called to generate the schedule.
@@ -42,6 +46,7 @@ namespace MaydSchedulerApp
             try
             {
                 week = MainActivity.week;
+                CalcDaysOpen();
                 GeneratePositionLists();
                 CalcPositionVars();
                 AnalyzeResources();
@@ -54,8 +59,13 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This clears the variables used in the scheduler for when multiple schedules are made in one session
+        /// </summary>
         private static void ClearVars()
         {
+            activePositions = 0;
+            activeDays = 0;
             week = new Week();
             pickedDays = new List<int>();
             weeklyNeededShifts = new Dictionary<int, int>();
@@ -84,12 +94,38 @@ namespace MaydSchedulerApp
                 {
                     employeePositionDictionary[week.empList[i].position].Add(week.empList[i]);
                 }
+                for(int i = 0; i < employeePositionDictionary.Count; i++)
+                {
+                    if (employeePositionDictionary[i].Count > 0)
+                        activePositions++;
+                }
             }
             catch (Exception ex)
             {
                 Console.WriteLine("GeneratePositionLists() Exception || ScheduleAlgorithm.cs");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
+        }
+
+        /// <summary>
+        /// This method gets the number of days active for this schedule
+        /// </summary>
+        private static void CalcDaysOpen()
+        {
+            if (week.sunday.activeDay)
+                activeDays++;
+            if (week.monday.activeDay)
+                activeDays++;
+            if (week.tuesday.activeDay)
+                activeDays++;
+            if (week.wednesday.activeDay)
+                activeDays++;
+            if (week.thursday.activeDay)
+                activeDays++;
+            if (week.friday.activeDay)
+                activeDays++;
+            if (week.saturday.activeDay)
+                activeDays++;
         }
 
         /// <summary>
@@ -100,11 +136,11 @@ namespace MaydSchedulerApp
             try
             {
                 //RunCount = PositionCount * 7
-                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)//Position loop
+                for (int pos = 0; pos < activePositions; pos++)//Position loop
                 {
                     weeklyNeededShifts.Add(pos, 0);
                     dailyNeededShifts.Add(pos, new Dictionary<int, int>());
-                    for (int i = 0; i < 7; i++)//Day loop
+                    for (int i = 0; i < activeDays; i++)//Day loop
                     {
                         DailySchedule day = week.SelectDay(i);//Selects days in order
                         int shifts = 0;
@@ -117,11 +153,11 @@ namespace MaydSchedulerApp
 
                 //yes its a triple loop. shhh
                 //RunCount = PositionCount * 7 * NoOfActiveEmployeesInEachPosition
-                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)//positions
+                for (int pos = 0; pos < activePositions; pos++)//positions
                 {
 
                     dailyAvailShifts.Add(pos, new Dictionary<int, int>());
-                    for (int i = 0; i < 7; i++)//days
+                    for (int i = 0; i < activeDays; i++)//days
                     {
                         int shifts = 0;
                         for (int k = 0; k < employeePositionDictionary[pos].Count; k++)//employee list
@@ -133,7 +169,7 @@ namespace MaydSchedulerApp
                     }
                 }
 
-                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)
+                for (int pos = 0; pos < activePositions; pos++)
                 {
                     weeklyAvailShifts.Add(pos, 0);
                     for (int i = 0; i < employeePositionDictionary[pos].Count; i++)
@@ -157,7 +193,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int k = 0; k < SystemSettings.positionList.Count; k++)
+                for (int k = 0; k < activePositions; k++)
                 {
                     if (weeklyNeededShifts[k] > weeklyAvailShifts[k])//We have less available employee shifts for the week than we need.
                     {
@@ -167,7 +203,7 @@ namespace MaydSchedulerApp
                     else
                         weeklyAvailabilityStatus.Add(k, true);
                     dailyAvailabilityStatus.Add(k, new Dictionary<int, bool>());
-                    for (int i = 0; i < 7; i++)
+                    for (int i = 0; i < activeDays; i++)
                     {
                         if (dailyAvailShifts[k][i] < dailyNeededShifts[k][i])
                         {
@@ -194,7 +230,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)
+                for (int pos = 0; pos < activePositions; pos++)
                 {
                     pickedDays.Clear();//This is for the pickdays() method, to clear the list upon entering a new position
                     for (int d = 0; d < 7; d++)
@@ -560,13 +596,13 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int pos = 0; pos < SystemSettings.positionList.Count; pos++)
+                for (int pos = 0; pos < activePositions; pos++)
                 {
                     //         day, count
                     Dictionary<int, int> remainingShiftsNeeded = new Dictionary<int, int>();
                     List<int> remainingShiftsList = new List<int>();
                     int totalShiftsNeeded = 0;
-                    for (int i = 0; i < 7; i++)
+                    for (int i = 0; i < activeDays; i++)
                     {
                         int shiftsNeeded = 0;
                         DailySchedule temp = week.SelectDay(i);
@@ -597,7 +633,7 @@ namespace MaydSchedulerApp
                     List<int> dayPickOrder = new List<int>();
                     dayPickOrder.Add(0);
                     bool inserted = false;
-                    for (int i = 1; i < 7; i++)
+                    for (int i = 1; i < activeDays; i++)
                     {
                         inserted = false;
                         for (int k = 0; k < dayPickOrder.Count; k++)
@@ -624,7 +660,7 @@ namespace MaydSchedulerApp
                     //Start shift addition section.
                     while (true)//This loop will run till we run out employees needing shifts
                     {
-                        for (int i = 0; i < 7; i++)
+                        for (int i = 0; i < activeDays; i++)
                         {
                             DailySchedule day = week.SelectDay(dayPickOrder[i]);
                             for (int e = 0; e < employeesNeedingShifts.Count; e++)
@@ -844,7 +880,7 @@ namespace MaydSchedulerApp
         {
             try
             {
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < activeDays; i++)
                 {
                     if (!dailyAvailabilityStatus[pos][i] && !pickedDays.Contains(i))
                     {
@@ -853,7 +889,7 @@ namespace MaydSchedulerApp
                         return week.SelectDay(i);
                     }
                 }
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < activeDays; i++)
                 {
                     if (!pickedDays.Contains(i))
                     {

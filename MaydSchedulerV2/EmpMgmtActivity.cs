@@ -377,7 +377,10 @@ namespace MaydSchedulerApp
                 if (sunToggle.Checked)
                 {
                     if (openSun.Checked)
+                    {
                         avail.sunday.openAvail = true;
+                        avail.sunday.available = true;
+                    }
                     else
                     {
                         avail.sunday.openAvail = false;
@@ -391,7 +394,10 @@ namespace MaydSchedulerApp
                 if (monToggle.Checked)
                 {
                     if (openMon.Checked)
+                    {
                         avail.monday.openAvail = true;
+                        avail.monday.available = true;
+                    }
                     else
                     {
                         avail.monday.openAvail = false;
@@ -405,7 +411,10 @@ namespace MaydSchedulerApp
                 if (tueToggle.Checked)
                 {
                     if (openTue.Checked)
+                    {
                         avail.tuesday.openAvail = true;
+                        avail.tuesday.available = true;
+                    }
                     else
                     {
                         avail.tuesday.openAvail = false;
@@ -419,7 +428,10 @@ namespace MaydSchedulerApp
                 if (wedToggle.Checked)
                 {
                     if (openWed.Checked)
+                    {
                         avail.wednesday.openAvail = true;
+                        avail.wednesday.available = true;
+                    }
                     else
                     {
                         avail.wednesday.openAvail = false;
@@ -433,7 +445,10 @@ namespace MaydSchedulerApp
                 if (thuToggle.Checked)
                 {
                     if (openThu.Checked)
+                    {
                         avail.thursday.openAvail = true;
+                        avail.thursday.available = true;
+                    }
                     else
                     {
                         avail.thursday.openAvail = false;
@@ -447,7 +462,10 @@ namespace MaydSchedulerApp
                 if (friToggle.Checked)
                 {
                     if (openFri.Checked)
+                    {
                         avail.friday.openAvail = true;
+                        avail.friday.available = true;
+                    }
                     else
                     {
                         avail.friday.openAvail = false;

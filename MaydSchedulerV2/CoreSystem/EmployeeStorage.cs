@@ -63,6 +63,16 @@ namespace MaydSchedulerApp
             SortList();
         }
 
+        public static bool CheckIfEmployeesInPosition(int pos)
+        {
+            for (int i = 0; i < employeeList.Count; i++)
+            {
+                if (employeeList[i].position == pos)
+                    return true;
+            }    
+            return false;
+        }
+
         public static Employee GetEmployee(string name)
         {
             try

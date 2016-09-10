@@ -1,1 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/testing_button1" android:title="Load Test Employee List" showAsAction="always" /><item android:id="@+id/testing_button2" android:title="Load Test Settings" showAsAction="always" /></menu>

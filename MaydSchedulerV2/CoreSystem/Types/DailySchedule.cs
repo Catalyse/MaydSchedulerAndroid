@@ -14,8 +14,6 @@ namespace MaydSchedulerApp
         public SerializableDictionary<int, int> closeNeededShifts = new SerializableDictionary<int,int>();
         public SerializableDictionary<int, int> openScheduledShifts = new SerializableDictionary<int, int>();
         public SerializableDictionary<int, int> closeScheduledShifts = new SerializableDictionary<int, int>();
-        
-        public SerializableDictionary<EmployeeScheduleWrapper, Shift> shiftDictionary = new SerializableDictionary<EmployeeScheduleWrapper, Shift>();
         //This was changed from being a list to a single value since you cannot have more than one shift in a day.
 
         public DailySchedule() { }
@@ -24,6 +22,18 @@ namespace MaydSchedulerApp
         {
             date = day;
             dayOfWeek = day.DayOfWeek;
+        }
+
+        public DailySchedule(DailySchedule day, DateTime _date)
+        {
+            date = _date;
+            openTime = day.openTime;
+            closeTime = day.closeTime;
+            dayOfWeek = day.dayOfWeek;
+            openNeededShifts = day.openNeededShifts;
+            closeNeededShifts = day.closeNeededShifts;
+            openScheduledShifts = day.openScheduledShifts;
+            closeScheduledShifts = day.closeScheduledShifts;
         }
 
         public void SetBaseInfo(bool active)

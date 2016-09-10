@@ -193,19 +193,69 @@ namespace MaydSchedulerApp
         {
             new AlertDialog.Builder(this)
             .SetCancelable(false)
-            .SetPositiveButton("Copy hours and staffing", (sender, args) =>
+            .SetPositiveButton("New Week same settings", (sender, args) =>
             {
-                Intent intent = new Intent(this, typeof(SettingsActivity));
-                this.StartActivity(intent);
+                copyAll = false;
+                ChooseWeek();
             })
-            .SetNegativeButton("Duplicate", (sender, args) =>
+            .SetNegativeButton("Copy Week", (sender, args) =>
             {
-                Intent intent = new Intent(this, typeof(SettingsActivity));
-                this.StartActivity(intent);
+                copyAll = true;
+                ChooseWeek();
             })
-            .SetMessage("You can either duplicate the previous week exactly, then modify it if you wish, or generate a new week with the same facility hours and staffing needs.")
+            .SetMessage("You can either: \nMake a copy of the previous week or: \nCopy last weeks settings and generate new shifts.")
             .SetTitle("Quick Week")
             .Show();
+        }
+
+        PickWeek pickWeek;
+        ListView pickWeekView;
+        private bool copyAll = false;
+
+        private void ChooseWeek()
+        {
+            //put onbackpressed bool here //FIXTHIS
+            SetContentView(Resource.Layout.PickWeekLayout);
+            this.Title = "Choose Week";
+            pickWeek = new PickWeek();
+            pickWeekView = FindViewById<ListView>(Resource.Id.chooseWeekListView);
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, pickWeek.FindWeeks());
+
+            pickWeekView.Adapter = adapter;
+
+            pickWeekView.ItemClick += PickWeekView_ItemClick;
+        }
+
+        private void PickWeekView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            week = new Week(SystemSettings.weekList[0], pickWeek.weekList[e.Position].startDate, copyAll);
+            if(copyAll)
+            {
+
+            }
+            else
+            {
+
+            }
+        }
+
+        private void GenerateWrapperList()
+        {
+            List<Employee> empList = EmployeeStorage.employeeList;
+            for (int i = 0; i < empList.Count; i++)
+            {
+                if (empList[i].active)//Check if the employee is active
+                {
+                    EmployeeScheduleWrapper newWrapper = new EmployeeScheduleWrapper(empList[i]);
+                    week.empList.Add(newWrapper);
+                }
+            }
+        }
+
+        private void GenerateSchedule()
+        {
+            GenerateWrapperList();
+            SchedulingAlgorithm.StartScheduleGen();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)

@@ -7,25 +7,14 @@ namespace MaydSchedulerApp
     public class Week
     {
         public int saveIndex;
-        public int julianStartDay;//Needed before algorithm
         public DateTime startDate;//Needed before algorithm
-        public List<EmployeeScheduleWrapper> empList;//Including temp avail, as well as shifts(which can also be found daily) //Needed before algorithm
+        public List<EmployeeScheduleWrapper> empList;//Including temp avail, as well as shifts //Needed before algorithm
         public DailySchedule sunday, monday, tuesday, wednesday, thursday, friday, saturday;//Basic info needed before algorithm
 
         /// <summary>
         /// Week should not be initialized with the default constructor || This exists for serialization
         /// </summary>
         public Week() { }
-
-        /// <summary>
-        /// Depreciated Constructor type
-        /// </summary>
-        /// <param name="startDay"></param>
-        public Week(int startDay)
-        {
-            julianStartDay = startDay;
-            Init();
-        }
 
         /// <summary>
         /// Week is generated with a DateTime start date
@@ -35,8 +24,32 @@ namespace MaydSchedulerApp
         public Week(DateTime startDay)
         {
             startDate = startDay.Date;
-            julianStartDay = startDay.DayOfYear;
             Init();
+        }
+
+        /// <summary>
+        /// This is to be used for making a hollow copy of the week without the shifts
+        /// </summary>
+        /// <param name="copy"></param>
+        public Week(Week copy, DateTime start, bool copyAll)
+        {
+            startDate = start;
+            sunday = new DailySchedule(copy.sunday, start);
+            monday = new DailySchedule(copy.monday, start.AddDays(1));
+            tuesday = new DailySchedule(copy.tuesday, start.AddDays(2));
+            wednesday = new DailySchedule(copy.wednesday, start.AddDays(3));
+            thursday = new DailySchedule(copy.thursday, start.AddDays(4));
+            friday = new DailySchedule(copy.friday, start.AddDays(5));
+            saturday = new DailySchedule(copy.saturday, start.AddDays(6));
+            if (!copyAll)
+            {
+                empList = new List<EmployeeScheduleWrapper>();
+                
+            }
+            else
+            {
+                empList = new List<EmployeeScheduleWrapper>(copy.empList);
+            }
         }
 
         public DailySchedule SelectDay(int i)

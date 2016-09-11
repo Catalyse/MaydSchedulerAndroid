@@ -427,25 +427,9 @@ namespace MaydSchedulerApp
         {
             GenerateWrapperList();
             MainActivity.week = pickedWeek;
+            MainActivity.historyActivityPassoff = true;
             SchedulingAlgorithm.StartScheduleGen();
-        }
-
-        public void GenerationComplete(Week week)
-        {
-            MainActivity.week = week;
-            MainActivity.schedulerPassoff = true;
-            SystemSettings.SaveWeek(week);
             Finish();
-        }
-
-        public void DrawSchedule()
-        {
-            mode = 1;
-            this.Title = "Schedule for " + pickedWeek.startDate.ToShortDateString();
-            SetContentView(Resource.Layout.ScheduleView);
-            ScheduleAdapter adapter = new ScheduleAdapter(this, MainActivity.week.empList);
-            ListView scheduleView = FindViewById<ListView>(Resource.Id.scheduleListView);
-            scheduleView.Adapter = adapter;
         }
     }
 }

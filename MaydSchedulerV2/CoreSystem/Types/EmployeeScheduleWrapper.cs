@@ -16,6 +16,7 @@ namespace MaydSchedulerApp
         public Availability availability = new Availability();
         public bool availabilityModified = false;
         public List<Shift> shiftList = new List<Shift>();
+        public List<DayOfWeek> workingDays = new List<DayOfWeek>();
 
         public EmployeeScheduleWrapper() { }
 

@@ -341,6 +341,52 @@ namespace MaydSchedulerApp
             }
         }
 
+        public static bool RenamePosition(int pos, string name)
+        {
+            if (positionList.ContainsKey(pos))
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                positionList.Remove(pos);
+                positionList.Add(pos, name);
+                editor.PutString(pos.ToString(), name);
+                editor.Apply();
+                return true;
+            }
+            else//SOme kind of weird error
+                return false;
+        }
+
+        public static bool RemovePosition(int pos)
+        {
+            if (positionList.ContainsKey(pos))
+            {
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                int count = prefs.GetInt("positionCount", -1);
+                List<string> temp = new List<string>();
+                //Copy the dict to a list to reorder it
+                for (int i = 0; i < count; i++)
+                {
+                    temp.Add(positionList[i]);
+                }
+                //remove the target then clear the dict
+                temp.Remove(positionList[pos]);
+                positionList.Clear();
+                //fill the dict back up with the new indexing
+                for(int i = 0; i < temp.Count; i++)
+                {
+                    positionList.Add(i, temp[i]);
+                }
+                //We need to delete all employees with this position(prompted when they try to delete
+                //Then we need to reindex the remaining employees positions
+                for(int i = 0; i < EmployeeStorage.employeeList.Count; i++)
+                { 
+
+                }
+            }
+        }
+
         public static string GetPositionName(int type)
         {
             if (positionList.ContainsKey(type))

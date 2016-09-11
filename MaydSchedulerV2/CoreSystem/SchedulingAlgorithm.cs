@@ -347,7 +347,7 @@ namespace MaydSchedulerApp
                     }
                 }
                 ScheduleFill();
-                MainActivity.scheduler.GenerationComplete(week);
+                MainActivity.ScheduleGenerationComplete(week);
             }
             catch (Exception ex)
             {
@@ -666,7 +666,7 @@ namespace MaydSchedulerApp
                             for (int e = 0; e < employeesNeedingShifts.Count; e++)
                             {
                                 //This will make sure they can work that day, and arent already scheduled that day
-                                if (employeesNeedingShifts[e].GetAvailability(ConvertDoWToInt(day.dayOfWeek)) && !day.shiftDictionary.ContainsKey(employeesNeedingShifts[e]))
+                                if (employeesNeedingShifts[e].GetAvailability(ConvertDoWToInt(day.dayOfWeek)) && !employeesNeedingShifts[e].workingDays.Contains(day.dayOfWeek))
                                 {
                                     ScheduleEmployee(employeesNeedingShifts[e], day);
                                     employeesNeedingShifts.Remove(employeesNeedingShifts[e]);
@@ -746,7 +746,7 @@ namespace MaydSchedulerApp
                 Shift newShift = new Shift(emp.employee, day.openTime, (day.openTime + shiftLength), day.date.DayOfWeek);
                 emp.shiftList.Add(newShift);//Adding shift to the employee wrapper so we can sort shifts by employee later.
                 emp.scheduledHours += shiftLength;//Adding to users total scheduled hours
-                day.shiftDictionary.Add(emp, newShift);
+                emp.workingDays.Add(day.dayOfWeek);
                 if (day.openScheduledShifts.ContainsKey(pos))
                     day.openScheduledShifts[pos]++;
                 else
@@ -760,7 +760,7 @@ namespace MaydSchedulerApp
                 Shift newShift = new Shift(emp.employee, day.closeTime - shiftLength, day.closeTime, day.date.DayOfWeek);
                 emp.shiftList.Add(newShift);//Adding shift to the employee wrapper so we can sort shifts by employee later.
                 emp.scheduledHours += shiftLength;//Adding to users total scheduled hours
-                day.shiftDictionary.Add(emp, newShift);
+                emp.workingDays.Add(day.dayOfWeek);
                 if (day.closeScheduledShifts.ContainsKey(pos))
                     day.closeScheduledShifts[pos]++;
                 else
@@ -826,7 +826,7 @@ namespace MaydSchedulerApp
                     Shift newShift = new Shift(empList[i].employee, day.openTime, (day.openTime + shiftLength), day.date.DayOfWeek);
                     empList[i].shiftList.Add(newShift);//Adding shift to the employee wrapper so we can sort shifts by employee later.
                     empList[i].scheduledHours += shiftLength;//Adding to users total scheduled hours
-                    day.shiftDictionary.Add(empList[i], newShift);
+                    empList[i].workingDays.Add(day.dayOfWeek);
                     if (day.openScheduledShifts.ContainsKey(pos))
                         day.openScheduledShifts[pos]++;
                     else
@@ -856,7 +856,7 @@ namespace MaydSchedulerApp
                     empList[i].shiftList.Add(newShift);
                     //Adding to users total scheduled hours
                     empList[i].scheduledHours += shiftLength;
-                    day.shiftDictionary.Add(empList[i], newShift);
+                    empList[i].workingDays.Add(day.dayOfWeek);
                     if (day.closeScheduledShifts.ContainsKey(pos))
                         day.closeScheduledShifts[pos]++;
                     else

@@ -20,6 +20,8 @@ namespace MaydSchedulerApp
         private bool submitChanged = false;
         private bool settingsSet = true;
         private bool onPosScreen = false;
+        private bool editPosition = false;
+        private int clickedIndex;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -113,6 +115,32 @@ namespace MaydSchedulerApp
                     return base.OnOptionsItemSelected(item);
             }
         }
+
+        public override void OnCreateContextMenu(IContextMenu menu, View v, IContextMenuContextMenuInfo menuInfo)
+        {
+            ListView lv = (ListView)v;
+            AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)menuInfo;
+            clickedIndex = acmi.Position;
+
+            menu.Add(0, 0, 0, "Edit");
+            menu.Add(1, 1, 1, "Delete");
+        }
+
+        public override bool OnContextItemSelected(IMenuItem item)
+        {
+            if (item.ItemId == 0)
+            {
+                editPosition = true;
+                FragmentTransaction transaction = FragmentManager.BeginTransaction();
+                PositionAdd posAdd = new PositionAdd();
+                posAdd.Show(transaction, "posAddFragment");
+            }
+            else
+            {//Delete
+                ConfirmDeletePosition();
+            }
+            return base.OnContextItemSelected(item);
+        }
         #endregion OVERRIDE
 
         private void SubmitButton_Click(object sender, EventArgs e)
@@ -155,6 +183,7 @@ namespace MaydSchedulerApp
 
             positionList = FindViewById<ListView>(Resource.Id.posListView);
             LoadPositionList();
+            RegisterForContextMenu(positionList);
         }
 
         public void LoadPositionList()
@@ -195,6 +224,22 @@ namespace MaydSchedulerApp
             })
             .SetMessage("The system cannot run without default settings!")
             .SetTitle("System Settings")
+            .Show();
+        }
+
+        private void ConfirmDeletePosition()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Delete", (sender, args) =>
+            {
+                SystemSettings.RemovePosition(clickedIndex - 1);
+            })
+            .SetNegativeButton("Cancel", (sender, args) =>
+            {
+                //Do nothing
+            })
+            .SetMessage("If you delete this position you will also delete all employees in the position as well.\nIf you want to move your employees to a new position do that first then delete the position.")
+            .SetTitle("Delete Position?")
             .Show();
         }
 

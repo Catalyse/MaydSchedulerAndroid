@@ -22,7 +22,7 @@ namespace MaydSchedulerApp
         
         private int count;
         public static int clickedIndex;
-        public static bool weekClicked = false, schedulerPassoff = false;
+        public static bool weekClicked = false, historyActivityPassoff = false;
         public static Week week;//This is just a global storage location for this
 
         #region InterfaceVars
@@ -65,19 +65,10 @@ namespace MaydSchedulerApp
         #region OVERRIDE
         protected override void OnRestart()
         {
-            if (schedulerPassoff)
-            {
-                schedulerPassoff = false;
-                SchedulerPassoff();
-                base.OnRestart();
-            }
-            else
-            {
-                recentView.ItemClick -= RecentView_ItemClick;
-                FillRecentList();
-                SetupButtons();
-                base.OnRestart();
-            }
+            recentView.ItemClick -= RecentView_ItemClick;
+            FillRecentList();
+            SetupButtons();
+            base.OnRestart();
         }
 
         protected override void OnDestroy()
@@ -231,11 +222,12 @@ namespace MaydSchedulerApp
             week = new Week(SystemSettings.weekList[0], pickWeek.weekList[e.Position].startDate, copyAll);
             if(copyAll)
             {
-
+                SchedulerPassoff();
             }
             else
             {
-
+                GenerateWrapperList();
+                SchedulingAlgorithm.StartScheduleGen();
             }
         }
 
@@ -250,12 +242,6 @@ namespace MaydSchedulerApp
                     week.empList.Add(newWrapper);
                 }
             }
-        }
-
-        private void GenerateSchedule()
-        {
-            GenerateWrapperList();
-            SchedulingAlgorithm.StartScheduleGen();
         }
 
         private void BtnSettings_Click(object sender, EventArgs e)
@@ -280,6 +266,14 @@ namespace MaydSchedulerApp
         {
             Intent intent = new Intent(this, typeof(ScheduleActivity));
             this.StartActivity(intent);
+        }
+
+        public static void ScheduleGenerationComplete(Week w)
+        {
+            week = w;
+            SystemSettings.SaveWeek(w);
+            MainActivity main = (MainActivity)currentActivity;
+            main.SchedulerPassoff();
         }
     }
 }

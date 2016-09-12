@@ -17,6 +17,8 @@ namespace MaydSchedulerApp
     {
         Button submit, cancel;
         EditText text;
+        private SettingsActivity act;
+
         public override View OnCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView(inflater, container, savedInstanceState);
@@ -34,9 +36,26 @@ namespace MaydSchedulerApp
             cancel = View.FindViewById<Button>(Resource.Id.btnPosFragCancel);
             text = View.FindViewById<EditText>(Resource.Id.inputPosFrag);
 
-            submit.Click += Submit_Click;
+            act = (SettingsActivity)Activity;
+
+            if(act.editPosition)
+            {
+                submit.Click += Submit_Edit;
+            }
+            else
+            {
+                submit.Click += Submit_Click;
+            }
+            
             cancel.Click += Cancel_Click;
             text.Click += Text_Click;
+        }
+
+        private void Submit_Edit(object sender, EventArgs e)
+        {
+            SystemSettings.RenamePosition(act.clickedIndex, text.Text);
+            act.LoadPositionList();
+            Dismiss();
         }
 
         private void Text_Click(object sender, EventArgs e)
@@ -58,7 +77,6 @@ namespace MaydSchedulerApp
             else
             {
                 SystemSettings.AddPosition(text.Text);
-                SettingsActivity act = (SettingsActivity)Activity;
                 act.LoadPositionList();
                 Dismiss();
             }

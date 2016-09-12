@@ -650,7 +650,7 @@ namespace MaydSchedulerApp
                             }
                         }
                         if (!inserted)//If it was not higher than any of them add it to the end.
-                            dayPickOrder.Add(remainingShiftsList[i]);
+                            dayPickOrder.Add(i);
                     }
 
                     List<EmployeeScheduleWrapper> employeesNeedingShifts = new List<EmployeeScheduleWrapper>();

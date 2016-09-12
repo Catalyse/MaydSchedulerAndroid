@@ -378,13 +378,20 @@ namespace MaydSchedulerApp
                 {
                     positionList.Add(i, temp[i]);
                 }
-                //We need to delete all employees with this position(prompted when they try to delete
+                //We need to delete all employees with this position(prompted when they try to delete the position in the first place)
                 //Then we need to reindex the remaining employees positions
-                for(int i = 0; i < EmployeeStorage.employeeList.Count; i++)
-                { 
-
+                for(int i = EmployeeStorage.employeeList.Count-1; i >= 0; i--)
+                {
+                    if (EmployeeStorage.employeeList[i].position == pos)
+                        EmployeeStorage.RemoveEmployee(i);
+                    else if (EmployeeStorage.employeeList[i].position > pos)
+                    {
+                        EmployeeStorage.employeeList[i].position = EmployeeStorage.employeeList[i].position - 1;
+                    }
                 }
+                return true;
             }
+            return false;
         }
 
         public static string GetPositionName(int type)

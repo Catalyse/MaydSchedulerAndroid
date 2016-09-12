@@ -32,7 +32,6 @@ namespace MaydSchedulerApp
             else
                 hourTarget = SystemSettings.partTimeHours;
             scheduledHours = 0;
-            //availability = emp.availability;//Dont init this unless its changed and needs to be saved
             availabilityModified = false;
         }
 

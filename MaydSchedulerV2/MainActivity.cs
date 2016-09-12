@@ -41,6 +41,16 @@ namespace MaydSchedulerApp
             SystemSettings.SystemStartup();
             if (!SystemSettings.loaded)
                 SettingsAlert();
+
+            SetupMainScreen();
+
+            StartAnalytics();
+            FillRecentList();
+            SetupButtons();
+        }
+
+        private void SetupMainScreen()
+        {
             SetContentView(Resource.Layout.Main);
 
             BtnNewWeek = FindViewById<Button>(Resource.Id.newWeekBtn);
@@ -56,15 +66,12 @@ namespace MaydSchedulerApp
             BtnEmpMgmt.Click += BtnEmpMgmt_Click;
             BtnAbout.Click += BtnAbout_Click;
             BtnSettings.Click += BtnSettings_Click;
-
-            StartAnalytics();
-            FillRecentList();
-            SetupButtons();
         }
 
         #region OVERRIDE
         protected override void OnRestart()
         {
+            SetupMainScreen();
             recentView.ItemClick -= RecentView_ItemClick;
             FillRecentList();
             SetupButtons();
@@ -184,12 +191,12 @@ namespace MaydSchedulerApp
         {
             new AlertDialog.Builder(this)
             .SetCancelable(false)
-            .SetPositiveButton("New Week same settings", (sender, args) =>
+            .SetPositiveButton("Copy Week Settings", (sender, args) =>
             {
                 copyAll = false;
                 ChooseWeek();
             })
-            .SetNegativeButton("Copy Week", (sender, args) =>
+            .SetNegativeButton("Dupulicate Week", (sender, args) =>
             {
                 copyAll = true;
                 ChooseWeek();
@@ -222,6 +229,7 @@ namespace MaydSchedulerApp
             week = new Week(SystemSettings.weekList[0], pickWeek.weekList[e.Position].startDate, copyAll);
             if(copyAll)
             {
+                SystemSettings.SaveWeek(week);
                 SchedulerPassoff();
             }
             else

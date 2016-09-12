@@ -807,84 +807,232 @@ namespace MaydSchedulerApp
         {
             firstName.Text = emp.empFirstName;
             lastName.Text = emp.empLastName;
-            //position.Text = SystemSettings.positionList[emp.position];
+            position.SetSelection(emp.position+1);
             id.Text = emp.empID.ToString();
-            sunToggle.Checked = emp.availability.sunday.available;
-            monToggle.Checked = emp.availability.monday.available;
-            tueToggle.Checked = emp.availability.tuesday.available;
-            wedToggle.Checked = emp.availability.wednesday.available;
-            thuToggle.Checked = emp.availability.thursday.available;
-            friToggle.Checked = emp.availability.friday.available;
-            satToggle.Checked = emp.availability.saturday.available;
-            if (sunToggle.Checked)
+            if (emp.availability.OpenAvailability)
             {
-                sunOpen.Text = emp.availability.sunday.startTime.ToString();
-                sunClose.Text = emp.availability.sunday.endTime.ToString();
-            }
-            else
-            {
+                sunToggle.Checked = true;
+                monToggle.Checked = true;
+                tueToggle.Checked = true;
+                wedToggle.Checked = true;
+                thuToggle.Checked = true;
+                friToggle.Checked = true;
+                satToggle.Checked = true;
+                openSun.Checked = true;
+                openMon.Checked = true;
+                openTue.Checked = true;
+                openWed.Checked = true;
+                openThu.Checked = true;
+                openFri.Checked = true;
+                openSat.Checked = true;
                 sunOpen.Text = "";
                 sunClose.Text = "";
-            }
-            if (monToggle.Checked)
-            {
-                monOpen.Text = emp.availability.monday.startTime.ToString();
-                monClose.Text = emp.availability.monday.endTime.ToString();
-            }
-            else
-            {
+                sunOpen.Hint = "Open";
+                sunClose.Hint = "Open";
+                sunOpen.Enabled = false;
+                sunClose.Enabled = false;
                 monOpen.Text = "";
                 monClose.Text = "";
-            }
-            if (tueToggle.Checked)
-            {
-                tueOpen.Text = emp.availability.tuesday.startTime.ToString();
-                tueClose.Text = emp.availability.tuesday.endTime.ToString();
-            }
-            else
-            {
+                monOpen.Hint = "Open";
+                monClose.Hint = "Open";
+                monOpen.Enabled = false;
+                monClose.Enabled = false;
                 tueOpen.Text = "";
                 tueClose.Text = "";
-            }
-            if (wedToggle.Checked)
-            {
-                wedOpen.Text = emp.availability.wednesday.startTime.ToString();
-                wedClose.Text = emp.availability.wednesday.endTime.ToString();
-            }
-            else
-            {
+                tueOpen.Hint = "Open";
+                tueClose.Hint = "Open";
+                tueOpen.Enabled = false;
+                tueClose.Enabled = false;
                 wedOpen.Text = "";
                 wedClose.Text = "";
-            }
-            if (thuToggle.Checked)
-            {
-                thuOpen.Text = emp.availability.thursday.startTime.ToString();
-                thuClose.Text = emp.availability.thursday.endTime.ToString();
-            }
-            else
-            {
+                wedOpen.Hint = "Open";
+                wedClose.Hint = "Open";
+                wedOpen.Enabled = false;
+                wedClose.Enabled = false;
                 thuOpen.Text = "";
                 thuClose.Text = "";
-            }
-            if (friToggle.Checked)
-            {
-                friOpen.Text = emp.availability.friday.startTime.ToString();
-                friClose.Text = emp.availability.friday.endTime.ToString();
-            }
-            else
-            {
+                thuOpen.Hint = "Open";
+                thuClose.Hint = "Open";
+                thuOpen.Enabled = false;
+                thuClose.Enabled = false;
                 friOpen.Text = "";
                 friClose.Text = "";
-            }
-            if (satToggle.Checked)
-            {
-                satOpen.Text = emp.availability.saturday.startTime.ToString();
-                satClose.Text = emp.availability.saturday.endTime.ToString();
+                friOpen.Hint = "Open";
+                friClose.Hint = "Open";
+                friOpen.Enabled = false;
+                friClose.Enabled = false;
+                satOpen.Text = "";
+                satClose.Text = "";
+                satOpen.Hint = "Open";
+                satClose.Hint = "Open";
+                satOpen.Enabled = false;
+                satClose.Enabled = false;
             }
             else
             {
-                satOpen.Text = "";
-                satClose.Text = "";
+                sunToggle.Checked = emp.availability.sunday.available;
+                monToggle.Checked = emp.availability.monday.available;
+                tueToggle.Checked = emp.availability.tuesday.available;
+                wedToggle.Checked = emp.availability.wednesday.available;
+                thuToggle.Checked = emp.availability.thursday.available;
+                friToggle.Checked = emp.availability.friday.available;
+                satToggle.Checked = emp.availability.saturday.available;
+                openSun.Checked = emp.availability.sunday.openAvail;
+                openMon.Checked = emp.availability.monday.openAvail;
+                openTue.Checked = emp.availability.tuesday.openAvail;
+                openWed.Checked = emp.availability.wednesday.openAvail;
+                openThu.Checked = emp.availability.thursday.openAvail;
+                openFri.Checked = emp.availability.friday.openAvail;
+                openSat.Checked = emp.availability.saturday.openAvail;
+                //If the open avail is checked then so is the toggle for being able to work that day.
+                //FIXTHIS//This section can get rid of the elses if you clear out all the text before getting to the assignment(eg sunOpen.Text is blank when findviewbyid);
+                if (openSun.Checked)
+                {
+                    sunOpen.Text = "";
+                    sunClose.Text = "";
+                    sunOpen.Hint = "Open";
+                    sunClose.Hint = "Open";
+                    sunOpen.Enabled = false;
+                    sunClose.Enabled = false;
+                }
+                else if (sunToggle.Checked)
+                {
+                    sunOpen.Text = emp.availability.sunday.startTime.ToString();
+                    sunClose.Text = emp.availability.sunday.endTime.ToString();
+                    sunOpen.Enabled = true;
+                    sunClose.Enabled = true;
+                }
+                else
+                {
+                    sunOpen.Text = "";
+                    sunClose.Text = "";
+                }
+                if (openMon.Checked)
+                {
+                    monOpen.Text = "";
+                    monClose.Text = "";
+                    monOpen.Hint = "Open";
+                    monClose.Hint = "Open";
+                    monOpen.Enabled = false;
+                    monClose.Enabled = false;
+                }
+                else if (monToggle.Checked)
+                {
+                    monOpen.Text = emp.availability.monday.startTime.ToString();
+                    monClose.Text = emp.availability.monday.endTime.ToString();
+                    monOpen.Enabled = true;
+                    monClose.Enabled = true;
+                }
+                else
+                {
+                    monOpen.Text = "";
+                    monClose.Text = "";
+                }
+                if (openTue.Checked)
+                {
+                    tueOpen.Text = "";
+                    tueClose.Text = "";
+                    tueOpen.Hint = "Open";
+                    tueClose.Hint = "Open";
+                    tueOpen.Enabled = false;
+                    tueClose.Enabled = false;
+                }
+                else if (tueToggle.Checked)
+                {
+                    tueOpen.Text = emp.availability.tuesday.startTime.ToString();
+                    tueClose.Text = emp.availability.tuesday.endTime.ToString();
+                    tueOpen.Enabled = true;
+                    tueClose.Enabled = true;
+                }
+                else
+                {
+                    tueOpen.Text = "";
+                    tueClose.Text = "";
+                }
+                if (openWed.Checked)
+                {
+                    wedOpen.Text = "";
+                    wedClose.Text = "";
+                    wedOpen.Hint = "Open";
+                    wedClose.Hint = "Open";
+                    wedOpen.Enabled = false;
+                    wedClose.Enabled = false;
+                }
+                else if (wedToggle.Checked)
+                {
+                    wedOpen.Text = emp.availability.wednesday.startTime.ToString();
+                    wedClose.Text = emp.availability.wednesday.endTime.ToString();
+                    wedOpen.Enabled = true;
+                    wedClose.Enabled = true;
+                }
+                else
+                {
+                    wedOpen.Text = "";
+                    wedClose.Text = "";
+                }
+                if (openThu.Checked)
+                {
+                    thuOpen.Text = "";
+                    thuClose.Text = "";
+                    thuOpen.Hint = "Open";
+                    thuClose.Hint = "Open";
+                    thuOpen.Enabled = false;
+                    thuClose.Enabled = false;
+                }
+                else if (thuToggle.Checked)
+                {
+                    thuOpen.Text = emp.availability.thursday.startTime.ToString();
+                    thuClose.Text = emp.availability.thursday.endTime.ToString();
+                    thuOpen.Enabled = true;
+                    thuClose.Enabled = true;
+                }
+                else
+                {
+                    thuOpen.Text = "";
+                    thuClose.Text = "";
+                }
+                if (openFri.Checked)
+                {
+                    friOpen.Text = "";
+                    friClose.Text = "";
+                    friOpen.Hint = "Open";
+                    friClose.Hint = "Open";
+                    friOpen.Enabled = false;
+                    friClose.Enabled = false;
+                }
+                else if (friToggle.Checked)
+                {
+                    friOpen.Text = emp.availability.friday.startTime.ToString();
+                    friClose.Text = emp.availability.friday.endTime.ToString();
+                    friOpen.Enabled = true;
+                    friClose.Enabled = true;
+                }
+                else
+                {
+                    friOpen.Text = "";
+                    friClose.Text = "";
+                }
+                if (openSat.Checked)
+                {
+                    satOpen.Text = "";
+                    satClose.Text = "";
+                    satOpen.Hint = "Open";
+                    satClose.Hint = "Open";
+                    satOpen.Enabled = false;
+                    satClose.Enabled = false;
+                }
+                else if (satToggle.Checked)
+                {
+                    satOpen.Text = emp.availability.saturday.startTime.ToString();
+                    satClose.Text = emp.availability.saturday.endTime.ToString();
+                    satOpen.Enabled = true;
+                    satClose.Enabled = true;
+                }
+                else
+                {
+                    satOpen.Text = "";
+                    satClose.Text = "";
+                }
             }
         }
 

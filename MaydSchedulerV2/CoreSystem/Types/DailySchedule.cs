@@ -27,6 +27,7 @@ namespace MaydSchedulerApp
         public DailySchedule(DailySchedule day, DateTime _date)
         {
             date = _date;
+            activeDay = day.activeDay;
             openTime = day.openTime;
             closeTime = day.closeTime;
             dayOfWeek = day.dayOfWeek;

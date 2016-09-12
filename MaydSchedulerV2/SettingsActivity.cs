@@ -20,8 +20,8 @@ namespace MaydSchedulerApp
         private bool submitChanged = false;
         private bool settingsSet = true;
         private bool onPosScreen = false;
-        private bool editPosition = false;
-        private int clickedIndex;
+        public bool editPosition = false;
+        public int clickedIndex;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -232,7 +232,8 @@ namespace MaydSchedulerApp
             new AlertDialog.Builder(this)
             .SetPositiveButton("Delete", (sender, args) =>
             {
-                SystemSettings.RemovePosition(clickedIndex - 1);
+                SystemSettings.RemovePosition(clickedIndex);
+                LoadPositionList();
             })
             .SetNegativeButton("Cancel", (sender, args) =>
             {

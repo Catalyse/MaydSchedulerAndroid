@@ -102,6 +102,7 @@ namespace MaydSchedulerApp
                     return true;
                 case Resource.Id.testing_button2:
                     SystemSettings.LoadTestingSettings();
+                    LoadSettings();
                     return true;
             #else
             switch(item.ItemId)

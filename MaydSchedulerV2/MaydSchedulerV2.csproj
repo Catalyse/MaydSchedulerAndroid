@@ -75,6 +75,7 @@
     <Compile Include="CoreSystem\Types\CoreSaveType.cs" />
     <Compile Include="CoreSystem\Types\CoreSettingsType.cs" />
     <Compile Include="CoreSystem\Types\DailySchedule.cs" />
+    <Compile Include="CoreSystem\Types\DateConversion.cs" />
     <Compile Include="CoreSystem\Types\Day.cs" />
     <Compile Include="CoreSystem\Types\Employee.cs" />
     <Compile Include="CoreSystem\Types\EmployeeScheduleWrapper.cs" />

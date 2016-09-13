@@ -15,7 +15,7 @@ namespace MaydSchedulerApp
         public static int partTimeHours, fullTimeHours;
         public static int skillLevelCap;
         public static Dictionary<int, string> positionList = new Dictionary<int, string>();
-        public static List<DateTime> weekIndex = new List<DateTime>();
+        public static List<int> weekIndex = new List<int>();
         public static List<Week> weekList = new List<Week>();
         public static int sunOpenPref, monOpenPref, tueOpenPref, wedOpenPref, thuOpenPref, friOpenPref, satOpenPref;
         public static int sunClosePref, monClosePref, tueClosePref, wedClosePref, thuClosePref, friClosePref, satClosePref;
@@ -93,7 +93,7 @@ namespace MaydSchedulerApp
 
         public static bool FindWeek(DateTime weekStartDate)
         {
-            if (weekIndex.Contains(weekStartDate))
+            if (weekIndex.Contains(DateConversion.Convert(weekStartDate)))
                 return true;
             else
                 return false;
@@ -154,11 +154,12 @@ namespace MaydSchedulerApp
         {
             StringWriter writer = new StringWriter();
             XmlSerializer serializer = new XmlSerializer(typeof(Week));
+            XmlSerializer serializerList = new XmlSerializer(typeof(List<int>));
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
             int count = prefs.GetInt("savedWeekIterator", 0);
-            if (!weekIndex.Contains(week.startDate))
+            if (!weekIndex.Contains(DateConversion.Convert(week.startDate)))
             {
                 week.saveIndex = count;
                 serializer.Serialize(writer, week);
@@ -173,9 +174,9 @@ namespace MaydSchedulerApp
             {
                 serializer.Serialize(writer, week);
                 string serializedWeek = writer.ToString();
-                editor.PutString("week" + week.saveIndex.ToString(), serializedWeek);
+                editor.PutString("week" + , serializedWeek);
                 editor.PutBoolean("weeksSaved", true);
-                weeksLoaded = true;
+                weeksLoaded = true; 
                 editor.Apply();
             }
             LoadWeeks();
@@ -184,7 +185,7 @@ namespace MaydSchedulerApp
         public static void LoadWeeks()
         {
             weekList = new List<Week>();
-            weekIndex = new List<DateTime>();
+            weekIndex = new List<int>();
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             if(weeksLoaded)
             {
@@ -204,7 +205,7 @@ namespace MaydSchedulerApp
                             XmlSerializer serializer = new XmlSerializer(typeof(Week));
                             Week des = (Week)serializer.Deserialize(reader);
                             weekList.Add(des);
-                            weekIndex.Add(des.startDate);
+                            weekIndex.Add(DateConversion.Convert(des.startDate));
                         }
                     }
                     SortList();

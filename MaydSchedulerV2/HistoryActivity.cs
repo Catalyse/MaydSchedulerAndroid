@@ -86,8 +86,16 @@ namespace MaydSchedulerApp
             AdapterView.AdapterContextMenuInfo acmi = (AdapterView.AdapterContextMenuInfo)menuInfo;
             clickedIndex = acmi.Position;
 
-            menu.Add(0, 0, 0, "Edit");
-            menu.Add(1, 1, 1, "Delete");
+            if (v.Id == Resource.Id.scheduleListView)
+            {
+                menu.Add(0, 0, 0, "Edit");
+                menu.Add(1, 1, 1, "Delete");
+            }
+            else
+            {
+                menu.Add(2, 2, 2, "Edit");
+                menu.Add(3, 3, 3, "Delete");
+            }
         }
 
         public override bool OnContextItemSelected(IMenuItem item)
@@ -96,11 +104,20 @@ namespace MaydSchedulerApp
             {
                 EditEmployeeShift(selected.empList[clickedIndex]);
             }
-            else
+            else if(item.ItemId == 1)
             {
                 selected.empList[clickedIndex].shiftList.Clear();
                 weekModified = true;
                 LoadWeek(selected);
+            }
+            else if (item.ItemId == 2)
+            {
+                LoadWeek(SystemSettings.weekList[clickedIndex]);
+            }
+            else
+            {
+                SystemSettings.RemoveWeek(SystemSettings.weekList[clickedIndex]);
+                LoadWeekList();
             }
             return base.OnContextItemSelected(item);
         }
@@ -283,6 +300,8 @@ namespace MaydSchedulerApp
             ListView historyView = FindViewById<ListView>(Resource.Id.historyListView);
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ConvertToStringList());
             historyView.Adapter = adapter;
+
+            RegisterForContextMenu(historyView);
 
             historyView.ItemClick += HistoryView_ItemClick;//I gotta somehow stop this from being added multiple times
         }

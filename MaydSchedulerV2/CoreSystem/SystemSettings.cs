@@ -186,6 +186,32 @@ namespace MaydSchedulerApp
             LoadWeeks();
         }
 
+        public static void RemoveWeek(Week week)
+        {
+            int weekInt = DateConversion.Convert(week.startDate);
+            if (weekIndex.Contains(weekInt))
+            {
+                StringWriter listWriter = new StringWriter();
+                XmlSerializer serializerList = new XmlSerializer(typeof(List<int>));
+                ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
+                ISharedPreferencesEditor editor = prefs.Edit();
+                serializerList.Serialize(listWriter, weekIndex);
+                string weekIndexString = listWriter.ToString();
+                editor.PutString("weekList", weekIndexString);
+
+                weekIndex.Remove(weekInt);
+                weekList.Remove(week);
+                editor.Remove("week" + weekInt);
+                editor.Apply();
+                LoadWeeks();
+            }
+            else
+            {
+                LoadWeeks();//this will ideally rectify the issue
+                return;//The week doesnt exist//Which is bad throw an error //FIXTHIS// maybe
+            }
+        }
+
         public static void LoadWeeks()
         {
             weekList = new List<Week>();

@@ -6,7 +6,9 @@ namespace MaydSchedulerApp
 {
     public class PickWeek : DialogFragment
     {
-        private int weekDistance = 8;//This is how many weeks forward it will check/generate
+        private int weekDistance = 10;//This is how many weeks forward it will check/generate
+        private int loadMoreCount = 5;
+        public int currentCount = 0;
         public DateTime date;
         public List<Week> weekList = new List<Week>();
 
@@ -16,7 +18,7 @@ namespace MaydSchedulerApp
         public List<string> FindWeeks()
         {
             date = DateTime.Now.Date;
-
+            currentCount = weekDistance;
             for (int i = 0; i < weekDistance; i++)
             {
                 int daysToFirstWeek = DayOfWeekValue(date.DayOfWeek);
@@ -28,6 +30,29 @@ namespace MaydSchedulerApp
 
             List<string> weekListString = new List<string>();
             for(int i = 0; i < weekList.Count; i++)
+            {
+                weekListString.Add(weekList[i].startDate.ToShortDateString());
+            }
+
+            return weekListString;
+        }
+
+        public List<string> LoadMore()
+        {
+            weekList.Clear();
+            date = DateTime.Now.Date;
+            currentCount += loadMoreCount;
+            for (int i = 0; i < currentCount; i++)
+            {
+                int daysToFirstWeek = DayOfWeekValue(date.DayOfWeek);
+                date = date.AddDays(daysToFirstWeek);
+                Week tempWeek;
+                tempWeek = new Week(date);
+                weekList.Add(tempWeek);
+            }
+
+            List<string> weekListString = new List<string>();
+            for (int i = 0; i < weekList.Count; i++)
             {
                 weekListString.Add(weekList[i].startDate.ToShortDateString());
             }

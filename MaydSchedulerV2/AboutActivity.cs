@@ -1,18 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 
 namespace MaydSchedulerApp
 {
-    [Activity(Label = "About")]
+    [Activity(Label = "About", Theme = "@android:style/Theme.Material")]
     public class AboutActivity : Activity
     {
         protected override void OnCreate(Bundle savedInstanceState)
@@ -21,7 +13,6 @@ namespace MaydSchedulerApp
             SetContentView(Resource.Layout.AboutPage);
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
-            // Create your application here
         }
 
         public override bool OnOptionsItemSelected(IMenuItem item)

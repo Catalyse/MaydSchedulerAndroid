@@ -91,7 +91,9 @@ namespace MaydSchedulerApp
             this.Title = "Choose Week";
             pickWeek = new PickWeek();
             pickWeekView = FindViewById<ListView>(Resource.Id.chooseWeekListView);
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, pickWeek.FindWeeks());
+            List<string> weekList = pickWeek.FindWeeks();
+            weekList.Add("Load More");
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, weekList);
 
             pickWeekView.Adapter = adapter;
 
@@ -100,8 +102,18 @@ namespace MaydSchedulerApp
 
         private void PickWeekView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            pickedWeek = pickWeek.weekList[e.Position];
-            WeeklyConfig();
+            if (e.Position == pickWeek.currentCount)//Means they hit load moar
+            {
+                List<string> weekList = pickWeek.LoadMore();
+                weekList.Add("Load More");
+                ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, weekList);
+                pickWeekView.Adapter = adapter;
+            }
+            else
+            {
+                pickedWeek = pickWeek.weekList[e.Position];
+                WeeklyConfig();
+            }
         }
 
         /// <summary>

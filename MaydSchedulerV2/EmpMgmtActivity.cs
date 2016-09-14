@@ -594,6 +594,7 @@ namespace MaydSchedulerApp
 
         /// <summary>
         /// This catches all events from the toggles and enables or disabled the respective edittext boxes
+        /// Also: Sorry this method sucks but I had no choice
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -607,6 +608,16 @@ namespace MaydSchedulerApp
                     openSun.Enabled = false;
                     sunOpen.Enabled = false;
                     sunClose.Enabled = false;
+                    sunOpen.Text = "Off";
+                    sunClose.Text = "Off";
+                }
+                else if (openSun.Checked)
+                {
+                    openSun.Enabled = true;
+                    sunOpen.Enabled = false;
+                    sunClose.Enabled = false;
+                    sunOpen.Text = "Open";
+                    sunClose.Text = "Open";
                 }
                 else
                 {
@@ -622,6 +633,16 @@ namespace MaydSchedulerApp
                     openMon.Enabled = false;
                     monOpen.Enabled = false;
                     monClose.Enabled = false;
+                    monOpen.Text = "Off";
+                    monClose.Text = "Off";
+                }
+                else if (openMon.Checked)
+                {
+                    openMon.Enabled = true;
+                    monOpen.Enabled = false;
+                    monClose.Enabled = false;
+                    monOpen.Text = "Open";
+                    monClose.Text = "Open";
                 }
                 else
                 {
@@ -637,6 +658,16 @@ namespace MaydSchedulerApp
                     openTue.Enabled = false;
                     tueOpen.Enabled = false;
                     tueClose.Enabled = false;
+                    tueOpen.Text = "Off";
+                    tueClose.Text = "Off";
+                }
+                else if (openTue.Checked)
+                {
+                    openTue.Enabled = true;
+                    tueOpen.Enabled = false;
+                    tueClose.Enabled = false;
+                    tueOpen.Text = "Open";
+                    tueClose.Text = "Open";
                 }
                 else
                 {
@@ -652,6 +683,16 @@ namespace MaydSchedulerApp
                     openWed.Enabled = false;
                     wedOpen.Enabled = false;
                     wedClose.Enabled = false;
+                    wedOpen.Text = "Off";
+                    wedClose.Text = "Off";
+                }
+                else if (openWed.Checked)
+                {
+                    openWed.Enabled = true;
+                    wedOpen.Enabled = false;
+                    wedClose.Enabled = false;
+                    wedOpen.Text = "Open";
+                    wedClose.Text = "Open";
                 }
                 else
                 {
@@ -667,6 +708,16 @@ namespace MaydSchedulerApp
                     openThu.Enabled = false;
                     thuOpen.Enabled = false;
                     thuClose.Enabled = false;
+                    thuOpen.Text = "Off";
+                    thuClose.Text = "Off";
+                }
+                else if (openThu.Checked)
+                {
+                    openThu.Enabled = true;
+                    thuOpen.Enabled = false;
+                    thuClose.Enabled = false;
+                    thuOpen.Text = "Open";
+                    thuClose.Text = "Open";
                 }
                 else
                 {
@@ -682,6 +733,16 @@ namespace MaydSchedulerApp
                     openFri.Enabled = false;
                     friOpen.Enabled = false;
                     friClose.Enabled = false;
+                    friOpen.Text = "Off";
+                    friClose.Text = "Off";
+                }
+                else if (openFri.Checked)
+                {
+                    openFri.Enabled = true;
+                    friOpen.Enabled = false;
+                    friClose.Enabled = false;
+                    friOpen.Text = "Open";
+                    friClose.Text = "Open";
                 }
                 else
                 {
@@ -697,6 +758,16 @@ namespace MaydSchedulerApp
                     openSat.Enabled = false;
                     satOpen.Enabled = false;
                     satClose.Enabled = false;
+                    satOpen.Text = "Off";
+                    satClose.Text = "Off";
+                }
+                else if (openSat.Checked)
+                {
+                    openSat.Enabled = true;
+                    satOpen.Enabled = false;
+                    satClose.Enabled = false;
+                    satOpen.Text = "Open";
+                    satClose.Text = "Open";
                 }
                 else
                 {
@@ -712,11 +783,15 @@ namespace MaydSchedulerApp
                 {
                     sunOpen.Enabled = false;
                     sunClose.Enabled = false;
+                    sunOpen.Text = "Open";
+                    sunClose.Text = "Open";
                 }
                 else
                 {
                     sunOpen.Enabled = true;
                     sunClose.Enabled = true;
+                    sunOpen.Text = "Off";
+                    sunClose.Text = "Off";
                 }
             }
             else if (obj.Id == openMon.Id)
@@ -725,11 +800,15 @@ namespace MaydSchedulerApp
                 {
                     monOpen.Enabled = false;
                     monClose.Enabled = false;
+                    monOpen.Text = "Open";
+                    monClose.Text = "Open";
                 }
                 else
                 {
                     monOpen.Enabled = true;
                     monClose.Enabled = true;
+                    monOpen.Text = "Off";
+                    monClose.Text = "Off";
                 }
             }
             else if (obj.Id == openTue.Id)
@@ -738,11 +817,15 @@ namespace MaydSchedulerApp
                 {
                     tueOpen.Enabled = false;
                     tueClose.Enabled = false;
+                    tueOpen.Text = "Open";
+                    tueClose.Text = "Open";
                 }
                 else
                 {
                     tueOpen.Enabled = true;
                     tueClose.Enabled = true;
+                    tueOpen.Text = "Off";
+                    tueClose.Text = "Off";
                 }
             }
             else if (obj.Id == openWed.Id)
@@ -751,11 +834,15 @@ namespace MaydSchedulerApp
                 {
                     wedOpen.Enabled = false;
                     wedClose.Enabled = false;
+                    wedOpen.Text = "Open";
+                    wedClose.Text = "Open";
                 }
                 else
                 {
                     wedOpen.Enabled = true;
                     wedClose.Enabled = true;
+                    wedOpen.Text = "Off";
+                    wedClose.Text = "Off";
                 }
             }
             else if (obj.Id == openThu.Id)
@@ -764,11 +851,15 @@ namespace MaydSchedulerApp
                 {
                     thuOpen.Enabled = false;
                     thuClose.Enabled = false;
+                    thuOpen.Text = "Open";
+                    thuClose.Text = "Open";
                 }
                 else
                 {
                     thuOpen.Enabled = true;
                     thuClose.Enabled = true;
+                    thuOpen.Text = "Off";
+                    thuClose.Text = "Off";
                 }
             }
             else if (obj.Id == openFri.Id)
@@ -777,11 +868,15 @@ namespace MaydSchedulerApp
                 {
                     friOpen.Enabled = false;
                     friClose.Enabled = false;
+                    friOpen.Text = "Open";
+                    friClose.Text = "Open";
                 }
                 else
                 {
                     friOpen.Enabled = true;
                     friClose.Enabled = true;
+                    friOpen.Text = "Off";
+                    friClose.Text = "Off";
                 }
             }
             else if (obj.Id == openSat.Id)
@@ -790,11 +885,15 @@ namespace MaydSchedulerApp
                 {
                     satOpen.Enabled = false;
                     satClose.Enabled = false;
+                    satOpen.Text = "Open";
+                    satClose.Text = "Open";
                 }
                 else
                 {
                     satOpen.Enabled = true;
                     satClose.Enabled = true;
+                    satOpen.Text = "Off";
+                    satClose.Text = "Off";
                 }
             }
         }

@@ -17,9 +17,7 @@ namespace MaydSchedulerApp
         public static Tracker tracker;
         #endregion Analytics
 
-        //Temp
-        public static bool testingMode = false;
-        
+        private bool onChooseWeek = false;
         private int count;
         public static int clickedIndex;
         public static bool weekClicked = false, historyActivityPassoff = false;
@@ -82,6 +80,16 @@ namespace MaydSchedulerApp
         {
             EmployeeStorage.OnSaveList();
             base.OnDestroy();
+        }
+
+        public override void OnBackPressed()
+        {
+            if(onChooseWeek)
+            {
+                SetupMainScreen();
+            }
+            else
+                base.OnBackPressed();
         }
         #endregion OVERRIDE
 
@@ -190,7 +198,6 @@ namespace MaydSchedulerApp
         private void QuickPrompt()
         {
             new AlertDialog.Builder(this)
-            .SetCancelable(false)
             .SetPositiveButton("Copy Week Settings", (sender, args) =>
             {
                 copyAll = false;
@@ -206,18 +213,20 @@ namespace MaydSchedulerApp
             .Show();
         }
 
-        PickWeek pickWeek;
+        private PickWeek pickWeek;
         ListView pickWeekView;
         private bool copyAll = false;
 
         private void ChooseWeek()
         {
-            //put onbackpressed bool here //FIXTHIS
+            onChooseWeek = true;
             SetContentView(Resource.Layout.PickWeekLayout);
             this.Title = "Choose Week";
             pickWeek = new PickWeek();
             pickWeekView = FindViewById<ListView>(Resource.Id.chooseWeekListView);
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, pickWeek.FindWeeks());
+            List<string> weekList = pickWeek.FindWeeks();
+            weekList.Add("Load More");
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, weekList);
 
             pickWeekView.Adapter = adapter;
 
@@ -226,16 +235,28 @@ namespace MaydSchedulerApp
 
         private void PickWeekView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            week = new Week(SystemSettings.weekList[0], pickWeek.weekList[e.Position].startDate, copyAll);
-            if(copyAll)
+            if (e.Position == pickWeek.currentCount)
             {
-                SystemSettings.SaveWeek(week);
-                SchedulerPassoff();
+                List<string> weekList = pickWeek.LoadMore();
+                weekList.Add("Load More");
+                ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, weekList);
+
+                pickWeekView.Adapter = adapter;
             }
             else
             {
-                GenerateWrapperList();
-                SchedulingAlgorithm.StartScheduleGen();
+                week = new Week(SystemSettings.weekList[0], pickWeek.weekList[e.Position].startDate, copyAll);
+                onChooseWeek = false;
+                if (copyAll)
+                {
+                    SystemSettings.SaveWeek(week);
+                    SchedulerPassoff();
+                }
+                else
+                {
+                    GenerateWrapperList();
+                    SchedulingAlgorithm.StartScheduleGen();
+                }
             }
         }
 
@@ -252,6 +273,7 @@ namespace MaydSchedulerApp
             }
         }
 
+        #region Buttons
         private void BtnSettings_Click(object sender, EventArgs e)
         {
             Intent intent = new Intent(this, typeof(SettingsActivity));
@@ -275,6 +297,7 @@ namespace MaydSchedulerApp
             Intent intent = new Intent(this, typeof(ScheduleActivity));
             this.StartActivity(intent);
         }
+        #endregion Buttons
 
         public static void ScheduleGenerationComplete(Week w)
         {

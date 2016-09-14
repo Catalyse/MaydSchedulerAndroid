@@ -27,20 +27,14 @@ namespace MaydSchedulerApp
 
         public static void Start()
         {
-            if (MainActivity.testingMode)
+            List<Employee> temp = EmpListSerializer.DeserializeEmpList();
+            if (temp != null)
             {
-                TestingModeLoad();
+                employeeList = temp;
             }
             else
-            {
-                List<Employee> temp = EmpListSerializer.DeserializeEmpList();
-                if (temp != null)
-                {
-                    employeeList = temp;
-                }
-                else
-                    Console.WriteLine("No employee list found");
-            }
+                Console.WriteLine("No employee list found");
+
         }
 
         public static void AddEmployee(Employee toAdd)

@@ -152,20 +152,24 @@ namespace MaydSchedulerApp
 
         public static void SaveWeek(Week week)
         {
+            int start = DateConversion.Convert(week.startDate);
             StringWriter writer = new StringWriter();
             XmlSerializer serializer = new XmlSerializer(typeof(Week));
+            StringWriter listWriter = new StringWriter();
             XmlSerializer serializerList = new XmlSerializer(typeof(List<int>));
 
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             ISharedPreferencesEditor editor = prefs.Edit();
-            int count = prefs.GetInt("savedWeekIterator", 0);
-            if (!weekIndex.Contains(DateConversion.Convert(week.startDate)))
+            if (!weekIndex.Contains(start))
             {
-                week.saveIndex = count;
+                weekIndex.Add(start);
+                serializerList.Serialize(listWriter, weekIndex);
+                string weekIndexString = listWriter.ToString();
+                editor.PutString("weekList", weekIndexString);
+                week.saveIndex = start;
                 serializer.Serialize(writer, week);
                 string serializedWeek = writer.ToString();
-                editor.PutString("week" + count.ToString(), serializedWeek);
-                editor.PutInt("savedWeekIterator", count + 1);
+                editor.PutString("week" + start, serializedWeek);
                 editor.PutBoolean("weeksSaved", true);
                 weeksLoaded = true;
                 editor.Apply();
@@ -174,7 +178,7 @@ namespace MaydSchedulerApp
             {
                 serializer.Serialize(writer, week);
                 string serializedWeek = writer.ToString();
-                editor.PutString("week" + , serializedWeek);
+                editor.PutString("week" + start, serializedWeek);
                 editor.PutBoolean("weeksSaved", true);
                 weeksLoaded = true; 
                 editor.Apply();
@@ -189,23 +193,26 @@ namespace MaydSchedulerApp
             ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
             if(weeksLoaded)
             {
-                int count = prefs.GetInt("savedWeekIterator", 0);
-                if(count < 1)//This likely means nothing is saved and the bool is fucked up
+                //Get the list of weeks
+                XmlSerializer listSerializer = new XmlSerializer(typeof(List<int>));
+                string weekListString = prefs.GetString("weekList", "NULL");
+                StringReader listReader = new StringReader(weekListString);
+                weekIndex = (List<int>)listSerializer.Deserialize(listReader);
+                if(weekIndex.Count < 1)//This likely means nothing is saved and the bool is fucked up
                 {
                     Console.WriteLine("LoadWeeks() Failure, weeksSaved bool reports we have weeks saved but count reports zero, unable to load");
                 }
                 else
                 {//We have a set of weeks
-                    for(int i = 0; i < count; i++)
+                    for(int i = 0; i < weekIndex.Count; i++)
                     {
-                        string loadedWeek = prefs.GetString("week" + i, "null");
-                        if (loadedWeek != "null")//This week was deleted if it is null
-                        {//Since the list doesnt actually contain the iterator it doesnt really matter. We do not need to reshuffle the data in the prefs file its a waste of time
+                        string loadedWeek = prefs.GetString("week" + weekIndex[i], "null");
+                        if (loadedWeek != "null")
+                        {
                             StringReader reader = new StringReader(loadedWeek);
                             XmlSerializer serializer = new XmlSerializer(typeof(Week));
                             Week des = (Week)serializer.Deserialize(reader);
                             weekList.Add(des);
-                            weekIndex.Add(DateConversion.Convert(des.startDate));
                         }
                     }
                     SortList();

@@ -492,6 +492,7 @@ namespace MaydSchedulerApp
         {
             availPassoff = true;
             employee = pickedWeek.empList[e.Position];
+            selectedEmp = e.Position;
             Intent intent = new Intent(this, typeof(EmpMgmtActivity));
             StartActivity(intent);
         }

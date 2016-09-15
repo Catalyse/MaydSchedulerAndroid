@@ -390,7 +390,8 @@ namespace MaydSchedulerApp
         private Availability GenerateAvailability()
         {
             Availability avail;
-            if (openSun.Checked && openMon.Checked && openTue.Checked && openWed.Checked && openThu.Checked && openFri.Checked && openSat.Checked)
+            if ((sunToggle.Checked && openSun.Checked) && (monToggle.Checked && openMon.Checked) && (tueToggle.Checked && openTue.Checked) && (wedToggle.Checked && openWed.Checked)
+                && (thuToggle.Checked && openThu.Checked) && (friToggle.Checked && openFri.Checked) && (satToggle.Checked && openSat.Checked))
                 avail = new Availability(true);
             else
             {

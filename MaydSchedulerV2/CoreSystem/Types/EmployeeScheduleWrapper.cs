@@ -70,6 +70,8 @@ namespace MaydSchedulerApp
         {
             if (availabilityModified)
             {
+                if (availability.OpenAvailability)
+                    return true;
                 switch (day)
                 {
                     case 0:

@@ -18,9 +18,12 @@ namespace MaydSchedulerApp
         private Button weeklySubmit, staffingSubmit;
         private bool weeklySubmitChanged = false;
         private bool staffingSubmitChanged = false;
-        private bool empEditorPassoff = false;
+        public bool availPassoff = false;
+        public EmployeeScheduleWrapper employee;
         //This mode will determine which screen it is currently on allowing you to go back
         private int mode = 0;
+        //This is for changing availability allowing for the passoff between activities.
+        private int selectedEmp = 0;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -256,6 +259,9 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This is a prompt to ask if they want to set these facility hours as their default, if they do it changes the setting, if not it continues no changes
+        /// </summary>
         private void WeeklyConfigDefaultSettings()
         {
             new AlertDialog.Builder(this)
@@ -295,6 +301,7 @@ namespace MaydSchedulerApp
                 return "Would you like to make these your default facility hours?";
         }
 
+        //Setup vars for this section
         EditText sunSOpen, sunSClose, monSOpen, monSClose, tueSOpen, tueSClose, wedSOpen, wedSClose, thuSOpen, thuSClose, friSOpen, friSClose, satSOpen, satSClose;
         Button titleButton;
         private int currentPosition = 0;
@@ -305,7 +312,7 @@ namespace MaydSchedulerApp
         private void StaffingNeeds()
         {
             mode = 3;
-            this.Title = "Weekly Staffing Needs";
+            Title = "Weekly Staffing Needs";
             SetContentView(Resource.Layout.StaffingNeeds);
             sunSOpen = FindViewById<EditText>(Resource.Id.inputSSunOpen);
             monSOpen = FindViewById<EditText>(Resource.Id.inputSMonOpen);
@@ -327,6 +334,9 @@ namespace MaydSchedulerApp
             titleButton.Text = SystemSettings.GetPositionName(currentPosition);
         }
 
+        /// <summary>
+        /// This resets the view for the next position
+        /// </summary>
         private void StaffingPositionReset()
         {
             sunSOpen.Text = "";
@@ -347,6 +357,10 @@ namespace MaydSchedulerApp
             titleButton.Text = SystemSettings.GetPositionName(currentPosition);
         }
 
+        /// <summary>
+        /// This generates a dictionary of the open shifts.
+        /// </summary>
+        /// <returns></returns>
         private SerializableDictionary<int, int> GenOpenDict()
         {
             SerializableDictionary<int, int> newDict = new SerializableDictionary<int, int>();
@@ -360,6 +374,28 @@ namespace MaydSchedulerApp
             return newDict;
         }
 
+        //Not working yet
+        /// <summary>
+        /// This generates a dictionary of the mid shifts
+        /// </summary>
+        /// <returns></returns>
+        private SerializableDictionary<int, int> GenMidDict()
+        {
+            SerializableDictionary<int, int> newDict = new SerializableDictionary<int, int>();
+            newDict.Add(0, int.Parse(sunSOpen.Text));
+            newDict.Add(1, int.Parse(monSOpen.Text));
+            newDict.Add(2, int.Parse(tueSOpen.Text));
+            newDict.Add(3, int.Parse(wedSOpen.Text));
+            newDict.Add(4, int.Parse(thuSOpen.Text));
+            newDict.Add(5, int.Parse(friSOpen.Text));
+            newDict.Add(6, int.Parse(satSOpen.Text));
+            return newDict;
+        }
+
+        /// <summary>
+        /// This generates a dictionary of the closing shifts
+        /// </summary>
+        /// <returns></returns>
         private SerializableDictionary<int, int> GenCloseDict()
         {
             SerializableDictionary<int, int> newDict = new SerializableDictionary<int, int>();
@@ -389,6 +425,7 @@ namespace MaydSchedulerApp
                 int count = SystemSettings.positionList.Count;
                 if (currentPosition < count-1)
                 {//If we need info for more positions
+                    //FIXTHIS
                     StaffingPositionReset();
                 }
                 else
@@ -417,35 +454,51 @@ namespace MaydSchedulerApp
         private void AvailabilityChange()
         {
             GenerateWrapperList();
-
+            EmpListWindow();
         }
 
         private void EmpListWindow()
         {
-            SetContentView(Resource.Layout.PickWeekLayout);
-            ListView empListView = FindViewById<ListView>(Resource.Id.chooseWeekListView);
+            SetContentView(Resource.Layout.AvailChange);
+            Title = "Active Employees for " + pickedWeek.startDate.ToShortDateString();
+            ListView empListView = FindViewById<ListView>(Resource.Id.availChangeListView);
             List<string> empStringList = new List<string>();
             for(int i = 0; i < pickedWeek.empList.Count;i++)
             {
                 empStringList.Add(pickedWeek.empList[i].lName + ", " + pickedWeek.empList[i].fName);
             }
             ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, empStringList);
+            empListView.Adapter = adapter;
 
+            Button availSubmit = FindViewById<Button>(Resource.Id.btnAvailChangeSubmit);
+            Button availCancel = FindViewById<Button>(Resource.Id.btnAvailChangeCancel);
+
+            availSubmit.Click += AvailSubmit_Click;
+            availCancel.Click += AvailCancel_Click;
             empListView.ItemClick += EmpListView_ItemClick;
+        }
+
+        private void AvailCancel_Click(object sender, EventArgs e)
+        {
+            GenerateSchedule();
+        }
+
+        private void AvailSubmit_Click(object sender, EventArgs e)
+        {
+            GenerateSchedule();
         }
 
         private void EmpListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
         {
-            empEditorPassoff = true;
+            availPassoff = true;
+            employee = pickedWeek.empList[e.Position];
             Intent intent = new Intent(this, typeof(EmpMgmtActivity));
-            intent.PutExtra("passoff", true);
-            intent.PutExtra("target", e.Position);
-            this.StartActivity(intent);
+            StartActivity(intent);
         }
 
         public void AvailabilitySubmit(Availability avail)
         {
-
+            pickedWeek.empList[selectedEmp].SetTempAvailability(avail);
         }
 
         /// <summary>

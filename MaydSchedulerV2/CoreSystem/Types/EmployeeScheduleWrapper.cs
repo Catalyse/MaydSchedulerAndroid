@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections;
+using System.Xml.Serialization;
 using System.Collections.Generic;
 
 namespace MaydSchedulerApp
@@ -19,10 +19,14 @@ namespace MaydSchedulerApp
         public List<Shift> shiftList = new List<Shift>();
         public List<DayOfWeek> workingDays = new List<DayOfWeek>();
 
+        [XmlIgnore]//This makes references easier without worrying about complicated lookups. IT does require more in the heap but no extra in storage.
+        public Employee empReference;
+
         public EmployeeScheduleWrapper() { }
 
         public EmployeeScheduleWrapper(Employee emp)
         {
+            empReference = emp;
             lName = emp.empLastName;
             fName = emp.empFirstName;
             employee = emp.empID;

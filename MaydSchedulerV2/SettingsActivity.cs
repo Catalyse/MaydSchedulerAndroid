@@ -98,7 +98,7 @@ namespace MaydSchedulerApp
             {
                 case Resource.Id.testing_button1:
                     EmployeeStorage.TestingModeLoad();
-                    EmpListSerializer.SerializeEmpList(EmployeeStorage.employeeList);
+                    EmployeeStorage.SerializeEmpList(EmployeeStorage.employeeList);
                     return true;
                 case Resource.Id.testing_button2:
                     SystemSettings.LoadTestingSettings();

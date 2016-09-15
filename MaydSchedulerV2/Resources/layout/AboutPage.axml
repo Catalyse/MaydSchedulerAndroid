@@ -9,18 +9,27 @@
         android:layout_height="0dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
-        android:layout_weight="75"
+        android:layout_weight="45"
         android:text="Thank you for using the Mayd Scheduler! I strive to put the best I have into everything I make, so if you have a suggestion or found something that annoys you please let me know so I can try to fix it, or to improve the overall user experience." />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:textSize="18sp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
         android:layout_gravity="fill"
-        android:layout_weight="15"
+        android:layout_weight="30"
         android:gravity="center_vertical"
-        android:text="This project includes the use of Google FireBase, some minimal data usage may occur for analytics and error reporting." />
+        android:text="This project includes the use of Google Analytics for anonymous data collection to help improve the app and learn about who uses it, some minimal data usage may occur for analytics and error reporting." />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="15"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:text="Privacy Policy" 
+        android:id="@+id/privacyButton"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"

@@ -67,7 +67,6 @@
     <Compile Include="CoreSystem\ScheduleAdapter.cs" />
     <Compile Include="CoreSystem\EmpMgmtAdapter.cs" />
     <Compile Include="CoreSystem\PickWeek.cs" />
-    <Compile Include="CoreSystem\EmpListSerializer.cs" />
     <Compile Include="CoreSystem\EmployeeStorage.cs" />
     <Compile Include="CoreSystem\SchedulingAlgorithm.cs" />
     <Compile Include="CoreSystem\SystemSettings.cs" />
@@ -136,6 +135,7 @@
     <AndroidResource Include="Resources\layout\PositionAddFragment.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\layout\AvailChange.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\values\Strings.xml">

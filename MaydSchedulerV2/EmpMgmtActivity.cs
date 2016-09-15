@@ -18,7 +18,6 @@ namespace MaydSchedulerApp
         private EmpMgmtAdapter empListAdapter;
         private int selected;
         private bool inEditor = false, submitChanged = false;
-        private ScheduleActivity scheduler;
         private bool schedulerPassoff = false;
 
         #region override
@@ -29,16 +28,10 @@ namespace MaydSchedulerApp
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            if (Intent.GetBooleanExtra("passoff", false))
+            if (MainActivity.scheduler.availPassoff)
             {
                 schedulerPassoff = true;
-                int target = Intent.GetIntExtra("target", -1);
-                if (target == -1)
-                    Finish();//shit broke
-                else
-                {
-                    OnEditEmployee(target);
-                }
+                OnEditEmployee(MainActivity.scheduler.employee);
             }
             else
                 GenerateEmployeeListScreen();
@@ -244,9 +237,9 @@ namespace MaydSchedulerApp
         /// This takes a target int and converts it to an employee for the main method
         /// </summary>
         /// <param name="emp"></param>
-        public void OnEditEmployee(int emp)
+        public void OnEditEmployee(EmployeeScheduleWrapper emp)
         {
-            OnEditEmployee(EmployeeStorage.GetEmployee(emp));
+            OnEditEmployee(emp.empReference);
         }
 
         /// <summary>
@@ -353,7 +346,8 @@ namespace MaydSchedulerApp
 
             if (schedulerPassoff)
             {
-
+                MainActivity.scheduler.AvailabilitySubmit(avail);
+                Finish();
             }
             else
             {

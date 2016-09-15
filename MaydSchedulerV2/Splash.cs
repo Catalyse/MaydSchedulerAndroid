@@ -1,14 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
-using Android.Widget;
 
 namespace MaydSchedulerApp
 {
@@ -19,7 +11,18 @@ namespace MaydSchedulerApp
         {
             base.OnCreate(bundle);
             System.Threading.Thread.Sleep(1000); //Let's wait awhile...
-            this.StartActivity(typeof(MainActivity));
+            Start();
+        }
+
+        public override bool DispatchTouchEvent(MotionEvent ev)
+        {
+            Start();
+            return base.DispatchTouchEvent(ev);
+        }
+
+        public void Start()
+        {
+            StartActivity(typeof(MainActivity));
         }
     }
 }

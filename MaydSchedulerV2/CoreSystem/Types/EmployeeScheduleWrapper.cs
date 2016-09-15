@@ -9,6 +9,7 @@ namespace MaydSchedulerApp
         public string lName, fName;
         public int employee;
         public int position;
+        public bool fullTime, overTime;
         public int hourTarget;
         public int skill;//This is to minimize callbacks to the main emp later
         public int scheduledHours;
@@ -27,6 +28,8 @@ namespace MaydSchedulerApp
             employee = emp.empID;
             position = emp.position;
             skill = emp.skillLevel;
+            fullTime = emp.fullTime;
+            overTime = emp.overtimeAllowed;
             if (emp.fullTime)
                 hourTarget = SystemSettings.fullTimeHours;
             else

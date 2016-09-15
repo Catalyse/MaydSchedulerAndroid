@@ -1,7 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
@@ -20,6 +18,8 @@ namespace MaydSchedulerApp
         private EmpMgmtAdapter empListAdapter;
         private int selected;
         private bool inEditor = false, submitChanged = false;
+        private ScheduleActivity scheduler;
+        private bool schedulerPassoff = false;
 
         #region override
         protected override void OnCreate(Bundle savedInstanceState)
@@ -29,7 +29,19 @@ namespace MaydSchedulerApp
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            GenerateEmployeeListScreen();
+            if (Intent.GetBooleanExtra("passoff", false))
+            {
+                schedulerPassoff = true;
+                int target = Intent.GetIntExtra("target", -1);
+                if (target == -1)
+                    Finish();//shit broke
+                else
+                {
+                    OnEditEmployee(target);
+                }
+            }
+            else
+                GenerateEmployeeListScreen();
         }
 
         public override bool DispatchTouchEvent(MotionEvent ev)
@@ -229,6 +241,15 @@ namespace MaydSchedulerApp
         }
 
         /// <summary>
+        /// This takes a target int and converts it to an employee for the main method
+        /// </summary>
+        /// <param name="emp"></param>
+        public void OnEditEmployee(int emp)
+        {
+            OnEditEmployee(EmployeeStorage.GetEmployee(emp));
+        }
+
+        /// <summary>
         /// THis sets up the employee view when editing an existing employee
         /// </summary>
         /// <param name="emp"></param>
@@ -330,8 +351,15 @@ namespace MaydSchedulerApp
                 return;
             Availability avail = GenerateAvailability();
 
-            EmployeeStorage.employeeList[selected].availability = avail;
-            OnBackPressed();
+            if (schedulerPassoff)
+            {
+
+            }
+            else
+            {
+                EmployeeStorage.employeeList[selected].availability = avail;
+                OnBackPressed();
+            }
         }
 
         /// <summary>

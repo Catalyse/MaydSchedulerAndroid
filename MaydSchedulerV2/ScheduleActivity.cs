@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 using Android.App;
 using Android.OS;
+using Android.Content;
 using Android.Views;
 using Android.Widget;
 
@@ -12,11 +13,12 @@ namespace MaydSchedulerApp
     public class ScheduleActivity : Activity
     {
         private ListView pickWeekView;
-        private Week pickedWeek;
+        public Week pickedWeek;
         private PickWeek pickWeek;
         private Button weeklySubmit, staffingSubmit;
         private bool weeklySubmitChanged = false;
         private bool staffingSubmitChanged = false;
+        private bool empEditorPassoff = false;
         //This mode will determine which screen it is currently on allowing you to go back
         private int mode = 0;
 
@@ -395,14 +397,13 @@ namespace MaydSchedulerApp
                 }
             }
         }
-
-        //POPUP BITCHES
+        
         private void AvailChangePrompt()
         {
             new AlertDialog.Builder(this)
             .SetPositiveButton("Yes", (sender, args) =>
             {
-                // User pressed yes
+                AvailabilityChange();
             })
             .SetNegativeButton("No", (sender, args) =>
             {
@@ -414,6 +415,35 @@ namespace MaydSchedulerApp
         }
 
         private void AvailabilityChange()
+        {
+            GenerateWrapperList();
+
+        }
+
+        private void EmpListWindow()
+        {
+            SetContentView(Resource.Layout.PickWeekLayout);
+            ListView empListView = FindViewById<ListView>(Resource.Id.chooseWeekListView);
+            List<string> empStringList = new List<string>();
+            for(int i = 0; i < pickedWeek.empList.Count;i++)
+            {
+                empStringList.Add(pickedWeek.empList[i].lName + ", " + pickedWeek.empList[i].fName);
+            }
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, empStringList);
+
+            empListView.ItemClick += EmpListView_ItemClick;
+        }
+
+        private void EmpListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+        {
+            empEditorPassoff = true;
+            Intent intent = new Intent(this, typeof(EmpMgmtActivity));
+            intent.PutExtra("passoff", true);
+            intent.PutExtra("target", e.Position);
+            this.StartActivity(intent);
+        }
+
+        public void AvailabilitySubmit(Availability avail)
         {
 
         }

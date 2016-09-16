@@ -28,10 +28,15 @@ namespace MaydSchedulerApp
             ActionBar.SetHomeButtonEnabled(true);
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
-            if (MainActivity.scheduler.availPassoff)
+            if (MainActivity.scheduler != null)
             {
-                schedulerPassoff = true;
-                OnEditEmployee(MainActivity.scheduler.employee);
+                if (MainActivity.scheduler.availPassoff)
+                {
+                    schedulerPassoff = true;
+                    OnEditEmployee(MainActivity.scheduler.employee);
+                }
+                else
+                    GenerateEmployeeListScreen();
             }
             else
                 GenerateEmployeeListScreen();

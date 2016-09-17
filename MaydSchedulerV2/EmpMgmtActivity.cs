@@ -93,7 +93,6 @@ namespace MaydSchedulerApp
         {
             MenuInflater.Inflate(Resource.Layout.options_menu, menu);
             action1 = FindViewById<Button>(Resource.Id.action_button1);
-            action2 = FindViewById<Button>(Resource.Id.action_button2);
             return true;
         }
 
@@ -103,9 +102,6 @@ namespace MaydSchedulerApp
             {
                 case Resource.Id.action_button1:
                     OnAddEmployee();
-                    return true;
-                case Resource.Id.action_button2:
-
                     return true;
                 case Android.Resource.Id.Home:
                     OnBackPressed();

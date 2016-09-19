@@ -265,6 +265,10 @@ namespace MaydSchedulerApp
                 weeklySubmit.Text = "At least one day MUST be enabled!";
                 weeklySubmitChanged = true;
             }
+            else if (!ValidateInputHours())
+            {
+                InputCorrectedPrompt();
+            }
             else
             {
                 WeeklyConfigDefaultSettings();
@@ -274,22 +278,31 @@ namespace MaydSchedulerApp
         /// <summary>
         /// This method checks to make sure the hours put in by the user are between 0 and 23
         /// </summary>
-        private void ValidateInputHours()
-        {
-            sunOpen.Text = NumberManager.Validate(sunOpen.Text);
-            monOpen.Text = NumberManager.Validate(monOpen.Text);
-            tueOpen.Text = NumberManager.Validate(tueOpen.Text);
-            wedOpen.Text = NumberManager.Validate(wedOpen.Text);
-            thuOpen.Text = NumberManager.Validate(thuOpen.Text);
-            friOpen.Text = NumberManager.Validate(friOpen.Text);
-            satOpen.Text = NumberManager.Validate(satOpen.Text);
-            sunClose.Text = NumberManager.Validate(sunClose.Text);
-            monClose.Text = NumberManager.Validate(monClose.Text);
-            tueClose.Text = NumberManager.Validate(tueClose.Text);
-            wedClose.Text = NumberManager.Validate(wedClose.Text);
-            thuClose.Text = NumberManager.Validate(thuClose.Text);
-            friClose.Text = NumberManager.Validate(friClose.Text);
-            satClose.Text = NumberManager.Validate(satClose.Text);
+        private bool ValidateInputHours()
+        {//Check if all values are within limits, if not correct them and warn the user else return that they are valid
+            if (NumberManager.CheckValid(sunOpen.Text) || NumberManager.CheckValid(monOpen.Text) || NumberManager.CheckValid(tueOpen.Text) ||
+                NumberManager.CheckValid(wedOpen.Text) || NumberManager.CheckValid(thuOpen.Text) || NumberManager.CheckValid(friOpen.Text) ||
+                NumberManager.CheckValid(satOpen.Text) || NumberManager.CheckValid(sunClose.Text) || NumberManager.CheckValid(monClose.Text) ||
+                NumberManager.CheckValid(tueClose.Text) || NumberManager.CheckValid(wedClose.Text) || NumberManager.CheckValid(thuClose.Text) ||
+                NumberManager.CheckValid(friClose.Text) || NumberManager.CheckValid(satClose.Text))
+            {
+                sunOpen.Text = NumberManager.Validate(sunOpen.Text);
+                monOpen.Text = NumberManager.Validate(monOpen.Text);
+                tueOpen.Text = NumberManager.Validate(tueOpen.Text);
+                wedOpen.Text = NumberManager.Validate(wedOpen.Text);
+                thuOpen.Text = NumberManager.Validate(thuOpen.Text);
+                friOpen.Text = NumberManager.Validate(friOpen.Text);
+                satOpen.Text = NumberManager.Validate(satOpen.Text);
+                sunClose.Text = NumberManager.Validate(sunClose.Text);
+                monClose.Text = NumberManager.Validate(monClose.Text);
+                tueClose.Text = NumberManager.Validate(tueClose.Text);
+                wedClose.Text = NumberManager.Validate(wedClose.Text);
+                thuClose.Text = NumberManager.Validate(thuClose.Text);
+                friClose.Text = NumberManager.Validate(friClose.Text);
+                satClose.Text = NumberManager.Validate(satClose.Text);
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -334,6 +347,18 @@ namespace MaydSchedulerApp
                 return "Would you like to modify your existing default hours to these?";
             else
                 return "Would you like to make these your default facility hours?";
+        }
+
+        private void InputCorrectedPrompt()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Okay", (sender, args) =>
+            {
+                //We dont want to do anything, just make sure they know there was an error
+            })
+            .SetMessage("Some of the hours that were entered were invalid and have been corrected, hours must be between 00 and 24 (12:00AM - 11:59PM).\nPlease review your facility hours and click submit again.")
+            .SetTitle("Facility Hours Corrected")
+            .Show();
         }
 
         //Setup vars for this section

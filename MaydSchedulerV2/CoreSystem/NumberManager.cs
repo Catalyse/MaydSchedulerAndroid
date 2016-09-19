@@ -4,12 +4,16 @@ namespace MaydSchedulerApp
     {
         public static string Validate(string time)
         {
-            if (int.Parse(time) < 0)
-                return 0.ToString();
-            else if (int.Parse(time) > 23)
-                return 23.ToString();
-            else
-                return time;
+            if (time != "")
+            {
+                if (int.Parse(time) < 0)
+                    return 0.ToString();
+                else if (int.Parse(time) > 24)
+                    return 24.ToString();
+                else
+                    return time;
+            }
+            return time;
         }
 
         public static bool CheckValidShifts(int start, int end)
@@ -20,11 +24,12 @@ namespace MaydSchedulerApp
                 return true;
         }
 
-        public static bool Validate(int time)
+        public static bool CheckValid(string time)
         {
-            if (time > 23 || time < 0)
+            if (int.Parse(time) > 24 || int.Parse(time) < 0)
                 return false;
-            else return false;
+            else
+                return true;
         }
     }
 }

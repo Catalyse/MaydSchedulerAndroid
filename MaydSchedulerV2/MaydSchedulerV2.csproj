@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutActivity.cs" />
+    <Compile Include="CoreSystem\NumberManager.cs" />
     <Compile Include="CoreSystem\ScheduleAdapter.cs" />
     <Compile Include="CoreSystem\EmpMgmtAdapter.cs" />
     <Compile Include="CoreSystem\PickWeek.cs" />

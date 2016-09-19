@@ -34,6 +34,11 @@ namespace MaydSchedulerApp
             MainActivity.scheduler = this;
         }
 
+        /// <summary>
+        /// This handles changing submit button text back to normal when its been changed
+        /// </summary>
+        /// <param name="ev"></param>
+        /// <returns></returns>
         public override bool DispatchTouchEvent(MotionEvent ev)
         {
             if(weeklySubmitChanged)
@@ -67,6 +72,9 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This overrides onbackpressed so we can navigate within the activity
+        /// </summary>
         public override void OnBackPressed()
         {
             switch(mode)
@@ -146,6 +154,7 @@ namespace MaydSchedulerApp
                 int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text), int.Parse(tueClose.Text),
                 int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked,
                 tueToggle.Checked, wedToggle.Checked, thuToggle.Checked, friToggle.Checked, satToggle.Checked);
+                GeneratePositionLists();
                 StaffingNeeds();
             })
             .SetNegativeButton("No", (sender, args) =>
@@ -275,6 +284,7 @@ namespace MaydSchedulerApp
                 int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text), int.Parse(tueClose.Text),
                 int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked,
                 tueToggle.Checked, wedToggle.Checked, thuToggle.Checked, friToggle.Checked, satToggle.Checked);
+                GeneratePositionLists();
                 StaffingNeeds();
             })
             .SetNegativeButton("No", (sender, args) =>
@@ -283,6 +293,7 @@ namespace MaydSchedulerApp
                 int.Parse(friOpen.Text), int.Parse(satOpen.Text), int.Parse(sunClose.Text), int.Parse(monClose.Text), int.Parse(tueClose.Text),
                 int.Parse(wedClose.Text), int.Parse(thuClose.Text), int.Parse(friClose.Text), int.Parse(satClose.Text), sunToggle.Checked, monToggle.Checked,
                 tueToggle.Checked, wedToggle.Checked, thuToggle.Checked, friToggle.Checked, satToggle.Checked);
+                GeneratePositionLists();
                 StaffingNeeds();
             })
             .SetMessage(PromptChoice())
@@ -304,7 +315,26 @@ namespace MaydSchedulerApp
         //Setup vars for this section
         EditText sunSOpen, sunSClose, monSOpen, monSClose, tueSOpen, tueSClose, wedSOpen, wedSClose, thuSOpen, thuSClose, friSOpen, friSClose, satSOpen, satSClose;
         Button titleButton;
+        List<int> activePosList;
+        int posListIterator = 0;
         private int currentPosition = 0;
+
+        /// <summary>
+        /// This figures out if we have any employees in the positions we are asking for shifts on.
+        /// </summary>
+        private void GeneratePositionLists()
+        {
+            activePosList = new List<int>();
+
+            for (int i = 0; i < EmployeeStorage.employeeList.Count; i++)//Sort employees into the lists made above.
+            {
+                if (activePosList.Contains(EmployeeStorage.employeeList[i].position))
+                { }//do nothing
+                else
+                    activePosList.Add(EmployeeStorage.employeeList[i].position);
+            }
+            currentPosition = activePosList[0];
+        }
 
         /// <summary>
         /// mode 3
@@ -353,8 +383,40 @@ namespace MaydSchedulerApp
             thuSClose.Text = "";
             friSClose.Text = "";
             satSClose.Text = "";
-            currentPosition++;
+            posListIterator++;
+            currentPosition = activePosList[posListIterator];
             titleButton.Text = SystemSettings.GetPositionName(currentPosition);
+        }
+
+        /// <summary>
+        /// This checks to make sure that none of the fields are empty
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void StaffingSubmit_Check(object sender, EventArgs e)
+        {
+            if (pickedWeek.sunday.activeDay && (sunSOpen.Text == "" || sunSClose.Text == "") || pickedWeek.monday.activeDay && (monSOpen.Text == "" || monSClose.Text == "") ||
+               pickedWeek.tuesday.activeDay && (tueSOpen.Text == "" || tueSClose.Text == "") || pickedWeek.wednesday.activeDay && (wedSOpen.Text == "" || wedSClose.Text == "") ||
+               pickedWeek.thursday.activeDay && (thuSOpen.Text == "" || thuSClose.Text == "") || pickedWeek.friday.activeDay && (friSOpen.Text == "" || friSClose.Text == "") ||
+               pickedWeek.saturday.activeDay && (satSOpen.Text == "" || satSClose.Text == ""))
+            {
+                staffingSubmit.Text = "Please fill out all fields!";
+                staffingSubmitChanged = true;
+            }
+            else
+            {
+                pickedWeek.SetNeeds(currentPosition, GenOpenDict(), GenCloseDict());
+                int count = activePosList.Count;
+                if (currentPosition < count - 1)
+                {//If we need info for more positions
+                    //FIXTHIS
+                    StaffingPositionReset();
+                }
+                else
+                {
+                    AvailChangePrompt();
+                }
+            }
         }
 
         /// <summary>
@@ -407,32 +469,6 @@ namespace MaydSchedulerApp
             newDict.Add(5, int.Parse(friSClose.Text));
             newDict.Add(6, int.Parse(satSClose.Text));
             return newDict;
-        }
-
-        private void StaffingSubmit_Check(object sender, EventArgs e)
-        {
-            if(pickedWeek.sunday.activeDay && (sunSOpen.Text == "" || sunSClose.Text == "") || pickedWeek.monday.activeDay && (monSOpen.Text == "" || monSClose.Text == "") ||
-               pickedWeek.tuesday.activeDay && (tueSOpen.Text == "" || tueSClose.Text == "") || pickedWeek.wednesday.activeDay && (wedSOpen.Text == "" || wedSClose.Text == "") ||
-               pickedWeek.thursday.activeDay && (thuSOpen.Text == "" || thuSClose.Text == "") || pickedWeek.friday.activeDay && (friSOpen.Text == "" || friSClose.Text == "") ||
-               pickedWeek.saturday.activeDay && (satSOpen.Text == "" || satSClose.Text == ""))
-            {
-                staffingSubmit.Text = "Please fill out all fields!";
-                staffingSubmitChanged = true;
-            }
-            else
-            {
-                pickedWeek.SetNeeds(currentPosition, GenOpenDict(), GenCloseDict());
-                int count = SystemSettings.positionList.Count;
-                if (currentPosition < count-1)
-                {//If we need info for more positions
-                    //FIXTHIS
-                    StaffingPositionReset();
-                }
-                else
-                {
-                    AvailChangePrompt();
-                }
-            }
         }
         
         private void AvailChangePrompt()

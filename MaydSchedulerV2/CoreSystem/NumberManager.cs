@@ -2,12 +2,12 @@ namespace MaydSchedulerApp
 {
     public static class NumberManager
     {
-        public static int Convert(int time)
+        public static string Validate(string time)
         {
-            if (time < 0)
-                return 0;
-            else if (time > 23)
-                return 23;
+            if (int.Parse(time) < 0)
+                return 0.ToString();
+            else if (int.Parse(time) > 23)
+                return 23.ToString();
             else
                 return time;
         }

@@ -145,6 +145,9 @@ namespace MaydSchedulerApp
             weeklySubmit.Click += WeeklySubmit_Check;
         }
 
+        /// <summary>
+        /// This checks if they want to use the stored default facility hours.
+        /// </summary>
         private void UseDefaultsPopup()
         {
             new AlertDialog.Builder(this)
@@ -266,6 +269,27 @@ namespace MaydSchedulerApp
             {
                 WeeklyConfigDefaultSettings();
             }
+        }
+
+        /// <summary>
+        /// This method checks to make sure the hours put in by the user are between 0 and 23
+        /// </summary>
+        private void ValidateInputHours()
+        {
+            sunOpen.Text = NumberManager.Validate(sunOpen.Text);
+            monOpen.Text = NumberManager.Validate(monOpen.Text);
+            tueOpen.Text = NumberManager.Validate(tueOpen.Text);
+            wedOpen.Text = NumberManager.Validate(wedOpen.Text);
+            thuOpen.Text = NumberManager.Validate(thuOpen.Text);
+            friOpen.Text = NumberManager.Validate(friOpen.Text);
+            satOpen.Text = NumberManager.Validate(satOpen.Text);
+            sunClose.Text = NumberManager.Validate(sunClose.Text);
+            monClose.Text = NumberManager.Validate(monClose.Text);
+            tueClose.Text = NumberManager.Validate(tueClose.Text);
+            wedClose.Text = NumberManager.Validate(wedClose.Text);
+            thuClose.Text = NumberManager.Validate(thuClose.Text);
+            friClose.Text = NumberManager.Validate(friClose.Text);
+            satClose.Text = NumberManager.Validate(satClose.Text);
         }
 
         /// <summary>
@@ -408,8 +432,7 @@ namespace MaydSchedulerApp
                 pickedWeek.SetNeeds(currentPosition, GenOpenDict(), GenCloseDict());
                 int count = activePosList.Count;
                 if (currentPosition < count - 1)
-                {//If we need info for more positions
-                    //FIXTHIS
+                {
                     StaffingPositionReset();
                 }
                 else

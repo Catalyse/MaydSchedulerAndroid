@@ -27,6 +27,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputSunClose"
             android:id="@+id/inputSunOpen" />
         <EditText
@@ -35,6 +36,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputMonOpen"
             android:id="@+id/inputSunClose" />
     </LinearLayout>
@@ -58,6 +60,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputMonClose"
             android:id="@+id/inputMonOpen" />
         <EditText
@@ -66,6 +69,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputTueOpen"
             android:id="@+id/inputMonClose" />
     </LinearLayout>
@@ -89,6 +93,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputTueClose"
             android:id="@+id/inputTueOpen" />
         <EditText
@@ -97,6 +102,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputWedOpen"
             android:id="@+id/inputTueClose" />
     </LinearLayout>
@@ -120,6 +126,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputWedClose"
             android:id="@+id/inputWedOpen" />
         <EditText
@@ -128,6 +135,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputThuOpen"
             android:id="@+id/inputWedClose" />
     </LinearLayout>
@@ -151,6 +159,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputThuClose"
             android:id="@+id/inputThuOpen" />
         <EditText
@@ -159,6 +168,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputFriOpen"
             android:id="@+id/inputThuClose" />
     </LinearLayout>
@@ -182,6 +192,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputFriClose"
             android:id="@+id/inputFriOpen" />
         <EditText
@@ -190,6 +201,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputSatOpen"
             android:id="@+id/inputFriClose" />
     </LinearLayout>
@@ -213,6 +225,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:nextFocusDown="@+id/inputSatClose"
             android:id="@+id/inputSatOpen" />
         <EditText
@@ -221,6 +234,7 @@
             android:layout_width="0dp"
             android:layout_weight="33"
             android:layout_height="match_parent"
+            android:maxLength="2"
             android:id="@+id/inputSatClose" />
     </LinearLayout>
     <Button

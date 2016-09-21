@@ -13,7 +13,7 @@ namespace MaydSchedulerApp
     [Activity(Label = "Employee Management", ScreenOrientation = Android.Content.PM.ScreenOrientation.Portrait, Theme = "@android:style/Theme.Material", WindowSoftInputMode = SoftInput.AdjustPan)]
     public class EmpMgmtActivity : Activity
     {
-        private Button action1, action2;
+        private Button action1;
         private ListView empListView;
         private EmpMgmtAdapter empListAdapter;
         private int selected;

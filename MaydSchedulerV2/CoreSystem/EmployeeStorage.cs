@@ -39,11 +39,12 @@ namespace MaydSchedulerApp
             }
             else
                 Console.WriteLine("No employee list found");
-
         }
 
         public static void AddEmployee(Employee toAdd)
         {
+            if (employeeList.Count < 1)
+                loaded = true;
             employeeList.Add(toAdd);
             SortList();
             OnSaveList();

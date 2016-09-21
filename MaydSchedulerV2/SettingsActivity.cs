@@ -18,7 +18,8 @@ namespace MaydSchedulerApp
         EditText defaultShift, minShift, maxShift, skillCap, partTime, fullTime;
         private Button cancelButton, submitButton, positionButton;
         private bool submitChanged = false;
-        private bool settingsSet = true;
+        private bool settingsSet = false;
+        private bool positionsLoaded = false;
         private bool onPosScreen = false;
         public bool editPosition = false;
         public int clickedIndex;
@@ -156,7 +157,14 @@ namespace MaydSchedulerApp
                 SystemSettings.InitialSetup(int.Parse(defaultShift.Text), int.Parse(minShift.Text), int.Parse(maxShift.Text),
                     int.Parse(skillCap.Text), int.Parse(partTime.Text), int.Parse(fullTime.Text));
                 settingsSet = true;
+            }
+            if(positionsLoaded)
+            {
                 Finish();
+            }
+            else
+            {
+                NeedToCreatePositionsAlert();
             }
         }
 
@@ -189,14 +197,27 @@ namespace MaydSchedulerApp
 
         public void LoadPositionList()
         {
-            List<string> tempList = new List<string>();
-            for (int i = 0; i < SystemSettings.positionList.Count; i++)
+            positionsLoaded = SystemSettings.positionsCreated;
+            if (positionsLoaded)
             {
-                tempList.Add(SystemSettings.positionList[i]);
-            }
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, tempList);
+                List<string> tempList = new List<string>();
+                for (int i = 0; i < SystemSettings.positionList.Count; i++)
+                {
+                    tempList.Add(SystemSettings.positionList[i]);
+                }
+                ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, tempList);
 
-            positionList.Adapter = adapter;
+                positionList.Adapter = adapter;
+            }
+            else
+            {
+                List<string> tempList = new List<string>();
+                tempList.Add("Nothing Here Yet!");
+
+                ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, tempList);
+
+                positionList.Adapter = adapter;
+            }
         }
 
         private void PositionCancel_Click(object sender, EventArgs e)
@@ -225,6 +246,27 @@ namespace MaydSchedulerApp
             })
             .SetMessage("The system cannot run without default settings!")
             .SetTitle("System Settings")
+            .Show();
+        }
+
+        private void NeedToCreatePositionsAlert()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Okay", (sender, args) =>
+            {
+                onPosScreen = true;
+                SetContentView(Resource.Layout.PositionManager);
+                positionAdd = FindViewById<Button>(Resource.Id.btnPosMgrAdd);
+                positionCancel = FindViewById<Button>(Resource.Id.btnPosMgrCancel);
+                positionAdd.Click += PositionAdd_Click;
+                positionCancel.Click += PositionCancel_Click;
+
+                positionList = FindViewById<ListView>(Resource.Id.posListView);
+                LoadPositionList();
+                RegisterForContextMenu(positionList);
+            })
+            .SetMessage("Now you need to create at least one position so we can get started!")
+            .SetTitle("Create a Position")
             .Show();
         }
 
@@ -262,6 +304,10 @@ namespace MaydSchedulerApp
             }
             else
                 settingsSet = false;
+            if (SystemSettings.positionsCreated)
+                positionsLoaded = true;
+            else
+                positionsLoaded = false;
         }
     }
 }

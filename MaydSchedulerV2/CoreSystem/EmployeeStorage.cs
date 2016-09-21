@@ -11,6 +11,7 @@ namespace MaydSchedulerApp
     public static class EmployeeStorage
     {
         public static List<Employee> employeeList = new List<Employee>();
+        public static bool loaded = false;
 
         public static void TestingModeLoad()
         {
@@ -34,6 +35,7 @@ namespace MaydSchedulerApp
             if (temp != null)
             {
                 employeeList = temp;
+                loaded = true;
             }
             else
                 Console.WriteLine("No employee list found");

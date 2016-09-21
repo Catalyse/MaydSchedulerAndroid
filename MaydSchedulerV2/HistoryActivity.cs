@@ -126,7 +126,7 @@ namespace MaydSchedulerApp
         private void LoadWeek(Week w)
         {
             weekSelected = true;
-            this.Title = "Schedule for " + w.startDate.ToShortDateString();
+            Title = "Schedule for " + w.startDate.ToShortDateString();
             SetContentView(Resource.Layout.ScheduleView);
             ScheduleAdapter adapter = new ScheduleAdapter(this, w.empList);
             ListView scheduleView = FindViewById<ListView>(Resource.Id.scheduleListView);
@@ -205,7 +205,9 @@ namespace MaydSchedulerApp
 
         private void EditSubmit_Click(object sender, EventArgs e)
         {
-            if(EditVerify())
+            bool shiftVer = ShiftVerify();
+            bool editVer = EditVerify();
+            if(shiftVer && editVer)
             {
                 currentEmp.shiftList.Clear();
                 if (sunOpen.Text != "")
@@ -247,10 +249,14 @@ namespace MaydSchedulerApp
                 inEditor = false;
                 LoadWeek(selected);
             }
-            else
+            else if(!editVer)
             {//Shifts must have a start and end time
                 editSubmit.Text = "Please Complete Shifts!";
                 editSubmitChanged = true;
+            }
+            else//shiftVer Failed but not edit verification
+            {
+                ShiftWarning();
             }
         }
 
@@ -291,6 +297,118 @@ namespace MaydSchedulerApp
             return true;
         }
 
+        /// <summary>
+        /// This will verify that any shifts manually entered are within the user set limits
+        /// </summary>
+        /// <returns></returns>
+        private bool ShiftVerify()
+        {
+            if (sunOpen.Text != "" && sunClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(sunOpen.Text, sunClose.Text))
+                {
+                    return false;
+                }
+            }
+            if (monOpen.Text != "" && monClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(monOpen.Text, monClose.Text))
+                {
+                    return false;
+                }
+            }
+            if (tueOpen.Text != "" && tueClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(tueOpen.Text, tueClose.Text))
+                {
+                    return false;
+                }
+            }
+            if (wedOpen.Text != "" && wedClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(wedOpen.Text, wedClose.Text))
+                {
+                    return false;
+                }
+            }
+            if (thuOpen.Text != "" && thuClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(thuOpen.Text, thuClose.Text))
+                {
+                    return false;
+                }
+            }
+            if (friOpen.Text != "" && friClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(friOpen.Text, friClose.Text))
+                {
+                    return false;
+                }
+            }
+            if (satOpen.Text != "" && satClose.Text != "")
+            {
+                if (NumberManager.CheckValidShifts(satOpen.Text, satClose.Text))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void ShiftWarning()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Yes", (sender, args) =>
+            {
+                currentEmp.shiftList.Clear();
+                if (sunOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(sunOpen.Text), int.Parse(sunClose.Text), DayOfWeek.Sunday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                if (monOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(monOpen.Text), int.Parse(monClose.Text), DayOfWeek.Monday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                if (tueOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(tueOpen.Text), int.Parse(tueClose.Text), DayOfWeek.Tuesday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                if (wedOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(wedOpen.Text), int.Parse(wedClose.Text), DayOfWeek.Wednesday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                if (thuOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(thuOpen.Text), int.Parse(thuClose.Text), DayOfWeek.Thursday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                if (friOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(friOpen.Text), int.Parse(friClose.Text), DayOfWeek.Friday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                if (satOpen.Text != "")
+                {
+                    Shift newShift = new Shift(currentEmp.employee, int.Parse(satOpen.Text), int.Parse(satClose.Text), DayOfWeek.Saturday);
+                    currentEmp.shiftList.Add(newShift);
+                }
+                weekModified = true;
+                inEditor = false;
+                LoadWeek(selected);
+            })
+            .SetNegativeButton("No", (sender, args) =>
+            {
+                //Do nothing.
+            })
+            .SetMessage("One of the shifts listed do not follow the min/max shift settings you have set, are you sure you want to continue?")
+            .SetTitle("Shift Verification Failed")
+            .Show();
+        }
+
         private void LoadWeekList()
         {
             SetContentView(Resource.Layout.ScheduleHistory);
@@ -298,12 +416,15 @@ namespace MaydSchedulerApp
             weekSelected = false;
             this.Title = "Schedule History/Editor";
             ListView historyView = FindViewById<ListView>(Resource.Id.historyListView);
-            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, ConvertToStringList());
+            List<string> strList = ConvertToStringList();
+            if (strList.Count < 1)
+                strList.Add("Nothing here yet!");
+            ArrayAdapter<string> adapter = new ArrayAdapter<string>(this, Android.Resource.Layout.SimpleListItem1, strList);
             historyView.Adapter = adapter;
 
             RegisterForContextMenu(historyView);
 
-            historyView.ItemClick += HistoryView_ItemClick;//I gotta somehow stop this from being added multiple times
+            historyView.ItemClick += HistoryView_ItemClick;
         }
 
         private void HistoryView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)

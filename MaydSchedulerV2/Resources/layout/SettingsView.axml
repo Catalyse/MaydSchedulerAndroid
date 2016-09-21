@@ -14,13 +14,14 @@
         android:layout_height="0dp"
         android:id="@+id/textDefaultShift" />
     <EditText
-        android:hint="Default"
+        android:hint="Default e.g. 8"
         android:gravity="center"
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_weight="10"
         android:layout_height="0dp"
-        android:id="@+id/inputDefaultShift" />
+        android:id="@+id/inputDefaultShift" 
+        android:nextFocusDown="@+id/inputMinShift"/>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -28,21 +29,23 @@
         android:layout_height="0dp"
         android:minHeight="50px">
         <EditText
-            android:hint="Minimum"
+            android:hint="Minimum e.g. 6"
             android:gravity="center"
             android:inputType="number"
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="match_parent"
-            android:id="@+id/inputMinShift" />
+            android:id="@+id/inputMinShift"
+            android:nextFocusDown="@+id/inputMaxShift"/>
         <EditText
-            android:hint="Maximum"
+            android:hint="Maximum e.g. 10"
             android:gravity="center"
             android:inputType="number"
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="match_parent"
-            android:id="@+id/inputMaxShift" />
+            android:id="@+id/inputMaxShift"
+            android:nextFocusDown="@+id/inputSkillCap"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
@@ -65,7 +68,8 @@
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="match_parent"
-            android:id="@+id/inputSkillCap" />
+            android:id="@+id/inputSkillCap" 
+            android:nextFocusDown="@+id/inputPartTime"/>
     </LinearLayout>
     <TextView
         android:text="Hour Targets"
@@ -88,7 +92,8 @@
             android:layout_width="0dp"
             android:layout_weight="10"
             android:layout_height="match_parent"
-            android:id="@+id/inputPartTime" />
+            android:id="@+id/inputPartTime" 
+            android:nextFocusDown="@+id/inputFullTime"/>
         <EditText
             android:hint="FullTime"
             android:gravity="center"

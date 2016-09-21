@@ -360,8 +360,8 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080086
 			public const int inputMonOpen = 2131230854;
 			
-			// aapt resource value: 0x7f08006b
-			public const int inputPartTime = 2131230827;
+			// aapt resource value: 0x7f08006a
+			public const int inputPartTime = 2131230826;
 			
 			// aapt resource value: 0x7f080053
 			public const int inputPosFrag = 2131230803;
@@ -417,8 +417,8 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080020
 			public const int inputShiftPref = 2131230752;
 			
-			// aapt resource value: 0x7f080069
-			public const int inputSkillCap = 2131230825;
+			// aapt resource value: 0x7f080068
+			public const int inputSkillCap = 2131230824;
 			
 			// aapt resource value: 0x7f08001f
 			public const int inputSkillLevel = 2131230751;
@@ -486,11 +486,11 @@ namespace MaydSchedulerApp
 			// aapt resource value: 0x7f080064
 			public const int textDefaultShift = 2131230820;
 			
-			// aapt resource value: 0x7f08006a
-			public const int textHourTarget = 2131230826;
+			// aapt resource value: 0x7f08006b
+			public const int textHourTarget = 2131230827;
 			
-			// aapt resource value: 0x7f080068
-			public const int textSkillCap = 2131230824;
+			// aapt resource value: 0x7f080069
+			public const int textSkillCap = 2131230825;
 			
 			// aapt resource value: 0x7f080082
 			public const int toolbar = 2131230850;
@@ -624,7 +624,7 @@ namespace MaydSchedulerApp
 			public const int ScheduleView = 2130903055;
 			
 			// aapt resource value: 0x7f030010
-			public const int settings = 2130903056;
+			public const int SettingsView = 2130903056;
 			
 			// aapt resource value: 0x7f030011
 			public const int Splash = 2130903057;

@@ -192,10 +192,10 @@ namespace MaydSchedulerApp
 
         private void BtnQuickWeek_Click(object sender, EventArgs e)
         {
-            QuickPrompt();
+            QuickWeekPrompt();
         }
 
-        private void QuickPrompt()
+        private void QuickWeekPrompt()
         {
             new AlertDialog.Builder(this)
             .SetPositiveButton("Copy Week Settings", (sender, args) =>
@@ -210,6 +210,19 @@ namespace MaydSchedulerApp
             })
             .SetMessage("You can either: \nMake a copy of the previous week or: \nCopy last weeks settings and generate new shifts.")
             .SetTitle("Quick Week")
+            .Show();
+        }
+
+        private void NoEmployeesWarning()
+        {
+            new AlertDialog.Builder(this)
+            .SetPositiveButton("Okay", (sender, args) =>
+            {
+                copyAll = false;
+                ChooseWeek();
+            })
+            .SetMessage("You currently have no employees to schedule,\nPlease add some to get started.")
+            .SetTitle("No Employees to Schedule!")
             .Show();
         }
 
@@ -294,8 +307,15 @@ namespace MaydSchedulerApp
 
         private void BtnNewWeek_Click(object sender, EventArgs e)
         {
-            Intent intent = new Intent(this, typeof(ScheduleActivity));
-            this.StartActivity(intent);
+            if (EmployeeStorage.loaded)
+            {
+                Intent intent = new Intent(this, typeof(ScheduleActivity));
+                this.StartActivity(intent);
+            }
+            else
+            {
+                NoEmployeesWarning();
+            }
         }
         #endregion Buttons
 

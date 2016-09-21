@@ -41,6 +41,7 @@ namespace MaydSchedulerApp
             if(act.editPosition)
             {
                 submit.Click += Submit_Edit;
+                text.Text = SystemSettings.positionList[act.clickedIndex];
             }
             else
             {

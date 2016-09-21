@@ -16,9 +16,9 @@ namespace MaydSchedulerApp
             return time;
         }
 
-        public static bool CheckValidShifts(int start, int end)
+        public static bool CheckValidShifts(string start, string end)
         {
-            if (end - start < SystemSettings.minShift || end - start > SystemSettings.maxShift)
+            if (int.Parse(end) - int.Parse(start) < SystemSettings.minShift || int.Parse(end) - int.Parse(start) > SystemSettings.maxShift)
                 return false;
             else
                 return true;

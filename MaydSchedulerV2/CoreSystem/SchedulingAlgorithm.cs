@@ -324,6 +324,10 @@ namespace MaydSchedulerApp
                                 openEmpCount = (int)Math.Ceiling(criticalOpen);//round up for smaller shift.
                                 closeEmpCount = (int)Math.Floor(criticalClose);//move to lower value for larger shift.
                             }
+                            if (openEmpCount < 1)
+                                openEmpCount = 1;
+                            if (closeEmpCount < 1)
+                                closeEmpCount = 1;
                         }
                         //First we will assign the right number of employees to each day as best we can.
                         //This loop will run until either the correct number of employees is assigned, or until there are no more employees to be scheduled.

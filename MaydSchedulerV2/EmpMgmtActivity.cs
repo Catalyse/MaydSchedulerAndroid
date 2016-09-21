@@ -56,8 +56,12 @@ namespace MaydSchedulerApp
         {
             if(inEditor)
             {
-                InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
-                imm.HideSoftInputFromWindow(MainActivity.currentActivity.CurrentFocus.WindowToken, HideSoftInputFlags.None);
+                try
+                {
+                    InputMethodManager imm = (InputMethodManager)GetSystemService(Context.InputMethodService);
+                    imm.HideSoftInputFromWindow(MainActivity.currentActivity.CurrentFocus.WindowToken, HideSoftInputFlags.None);
+                }
+                catch { }
                 GenerateEmployeeListScreen();
                 inEditor = false;
             }

@@ -396,7 +396,6 @@ namespace MaydSchedulerApp
             if (positionList.ContainsKey(pos))
             {
                 ISharedPreferences prefs = PreferenceManager.GetDefaultSharedPreferences(MainActivity.currentActivity);
-                ISharedPreferencesEditor editor = prefs.Edit();
                 int count = prefs.GetInt("positionCount", -1);
                 List<string> temp = new List<string>();
                 //Copy the dict to a list to reorder it
@@ -422,6 +421,18 @@ namespace MaydSchedulerApp
                     {
                         EmployeeStorage.employeeList[i].position = EmployeeStorage.employeeList[i].position - 1;
                     }
+                }
+                ISharedPreferencesEditor editor = prefs.Edit();
+                if (positionList.Count < 1)
+                {
+                    editor.PutBoolean("positionsLoaded", false);
+                    editor.PutInt("positionCount", 0);
+                    editor.Apply();
+                }
+                else
+                {
+                    editor.PutInt("positionCount", count - 1);
+                    editor.Apply();
                 }
                 return true;
             }

@@ -31,6 +31,19 @@ namespace MaydSchedulerApp
             ActionBar.SetDisplayHomeAsUpEnabled(true);
 
             SettingsScreen();
+            if(settingsSet && !positionsLoaded)
+            {
+                onPosScreen = true;
+                SetContentView(Resource.Layout.PositionManager);
+                positionAdd = FindViewById<Button>(Resource.Id.btnPosMgrAdd);
+                positionCancel = FindViewById<Button>(Resource.Id.btnPosMgrCancel);
+                positionAdd.Click += PositionAdd_Click;
+                positionCancel.Click += PositionCancel_Click;
+
+                positionList = FindViewById<ListView>(Resource.Id.posListView);
+                LoadPositionList();
+                RegisterForContextMenu(positionList);
+            }
         }
 
         private void SettingsScreen()
@@ -61,14 +74,14 @@ namespace MaydSchedulerApp
         #region OVERRIDE
         public override void OnBackPressed()
         {
-            if(onPosScreen)
+            if (!settingsSet || !positionsLoaded)
+            {
+                SettingsNotLoadedAlert();
+            }
+            else if (onPosScreen)
             {
                 SettingsScreen();
                 onPosScreen = false;
-            }
-            else if (!settingsSet)
-            {
-                SettingsNotLoadedAlert();
             }
             else
                 base.OnBackPressed();
@@ -235,6 +248,7 @@ namespace MaydSchedulerApp
         private void SettingsNotLoadedAlert()
         {
             new AlertDialog.Builder(this)
+            .SetCancelable(false)
             .SetPositiveButton("Okay", (sender, args) =>
             {
                 //DO NOTHING
@@ -252,6 +266,7 @@ namespace MaydSchedulerApp
         private void NeedToCreatePositionsAlert()
         {
             new AlertDialog.Builder(this)
+            .SetCancelable(false)
             .SetPositiveButton("Okay", (sender, args) =>
             {
                 onPosScreen = true;

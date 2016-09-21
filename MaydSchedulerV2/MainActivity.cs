@@ -113,6 +113,9 @@ namespace MaydSchedulerApp
             tracker.EnableExceptionReporting(true);
         }
 
+        /// <summary>
+        /// This sets up the quick week button.
+        /// </summary>
         private void SetupButtons()
         {
             if(SystemSettings.weeksLoaded)
@@ -123,6 +126,7 @@ namespace MaydSchedulerApp
             }
             else
             {//Since we have nothing to base a quick week on.
+                BtnQuickWeek.Text = "Quick Week\n(Disabled)";
                 BtnQuickWeek.Enabled = false;
             }
         }
@@ -218,8 +222,7 @@ namespace MaydSchedulerApp
             new AlertDialog.Builder(this)
             .SetPositiveButton("Okay", (sender, args) =>
             {
-                copyAll = false;
-                ChooseWeek();
+                //Do Nothing
             })
             .SetMessage("You currently have no employees to schedule,\nPlease add some to get started.")
             .SetTitle("No Employees to Schedule!")

@@ -89,7 +89,7 @@ namespace MaydSchedulerApp
                     ChooseWeek();
                     break;
                 case 3:
-                    WeeklyConfig();
+                    FacilityHours();
                     break;
             }
         }
@@ -125,24 +125,24 @@ namespace MaydSchedulerApp
             else
             {
                 pickedWeek = pickWeek.weekList[e.Position];
-                WeeklyConfig();
+                FacilityHours();
             }
         }
 
         /// <summary>
         /// Mode 2
         /// </summary>
-        private void WeeklyConfig()
+        private void FacilityHours()
         {
             mode = 2;
             this.Title = "Weekly Facility Hours";
-            SetContentView(Resource.Layout.WeeklyConfig);
-            SetupWeeklyObjects();
+            SetContentView(Resource.Layout.FacilityHours);
+            SetupFacilityHoursObjects();
             if (CheckIfDefaultsExist())
                 UseDefaultsPopup();
 
             weeklySubmit = FindViewById<Button>(Resource.Id.btnWeeklySubmit);
-            weeklySubmit.Click += WeeklySubmit_Check;
+            weeklySubmit.Click += FacilityHoursSubmit_Check;
         }
 
         /// <summary>
@@ -173,7 +173,10 @@ namespace MaydSchedulerApp
         CheckBox sunToggle, monToggle, tueToggle, wedToggle, thuToggle, friToggle, satToggle;
         bool defaultsLoaded = false;
 
-        private void SetupWeeklyObjects()
+        /// <summary>
+        /// This loads the facility hours objects
+        /// </summary>
+        private void SetupFacilityHoursObjects()
         {
             sunOpen = FindViewById<EditText>(Resource.Id.inputSunOpen);
             monOpen = FindViewById<EditText>(Resource.Id.inputMonOpen);
@@ -198,6 +201,10 @@ namespace MaydSchedulerApp
             satToggle = FindViewById<CheckBox>(Resource.Id.chkSaturday);
         }
 
+        /// <summary>
+        /// Checks to see if we have loaded our default facility hours
+        /// </summary>
+        /// <returns></returns>
         private bool CheckIfDefaultsExist()
         {
             bool exist = SystemSettings.facilityDefaults;
@@ -247,7 +254,7 @@ namespace MaydSchedulerApp
         /// <summary>
         /// This will check all fields before allowing the user to continue on to the next page.
         /// </summary>
-        private void WeeklySubmit_Check(object sender, EventArgs e)
+        private void FacilityHoursSubmit_Check(object sender, EventArgs e)
         {
             //this is huge and it sucks but its neccesary to check if any of the fields are empty
             if (sunToggle.Checked && (sunOpen.Text == "" || sunClose.Text == "") || monToggle.Checked && (monOpen.Text == "" || monClose.Text == "") || 
@@ -271,20 +278,20 @@ namespace MaydSchedulerApp
             }
             else
             {
-                WeeklyConfigDefaultSettings();
+                FacilityHoursDefaultSettings();
             }
         }
 
         /// <summary>
-        /// This method checks to make sure the hours put in by the user are between 0 and 23
+        /// This method checks to make sure the hours put in by the user are between 0 and 24
         /// </summary>
         private bool ValidateInputHours()
         {//Check if all values are within limits, if not correct them and warn the user else return that they are valid
-            if (NumberManager.CheckValid(sunOpen.Text) || NumberManager.CheckValid(monOpen.Text) || NumberManager.CheckValid(tueOpen.Text) ||
-                NumberManager.CheckValid(wedOpen.Text) || NumberManager.CheckValid(thuOpen.Text) || NumberManager.CheckValid(friOpen.Text) ||
-                NumberManager.CheckValid(satOpen.Text) || NumberManager.CheckValid(sunClose.Text) || NumberManager.CheckValid(monClose.Text) ||
-                NumberManager.CheckValid(tueClose.Text) || NumberManager.CheckValid(wedClose.Text) || NumberManager.CheckValid(thuClose.Text) ||
-                NumberManager.CheckValid(friClose.Text) || NumberManager.CheckValid(satClose.Text))
+            if (!NumberManager.CheckValid(sunOpen.Text) || !NumberManager.CheckValid(monOpen.Text) || !NumberManager.CheckValid(tueOpen.Text) ||
+                !NumberManager.CheckValid(wedOpen.Text) || !NumberManager.CheckValid(thuOpen.Text) || !NumberManager.CheckValid(friOpen.Text) ||
+                !NumberManager.CheckValid(satOpen.Text) || !NumberManager.CheckValid(sunClose.Text) || !NumberManager.CheckValid(monClose.Text) ||
+                !NumberManager.CheckValid(tueClose.Text) || !NumberManager.CheckValid(wedClose.Text) || !NumberManager.CheckValid(thuClose.Text) ||
+                !NumberManager.CheckValid(friClose.Text) || !NumberManager.CheckValid(satClose.Text))
             {
                 sunOpen.Text = NumberManager.Validate(sunOpen.Text);
                 monOpen.Text = NumberManager.Validate(monOpen.Text);
@@ -308,7 +315,7 @@ namespace MaydSchedulerApp
         /// <summary>
         /// This is a prompt to ask if they want to set these facility hours as their default, if they do it changes the setting, if not it continues no changes
         /// </summary>
-        private void WeeklyConfigDefaultSettings()
+        private void FacilityHoursDefaultSettings()
         {
             new AlertDialog.Builder(this)
             .SetCancelable(false)

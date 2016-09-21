@@ -26,8 +26,13 @@ namespace MaydSchedulerApp
 
         public static bool CheckValid(string time)
         {
-            if (int.Parse(time) > 24 || int.Parse(time) < 0)
-                return false;
+            if (time != "")
+            {
+                if (int.Parse(time) > 24 || int.Parse(time) < 0)
+                    return false;
+                else
+                    return true;
+            }
             else
                 return true;
         }

@@ -113,7 +113,6 @@
     <AndroidResource Include="Resources\layout\EmpMgmtListView.axml" />
     <AndroidResource Include="Resources\layout\ScheduleView.axml" />
     <AndroidResource Include="Resources\layout\Main.axml" />
-    <AndroidResource Include="Resources\layout\NewWeek.axml" />
     <AndroidResource Include="Resources\layout\PickWeekLayout.axml" />
     <AndroidResource Include="Resources\layout\ScheduleListView.axml">
       <SubType>Designer</SubType>
@@ -123,7 +122,7 @@
     </AndroidResource>
     <AndroidResource Include="Resources\layout\StaffingNeeds.axml" />
     <AndroidResource Include="Resources\layout\ToolBar.axml" />
-    <AndroidResource Include="Resources\layout\WeeklyConfig.axml" />
+    <AndroidResource Include="Resources\layout\FacilityHours.axml" />
     <AndroidResource Include="Resources\layout\ScheduleHistory.axml">
       <SubType>Designer</SubType>
     </AndroidResource>

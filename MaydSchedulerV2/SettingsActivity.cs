@@ -34,7 +34,7 @@ namespace MaydSchedulerApp
 
         private void SettingsScreen()
         {
-            SetContentView(Resource.Layout.settings);
+            SetContentView(Resource.Layout.SettingsView);
 
             defaultShift = FindViewById<EditText>(Resource.Id.inputDefaultShift);
             minShift = FindViewById<EditText>(Resource.Id.inputMinShift);

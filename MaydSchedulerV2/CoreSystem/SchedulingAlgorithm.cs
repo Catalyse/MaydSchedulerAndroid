@@ -364,6 +364,10 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This method checks to see if any days have no employees scheduled to notify the user
+        /// </summary>
+        /// <returns></returns>
         private static bool CheckAllDaysScheduled()
         {
             for (int i = 0; i < activePositions; i++)
@@ -413,8 +417,6 @@ namespace MaydSchedulerApp
             {
                 if(empList.Count < 1)
                 {
-                    day.closeScheduledShifts.Add(pos, 0);
-                    day.openScheduledShifts.Add(pos, 0);
                     throw new Exception("No employees sent to day");
                 }
                 //This is the daily average skill of the employees assigned to the day
@@ -848,6 +850,12 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This generates a shift based on the assigned period and updates scheduling stats
+        /// </summary>
+        /// <param name="empList"></param>
+        /// <param name="day"></param>
+        /// <param name="pos"></param>
         private static void GenerateOpenShifts(List<EmployeeScheduleWrapper> empList, DailySchedule day, int pos)
         {
             try
@@ -880,6 +888,12 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This generates a shift based on the assigned period and updates scheduling stats
+        /// </summary>
+        /// <param name="empList"></param>
+        /// <param name="day"></param>
+        /// <param name="pos"></param>
         private static void GenerateCloseShifts(List<EmployeeScheduleWrapper> empList, DailySchedule day, int pos)
         {
             try
@@ -953,6 +967,11 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// THis just returns the average skill of the list of employees provided
+        /// </summary>
+        /// <param name="empList"></param>
+        /// <returns></returns>
         private static float CalculateSkillAvg(List<EmployeeScheduleWrapper> empList)
         {
             try

@@ -56,6 +56,7 @@ namespace MaydSchedulerApp
             try
             {
                 openNeededShifts.Add(key, value);
+                openScheduledShifts.Add(key, 0);
             }
             catch
             {
@@ -65,11 +66,17 @@ namespace MaydSchedulerApp
             }
         }
 
+        /// <summary>
+        /// This sets the number of employees needed to close, and initializes the scheduled dictionary
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
         public void SetCloseNeeded(int key, int value)
         {
             try
             {
                 closeNeededShifts.Add(key, value);
+                closeScheduledShifts.Add(key, 0);
             }
             catch
             {

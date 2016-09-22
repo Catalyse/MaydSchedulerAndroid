@@ -25,9 +25,9 @@ namespace MaydSchedulerApp
             {
                 selected = MainActivity.week;
                 LoadWeek(selected);
-                if(SchedulingAlgorithm.emptyDays == true)
+                if(SchedulingAlgorithm.emptyDays == false)
                 {
-                    SchedulingAlgorithm.emptyDays = false;
+                    SchedulingAlgorithm.emptyDays = true;
                     EmptyDaysWarning();
                 }
             }

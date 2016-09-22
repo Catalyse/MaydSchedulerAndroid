@@ -25,6 +25,11 @@ namespace MaydSchedulerApp
             {
                 selected = MainActivity.week;
                 LoadWeek(selected);
+                if(SchedulingAlgorithm.emptyDays == true)
+                {
+                    SchedulingAlgorithm.emptyDays = false;
+                    EmptyDaysWarning();
+                }
             }
             else
                 LoadWeekList();
@@ -122,6 +127,19 @@ namespace MaydSchedulerApp
             return base.OnContextItemSelected(item);
         }
         #endregion OVERRIDE
+
+        private void EmptyDaysWarning()
+        {
+            new AlertDialog.Builder(this)
+            .SetCancelable(false)
+            .SetPositiveButton("Okay", (sender, args) =>
+            {
+                //do nothing
+            })
+            .SetMessage("High shift demand or low employee count has caused some shifts to have no scheduled employees.")
+            .SetTitle("Schedule Generation Notices")
+            .Show();
+        }
 
         private void LoadWeek(Week w)
         {

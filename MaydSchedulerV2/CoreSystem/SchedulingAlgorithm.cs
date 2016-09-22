@@ -36,6 +36,8 @@ namespace MaydSchedulerApp
         private static int activePositions;
         //This is the number of days the store is open
         private static int activeDays;
+        //This bool is thrown if any days have no employees scheduled
+        public static bool emptyDays = false;
 
         /// <summary>
         /// This is the threaded method called to generate the schedule.
@@ -66,6 +68,7 @@ namespace MaydSchedulerApp
         {
             activePositions = 0;
             activeDays = 0;
+            emptyDays = false;
             week = new Week();
             pickedDays = new List<int>();
             weeklyNeededShifts = new Dictionary<int, int>();
@@ -351,6 +354,7 @@ namespace MaydSchedulerApp
                     }
                 }
                 ScheduleFill();
+                emptyDays = CheckAllDaysScheduled();
                 MainActivity.ScheduleGenerationComplete(week);
             }
             catch (Exception ex)
@@ -358,6 +362,28 @@ namespace MaydSchedulerApp
                 Console.WriteLine("GenerateSchedule() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
+        }
+
+        private static bool CheckAllDaysScheduled()
+        {
+            for (int i = 0; i < activePositions; i++)
+            {
+                if (week.sunday.activeDay && (week.sunday.openScheduledShifts[i] < 1 || week.sunday.closeScheduledShifts[i] < 1))
+                    return false;
+                if (week.monday.activeDay && (week.monday.openScheduledShifts[i] < 1 || week.monday.closeScheduledShifts[i] < 1))
+                    return false;
+                if (week.tuesday.activeDay && (week.tuesday.openScheduledShifts[i] < 1 || week.tuesday.closeScheduledShifts[i] < 1))
+                    return false;
+                if (week.wednesday.activeDay && (week.wednesday.openScheduledShifts[i] < 1 || week.wednesday.closeScheduledShifts[i] < 1))
+                    return false;
+                if (week.thursday.activeDay && (week.thursday.openScheduledShifts[i] < 1 || week.thursday.closeScheduledShifts[i] < 1))
+                    return false;
+                if (week.friday.activeDay && (week.friday.openScheduledShifts[i] < 1 || week.friday.closeScheduledShifts[i] < 1))
+                    return false;
+                if (week.saturday.activeDay && (week.saturday.openScheduledShifts[i] < 1 || week.saturday.closeScheduledShifts[i] < 1))
+                    return false;
+            }
+            return true;
         }
 
         /// <summary>
@@ -385,6 +411,12 @@ namespace MaydSchedulerApp
         {
             try
             {
+                if(empList.Count < 1)
+                {
+                    day.closeScheduledShifts.Add(pos, 0);
+                    day.openScheduledShifts.Add(pos, 0);
+                    throw new Exception("No employees sent to day");
+                }
                 //This is the daily average skill of the employees assigned to the day
                 float dailyAvg = CalculateSkillAvg(empList);
                 //In order to prevent certain employees from always opening we will simply randomly pick the first assigned shift.
@@ -820,6 +852,10 @@ namespace MaydSchedulerApp
         {
             try
             {
+                if(empList.Count < 1)
+                {
+                    throw new Exception("No Employees Provided to GenerateOpenShifts method");
+                }
                 //This is the shift as defined in system settings
                 int shiftLength = SystemSettings.defaultShift;
 
@@ -848,6 +884,10 @@ namespace MaydSchedulerApp
         {
             try
             {
+                if (empList.Count < 1)
+                {
+                    throw new Exception("No Employees Provided to GenerateCloseShifts method");
+                }
                 //This is the shift as defined in system settings
                 int shiftLength = SystemSettings.defaultShift;
 

@@ -370,6 +370,12 @@ namespace MaydSchedulerApp
         {
             if (!FieldValidation())
                 return;
+            else if (EmployeeStorage.CheckIfEmpIDExists(int.Parse(id.Text)))
+            {
+                submit.Text = "Employee ID already exists!";
+                submitChanged = true;
+                return;
+            }
 
             Availability avail = GenerateAvailability();
 

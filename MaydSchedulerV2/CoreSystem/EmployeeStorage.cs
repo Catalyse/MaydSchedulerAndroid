@@ -73,6 +73,19 @@ namespace MaydSchedulerApp
             return false;
         }
 
+        public static bool CheckIfEmpIDExists(int id)
+        {
+            if (employeeList.Count > 0)
+            {
+                for (int i = 0; i < employeeList.Count; i++)
+                {
+                    if (employeeList[i].empID == id)
+                        return true;
+                }
+            }
+            return false;
+        }
+
         public static Employee GetEmployee(string name)
         {
             try

@@ -37,7 +37,7 @@ namespace MaydSchedulerApp
         //This is the number of days the store is open
         private static int activeDays;
         //This bool is thrown if any days have no employees scheduled
-        public static bool emptyDays = false;
+        public static bool allDaysScheduled = true;
 
         /// <summary>
         /// This is the threaded method called to generate the schedule.
@@ -68,7 +68,7 @@ namespace MaydSchedulerApp
         {
             activePositions = 0;
             activeDays = 0;
-            emptyDays = false;
+            allDaysScheduled = false;
             week = new Week();
             pickedDays = new List<int>();
             weeklyNeededShifts = new Dictionary<int, int>();
@@ -354,7 +354,7 @@ namespace MaydSchedulerApp
                     }
                 }
                 ScheduleFill();
-                emptyDays = CheckAllDaysScheduled();
+                allDaysScheduled = CheckAllDaysScheduled();
                 MainActivity.ScheduleGenerationComplete(week);
             }
             catch (Exception ex)

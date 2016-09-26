@@ -642,16 +642,16 @@ namespace MaydSchedulerApp
                     openSun.Enabled = false;
                     sunOpen.Enabled = false;
                     sunClose.Enabled = false;
-                    sunOpen.Text = "Off";
-                    sunClose.Text = "Off";
+                    sunOpen.Hint = "Off";
+                    sunClose.Hint = "Off";
                 }
                 else if (openSun.Checked)
                 {
                     openSun.Enabled = true;
                     sunOpen.Enabled = false;
                     sunClose.Enabled = false;
-                    sunOpen.Text = "Open";
-                    sunClose.Text = "Open";
+                    sunOpen.Hint = "Open";
+                    sunClose.Hint = "Open";
                 }
                 else
                 {
@@ -667,16 +667,16 @@ namespace MaydSchedulerApp
                     openMon.Enabled = false;
                     monOpen.Enabled = false;
                     monClose.Enabled = false;
-                    monOpen.Text = "Off";
-                    monClose.Text = "Off";
+                    monOpen.Hint = "Off";
+                    monClose.Hint = "Off";
                 }
                 else if (openMon.Checked)
                 {
                     openMon.Enabled = true;
                     monOpen.Enabled = false;
                     monClose.Enabled = false;
-                    monOpen.Text = "Open";
-                    monClose.Text = "Open";
+                    monOpen.Hint = "Open";
+                    monClose.Hint = "Open";
                 }
                 else
                 {
@@ -692,16 +692,16 @@ namespace MaydSchedulerApp
                     openTue.Enabled = false;
                     tueOpen.Enabled = false;
                     tueClose.Enabled = false;
-                    tueOpen.Text = "Off";
-                    tueClose.Text = "Off";
+                    tueOpen.Hint = "Off";
+                    tueClose.Hint = "Off";
                 }
                 else if (openTue.Checked)
                 {
                     openTue.Enabled = true;
                     tueOpen.Enabled = false;
                     tueClose.Enabled = false;
-                    tueOpen.Text = "Open";
-                    tueClose.Text = "Open";
+                    tueOpen.Hint = "Open";
+                    tueClose.Hint = "Open";
                 }
                 else
                 {
@@ -717,16 +717,16 @@ namespace MaydSchedulerApp
                     openWed.Enabled = false;
                     wedOpen.Enabled = false;
                     wedClose.Enabled = false;
-                    wedOpen.Text = "Off";
-                    wedClose.Text = "Off";
+                    wedOpen.Hint = "Off";
+                    wedClose.Hint = "Off";
                 }
                 else if (openWed.Checked)
                 {
                     openWed.Enabled = true;
                     wedOpen.Enabled = false;
                     wedClose.Enabled = false;
-                    wedOpen.Text = "Open";
-                    wedClose.Text = "Open";
+                    wedOpen.Hint = "Open";
+                    wedClose.Hint = "Open";
                 }
                 else
                 {
@@ -742,16 +742,16 @@ namespace MaydSchedulerApp
                     openThu.Enabled = false;
                     thuOpen.Enabled = false;
                     thuClose.Enabled = false;
-                    thuOpen.Text = "Off";
-                    thuClose.Text = "Off";
+                    thuOpen.Hint = "Off";
+                    thuClose.Hint = "Off";
                 }
                 else if (openThu.Checked)
                 {
                     openThu.Enabled = true;
                     thuOpen.Enabled = false;
                     thuClose.Enabled = false;
-                    thuOpen.Text = "Open";
-                    thuClose.Text = "Open";
+                    thuOpen.Hint = "Open";
+                    thuClose.Hint = "Open";
                 }
                 else
                 {
@@ -767,16 +767,16 @@ namespace MaydSchedulerApp
                     openFri.Enabled = false;
                     friOpen.Enabled = false;
                     friClose.Enabled = false;
-                    friOpen.Text = "Off";
-                    friClose.Text = "Off";
+                    friOpen.Hint = "Off";
+                    friClose.Hint = "Off";
                 }
                 else if (openFri.Checked)
                 {
                     openFri.Enabled = true;
                     friOpen.Enabled = false;
                     friClose.Enabled = false;
-                    friOpen.Text = "Open";
-                    friClose.Text = "Open";
+                    friOpen.Hint = "Open";
+                    friClose.Hint = "Open";
                 }
                 else
                 {
@@ -792,16 +792,16 @@ namespace MaydSchedulerApp
                     openSat.Enabled = false;
                     satOpen.Enabled = false;
                     satClose.Enabled = false;
-                    satOpen.Text = "Off";
-                    satClose.Text = "Off";
+                    satOpen.Hint = "Off";
+                    satClose.Hint = "Off";
                 }
                 else if (openSat.Checked)
                 {
                     openSat.Enabled = true;
                     satOpen.Enabled = false;
                     satClose.Enabled = false;
-                    satOpen.Text = "Open";
-                    satClose.Text = "Open";
+                    satOpen.Hint = "Open";
+                    satClose.Hint = "Open";
                 }
                 else
                 {
@@ -817,15 +817,15 @@ namespace MaydSchedulerApp
                 {
                     sunOpen.Enabled = false;
                     sunClose.Enabled = false;
-                    sunOpen.Text = "Open";
-                    sunClose.Text = "Open";
+                    sunOpen.Hint = "Open";
+                    sunClose.Hint = "Open";
                 }
                 else
                 {
                     sunOpen.Enabled = true;
                     sunClose.Enabled = true;
-                    sunOpen.Text = "Off";
-                    sunClose.Text = "Off";
+                    sunOpen.Hint = "Off";
+                    sunClose.Hint = "Off";
                 }
             }
             else if (obj.Id == openMon.Id)
@@ -834,15 +834,15 @@ namespace MaydSchedulerApp
                 {
                     monOpen.Enabled = false;
                     monClose.Enabled = false;
-                    monOpen.Text = "Open";
-                    monClose.Text = "Open";
+                    monOpen.Hint = "Open";
+                    monClose.Hint = "Open";
                 }
                 else
                 {
                     monOpen.Enabled = true;
                     monClose.Enabled = true;
-                    monOpen.Text = "Off";
-                    monClose.Text = "Off";
+                    monOpen.Hint = "Off";
+                    monClose.Hint = "Off";
                 }
             }
             else if (obj.Id == openTue.Id)
@@ -851,15 +851,15 @@ namespace MaydSchedulerApp
                 {
                     tueOpen.Enabled = false;
                     tueClose.Enabled = false;
-                    tueOpen.Text = "Open";
-                    tueClose.Text = "Open";
+                    tueOpen.Hint = "Open";
+                    tueClose.Hint = "Open";
                 }
                 else
                 {
                     tueOpen.Enabled = true;
                     tueClose.Enabled = true;
-                    tueOpen.Text = "Off";
-                    tueClose.Text = "Off";
+                    tueOpen.Hint = "Off";
+                    tueClose.Hint = "Off";
                 }
             }
             else if (obj.Id == openWed.Id)
@@ -868,15 +868,15 @@ namespace MaydSchedulerApp
                 {
                     wedOpen.Enabled = false;
                     wedClose.Enabled = false;
-                    wedOpen.Text = "Open";
-                    wedClose.Text = "Open";
+                    wedOpen.Hint = "Open";
+                    wedClose.Hint = "Open";
                 }
                 else
                 {
                     wedOpen.Enabled = true;
                     wedClose.Enabled = true;
-                    wedOpen.Text = "Off";
-                    wedClose.Text = "Off";
+                    wedOpen.Hint = "Off";
+                    wedClose.Hint = "Off";
                 }
             }
             else if (obj.Id == openThu.Id)
@@ -885,15 +885,15 @@ namespace MaydSchedulerApp
                 {
                     thuOpen.Enabled = false;
                     thuClose.Enabled = false;
-                    thuOpen.Text = "Open";
-                    thuClose.Text = "Open";
+                    thuOpen.Hint = "Open";
+                    thuClose.Hint = "Open";
                 }
                 else
                 {
                     thuOpen.Enabled = true;
                     thuClose.Enabled = true;
-                    thuOpen.Text = "Off";
-                    thuClose.Text = "Off";
+                    thuOpen.Hint = "Off";
+                    thuClose.Hint = "Off";
                 }
             }
             else if (obj.Id == openFri.Id)
@@ -902,15 +902,15 @@ namespace MaydSchedulerApp
                 {
                     friOpen.Enabled = false;
                     friClose.Enabled = false;
-                    friOpen.Text = "Open";
-                    friClose.Text = "Open";
+                    friOpen.Hint = "Open";
+                    friClose.Hint = "Open";
                 }
                 else
                 {
                     friOpen.Enabled = true;
                     friClose.Enabled = true;
-                    friOpen.Text = "Off";
-                    friClose.Text = "Off";
+                    friOpen.Hint = "Off";
+                    friClose.Hint = "Off";
                 }
             }
             else if (obj.Id == openSat.Id)
@@ -919,15 +919,15 @@ namespace MaydSchedulerApp
                 {
                     satOpen.Enabled = false;
                     satClose.Enabled = false;
-                    satOpen.Text = "Open";
-                    satClose.Text = "Open";
+                    satOpen.Hint = "Open";
+                    satClose.Hint = "Open";
                 }
                 else
                 {
                     satOpen.Enabled = true;
                     satClose.Enabled = true;
-                    satOpen.Text = "Off";
-                    satClose.Text = "Off";
+                    satOpen.Hint = "Off";
+                    satClose.Hint = "Off";
                 }
             }
         }

@@ -4,12 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100">
-    <Button
-        android:clickable="false"
-        android:text="Pick a week to schedule"
+    <TextView
+        android:text="Pick the starting date of the week you want to schedule"
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:gravity="center"
         android:layout_weight="15" />
     <ListView

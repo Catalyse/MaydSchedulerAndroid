@@ -101,7 +101,7 @@ namespace MaydSchedulerApp
         {
             mode = 1;
             SetContentView(Resource.Layout.PickWeekLayout);
-            this.Title = "Choose Week";
+            this.Title = "Choose Week to Schedule";
             pickWeek = new PickWeek();
             pickWeekView = FindViewById<ListView>(Resource.Id.chooseWeekListView);
             List<string> weekList = pickWeek.FindWeeks();

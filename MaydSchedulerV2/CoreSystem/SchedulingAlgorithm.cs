@@ -38,6 +38,8 @@ namespace MaydSchedulerApp
         private static int activeDays;
         //This bool is thrown if any days have no employees scheduled
         public static bool allDaysScheduled = true;
+        //Error bool
+        public static bool errorThrown = false;
 
         /// <summary>
         /// This is the threaded method called to generate the schedule.
@@ -56,6 +58,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("StartScheduleGen() Exception || General Exception Refer to StackTrace");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -105,6 +108,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("GeneratePositionLists() Exception || ScheduleAlgorithm.cs");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -184,6 +188,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("CalcPositionVars() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -220,6 +225,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("AnalyzeResources() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -359,6 +365,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("GenerateSchedule() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -513,6 +520,7 @@ namespace MaydSchedulerApp
             }
             catch(Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("AssignShiftsBW() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -722,6 +730,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("ScheduleFill() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -844,6 +853,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("SortList() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
@@ -883,6 +893,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("GenerateOpenShifts() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -923,6 +934,7 @@ namespace MaydSchedulerApp
             }
             catch(Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("GenerateCloseShifts() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
             }
@@ -961,6 +973,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("PickDay() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
@@ -986,6 +999,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("CalculateSkillAvg() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return 0;
@@ -1024,6 +1038,7 @@ namespace MaydSchedulerApp
             }
             catch (Exception ex)
             {
+                errorThrown = true;
                 Console.WriteLine("GeneratePriorityList() Exception");
                 Console.WriteLine(ex.InnerException + ex.StackTrace);
                 return null;
@@ -1077,6 +1092,7 @@ namespace MaydSchedulerApp
                 case DayOfWeek.Saturday:
                     return 6;
                 default:
+                    errorThrown = true;
                     Console.WriteLine("ConvertDoWToInt() Error || Invalid DayOfWeek provided");
                     return -1;
             }

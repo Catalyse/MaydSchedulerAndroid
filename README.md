@@ -1,7 +1,7 @@
 # MaydSchedulerAndroid
-# Description
+## Description
 -The MaydSchedulerAndroid is a Xamarin based application written in C#, that is designed to automatically generate schedules for small businesses and otherwise based on a two shift system.
-# Features
+## Features
 -Stores all employees within a local database including their availability preferences, and skill levels
 -Stores all previous schedules to be reaccessed when needed
 -Allows to seamless auto generation of any schedule that a business needs, including duplicating weeks, or generating based on the same settings.
